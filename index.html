@@ -803,6 +803,20 @@
   .pick-npc .pshadow{width:44px; height:8px; margin:1px auto 0; border-radius:50%; background:rgba(0,0,0,.45)}
   .pick-npc .pname{display:inline-block; margin-top:4px; font-size:11.5px; font-weight:800; background:rgba(5,8,20,.85); color:var(--ink); padding:2px 8px; border-radius:999px; max-width:108px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .pick-body{padding:14px 16px 16px; display:flex; flex-direction:column; flex:1}
+  /* ---------- Menu chọn phong cách nhân vật ---------- */
+  .style-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px}
+  @media (max-width:760px){ .style-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:430px){ .style-grid{grid-template-columns:1fr} }
+  .style-card{background:linear-gradient(180deg,#1c2656,#141b3d); border:1px solid var(--line); border-radius:16px; padding:14px 12px 13px; text-align:center; display:flex; flex-direction:column; align-items:center}
+  .style-card.chosen{border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 0 20px rgba(245,185,66,.22)}
+  .style-stage{width:118px; height:118px; border-radius:50%; display:flex; align-items:flex-end; justify-content:center; overflow:hidden; background:radial-gradient(circle at 50% 32%, rgba(87,230,212,.28), rgba(10,15,36,.25) 62%, rgba(10,15,36,.55)); border:1px solid rgba(255,255,255,.14); margin-bottom:8px}
+  .style-stage svg{width:82px; height:auto; margin-bottom:4px}
+  .style-name{font-weight:900; font-size:16px}
+  .style-desc{color:var(--muted); font-size:13px; line-height:1.5; min-height:38px; margin-top:3px}
+  .style-card .btn{margin-top:8px; padding:10px 18px; font-size:14.5px}
+  .style-now{display:inline-block; background:rgba(74,222,128,.16); border:1px solid var(--green); color:#bbf7d0; font-weight:800; font-size:12.5px; border-radius:999px; padding:5px 13px; margin-top:8px}
+  .style-cur{text-align:center; color:var(--muted); font-size:14.5px; margin-top:10px}
+  .style-cur b{color:var(--gold2)}
   .pick-top{display:flex; justify-content:space-between; gap:8px; align-items:flex-start}
   .pick-name{font-size:19px; font-weight:900}
   .pick-stage-name{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; background:#0d1330; border:1px solid var(--line); white-space:nowrap}
@@ -908,6 +922,7 @@
         <button class="hub-btn gold" id="levelsBtn" type="button" title="5 cấp Nhà Du Hành · 4 khối lớp 6–9 · 3 mức độ khó">Cấp độ &amp; Phân khối</button>
         <button class="hub-btn gold" id="gworldsBtn" type="button" title="Ba hành trình phiêu lưu kiểu khối 7 cho lớp 6, 8, 9: xem truyện, đi map WASD, 10 trạm câu hỏi mỗi thế giới">Thế giới mở 6 · 8 · 9</button>
         <button class="hub-btn gold" id="challengeBtn" type="button" title="Thử thách Vòng Xoáy Thời Gian: trọn 10 câu tổng hợp LSĐL 6–9 trong một màn, 25 giây/câu, tranh sao và lập kỷ lục">Thử thách 10 câu</button>
+        <button class="hub-btn" id="styleBtn" type="button" title="Đổi trang phục, kiểu tóc và phụ kiện cho Nhà Du Hành — áp dụng ở mọi màn có nhân vật và được lưu trên máy">Phong cách nhân vật</button>
       </div>
     </div>
     <div class="save-box" id="saveBox">
@@ -926,6 +941,18 @@
     <div class="dialog-nav">
       <button class="btn ghost" id="pickHomeBtn" type="button">← Về màn hình chính</button>
       <span style="color:var(--muted); font-size:13.5px; line-height:1.55">Đổi ý giữa chừng? Vào bản đồ hành trình, mở “☰ Menu” rồi chọn “Đổi khối đang chơi”.</span>
+    </div>
+  </section>
+
+  <!-- ============ CHỌN PHONG CÁCH NHÂN VẬT ============ -->
+  <section class="screen" id="screen-style">
+    <h2 class="map-title">Phong cách Nhà Du Hành</h2>
+    <p class="map-sub">Chọn <b style="color:var(--ink)">trang phục, kiểu tóc và phụ kiện</b> cho Nhà Du Hành. Phong cách được chọn sẽ xuất hiện ở <b style="color:var(--ink)">mọi nơi nhân vật có mặt</b>: màn hình đầu, truyện đối thoại, phim mở đầu, màn tái hiện, thế giới mở và cả sân khấu trả lời — và được <b style="color:var(--ink)">lưu trên máy này</b>, mở lại game vẫn giữ nguyên.</p>
+    <p class="style-cur" id="styleCur"></p>
+    <div class="style-grid" id="styleGrid"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="styleHomeBtn" type="button">← Quay lại</button>
+      <span style="color:var(--muted); font-size:13.5px; line-height:1.55">Đổi phong cách bất cứ lúc nào: ở màn hình đầu mở “☰ Học tập &amp; khám phá”, ở bản đồ hành trình mở “☰ Menu”.</span>
     </div>
   </section>
 
@@ -1018,6 +1045,7 @@
         <button class="hub-btn gold" id="mapGworldsBtn" type="button" title="Chơi tiếp các hành trình phiêu lưu của lớp 6, 8 và 9 — cùng phong cách với khối 7">Thế giới mở 6 · 8 · 9</button>
         <button class="hub-btn gold" id="mapChallengeBtn" type="button" title="Thử thách Vòng Xoáy Thời Gian: 10 câu tổng hợp LSĐL 6–9, tranh sao &amp; kỷ lục">Thử thách 10 câu</button>
         <button class="hub-btn gold" id="mapGuideBtn" type="button" title="Ôn lại cách chơi qua 5 bước thực hành">Hướng dẫn chơi</button>
+        <button class="hub-btn" id="mapStyleBtn" type="button" title="Đổi trang phục, kiểu tóc và phụ kiện cho Nhà Du Hành ngay giữa hành trình">Phong cách nhân vật</button>
       </div>
     </div>
   </section>
@@ -1932,7 +1960,8 @@ function saveSnapshot(){
     pracBest:PRAC_BEST,
     ch10Best:(typeof CH10_BEST!=="undefined") ? CH10_BEST : null,
     pracSel:(typeof P!=="undefined" && P) ? {grade:P.grade, diff:P.diff} : null,
-    pick:(typeof PICK!=="undefined" && PICK) ? PICK.grade : 7
+    pick:(typeof PICK!=="undefined" && PICK) ? PICK.grade : 7,
+    hstyle:(typeof HSTYLE!=="undefined" && HSTYLE) ? HSTYLE : "mac-dinh"
   };
 }
 function saveProgress(){
@@ -2070,6 +2099,7 @@ function loadProgress(){
   }
   var pkGrade=parseInt(d.pick,10);
   if(pkGrade>=6 && pkGrade<=9 && typeof PICK!=="undefined" && PICK) PICK.grade=pkGrade;
+  if(typeof d.hstyle==="string" && typeof heroStyleById==="function" && heroStyleById(d.hstyle)) HSTYLE=d.hstyle;
   updateHUD();
   refreshSaveUI();
   if(hasProgress()) toast("Đã khôi phục tiến độ đã lưu trên máy — chào mừng trở lại, Nhà Du Hành!", 3200);
@@ -4931,6 +4961,165 @@ window.addEventListener("blur", function(){ GV.keys={}; });
   $("gTouchAct").addEventListener("click", function(){ sndClick(); gTryInteract(); });
 })();
 
+/* ================= PHONG CÁCH NHÂN VẬT ================= */
+/* Menu chọn phong cách cho Nhà Du Hành: mỗi phong cách gồm một bộ màu trang
+   phục (áo, tay áo, khăn & băng đầu, quần, giày, tóc, da), một kiểu tóc và
+   phụ kiện riêng. Nhân vật được vẽ bằng cùng một SVG ở 5 nơi tĩnh (màn hình
+   đầu, truyện khối 7, truyện khối 6/8/9, hai thế giới mở); mọi bản sao động
+   (dàn nhân vật, phim mở đầu, màn tái hiện, sân khấu trả lời, nhân vật mini
+   trong hướng dẫn) đều chép từ #charHero — nên chỉ cần tô lại mọi SVG có
+   .hero-face là phong cách mới áp dụng khắp nơi, kể cả các bản sao tạo sau. */
+var HERO_STYLES=[
+ {id:"mac-dinh", name:"Cổ Điển Phiêu Lưu", desc:"Bộ đồ nguyên bản của Nhà Du Hành: áo vàng, khăn ngọc, tóc xanh đậm gọn gàng.", skin:"#ffd9a0", neck:"#f0be82", hair:"#164e63", outfit:"#f5b942", sleeve:"#eaa92e", sleeve2:"#d9941f", accent:"#2dd4bf", pants:"#1b5a74", pants2:"#164e63", shoe:"#0d2a3d", hairStyle:"classic", glasses:"none"},
+ {id:"lua-do", name:"Chiến Binh Lửa Đỏ", desc:"Áo đỏ rực, khăn vàng chói và mái tóc dựng nhọn — sẵn sàng lao vào mọi thử thách.", skin:"#ffd9a0", neck:"#f0be82", hair:"#23242e", outfit:"#e2483d", sleeve:"#c93a30", sleeve2:"#b02f27", accent:"#ffd23e", pants:"#37415c", pants2:"#2a3350", shoe:"#171a26", hairStyle:"spiky", glasses:"none"},
+ {id:"luc-bao", name:"Thám Hiểm Lục Bảo", desc:"Áo xanh lá, tóc nâu dài buông hai bên vai — phong cách của nhà thám hiểm rừng sâu.", skin:"#f2c184", neck:"#dfa668", hair:"#6b4423", outfit:"#2f9e5f", sleeve:"#278551", sleeve2:"#1f7043", accent:"#ffe08a", pants:"#5b4632", pants2:"#4a3828", shoe:"#2e2119", hairStyle:"long", glasses:"none"},
+ {id:"dai-duong", name:"Thủy Thủ Đại Dương", desc:"Áo xanh biển, khăn trắng và mũ lưỡi trai đỏ — hợp với những chuyến ra khơi xa.", skin:"#ffd9a0", neck:"#f0be82", hair:"#123a52", outfit:"#2f7fd0", sleeve:"#2a6cb0", sleeve2:"#245c94", accent:"#eaf6ff", pants:"#274b73", pants2:"#1f3d5e", shoe:"#10243c", hairStyle:"cap", cap:"#d64541", glasses:"none"},
+ {id:"hoang-kim", name:"Hoàng Kim Vương Giả", desc:"Áo vàng kim, khăn sẫm, tóc búi cao và kính râm — phong thái của một vị vua thời gian.", skin:"#ffd9a0", neck:"#f0be82", hair:"#2b2b33", outfit:"#e0aa1e", sleeve:"#bd8c14", sleeve2:"#a3760f", accent:"#23283d", pants:"#23283d", pants2:"#1b2033", shoe:"#0d0f18", hairStyle:"bun", glasses:"sun"},
+ {id:"dem-sao", name:"Người Gác Đêm", desc:"Trang phục xám đêm, khăn đỏ và mào tóc đỏ rực — lặng lẽ canh giữ dòng thời gian.", skin:"#f7cf9e", neck:"#eebd85", hair:"#101018", outfit:"#39415e", sleeve:"#313a55", sleeve2:"#29304a", accent:"#ff5d5d", pants:"#23283d", pants2:"#1a1f30", shoe:"#0a0c14", hairStyle:"mohawk", glasses:"none"}
+];
+var HSTYLE="mac-dinh";
+var STYLE_FROM="start";
+function heroStyleById(id){ for(var i=0;i<HERO_STYLES.length;i++) if(HERO_STYLES[i].id===id) return HERO_STYLES[i]; return null; }
+/* Nhận diện từng bộ phận của nhân vật qua màu gốc của bản vẽ (chạy một lần,
+   ghi vào data-hrole; các lần đổi phong cách sau chỉ đọc data-hrole). */
+function heroRoleFor(el, root){
+  var n=el;
+  while(n && n!==root){ if(n.classList && n.classList.contains("hstyle-extra")) return ""; n=n.parentNode; }
+  if(el.classList && el.classList.contains("j-dot")) return "";
+  var tag=el.tagName.toLowerCase(), f=el.getAttribute("fill");
+  if(el.classList && el.classList.contains("hero-scarf")) return "scarf";
+  if(tag==="path" && f==="#164e63") return "hair";
+  if(tag==="rect" && f==="#f5b942") return "torso";
+  if(tag==="rect" && f==="#2dd4bf" && el.getAttribute("y")==="28") return "headband";
+  if(tag==="rect" && f==="#2dd4bf" && el.getAttribute("y")==="56") return "band";
+  if(tag==="rect" && f==="#eaa92e") return "sleeve";
+  if(tag==="rect" && f==="#d9941f") return "sleeve2";
+  if(tag==="rect" && (f==="#1b5a74"||f==="#17506a")) return "pants";
+  if(tag==="rect" && (f==="#164e63"||f==="#123a52")) return "pants2";
+  if(tag==="rect" && f==="#0d2a3d") return "shoe";
+  if(tag==="rect" && f==="#f0be82") return "neck";
+  if(f==="#ffd9a0") return "skin";
+  if(tag==="circle" && f==="#0a0f24") return "core";
+  return "";
+}
+function paintHeroSvg(svg, st){
+  if(!svg || !st) return;
+  var els=svg.querySelectorAll("*");
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    var role=el.getAttribute("data-hrole");
+    if(!role){ role=heroRoleFor(el, svg); if(role) el.setAttribute("data-hrole", role); }
+    if(!role) continue;
+    if(role==="core"){ el.setAttribute("stroke", st.accent); continue; }
+    var col=null;
+    if(role==="scarf"||role==="headband"||role==="band") col=st.accent;
+    else if(role==="hair") col = st.hairStyle==="cap" ? (st.cap||st.hair) : st.hair;
+    else if(role==="torso") col=st.outfit;
+    else if(role==="sleeve") col=st.sleeve;
+    else if(role==="sleeve2") col=st.sleeve2;
+    else if(role==="pants") col=st.pants;
+    else if(role==="pants2") col=st.pants2;
+    else if(role==="shoe") col=st.shoe;
+    else if(role==="skin") col=st.skin;
+    else if(role==="neck") col=st.neck;
+    if(col) el.setAttribute("fill", col);
+    if(role==="headband") el.style.display = st.hairStyle==="cap" ? "none" : "";
+  }
+  /* Kiểu tóc & phụ kiện: xóa nhóm phụ trợ cũ, vẽ lại theo phong cách */
+  var old=svg.querySelectorAll(".hstyle-extra");
+  for(var j=old.length-1;j>=0;j--) old[j].parentNode.removeChild(old[j]);
+  var hairEl=svg.querySelector('[data-hrole="hair"]');
+  var headG = hairEl ? hairEl.parentNode : svg.querySelector(".head-joint");
+  if(!headG) return;
+  var NS="http://www.w3.org/2000/svg";
+  function mk(tag, attrs){ var e=document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  var g=document.createElementNS(NS,"g"); g.setAttribute("class","hstyle-extra");
+  if(st.hairStyle==="spiky"){
+    g.appendChild(mk("polygon",{points:"36,17 42,3 47,14", fill:st.hair}));
+    g.appendChild(mk("polygon",{points:"46,13 53,1 58,13", fill:st.hair}));
+    g.appendChild(mk("polygon",{points:"57,14 65,5 67,18", fill:st.hair}));
+  } else if(st.hairStyle==="long"){
+    g.appendChild(mk("path",{d:"M32 28 q-6 16 -3 34 q4 4 8 1 q-3 -18 -2 -33 z", fill:st.hair}));
+    g.appendChild(mk("path",{d:"M72 28 q6 16 3 34 q-4 4 -8 1 q3 -18 2 -33 z", fill:st.hair}));
+  } else if(st.hairStyle==="bun"){
+    g.appendChild(mk("circle",{cx:"52", cy:"9", r:"7.5", fill:st.hair}));
+    g.appendChild(mk("circle",{cx:"52", cy:"15.5", r:"3", fill:st.accent}));
+  } else if(st.hairStyle==="cap"){
+    g.appendChild(mk("path",{d:"M27 26 q25 -10 50 0 l1 3.5 q-26 -6.5 -52 0 z", fill:st.cap||st.hair}));
+    g.appendChild(mk("circle",{cx:"52", cy:"17.5", r:"3", fill:st.cap||st.hair}));
+  } else if(st.hairStyle==="mohawk"){
+    g.appendChild(mk("path",{d:"M46 13 q1 -10 6 -12 q5 2 6 12 q-6 -3 -12 0 z", fill:st.accent}));
+  }
+  if(hairEl && hairEl.nextSibling) headG.insertBefore(g, hairEl.nextSibling);
+  else headG.appendChild(g);
+  if(st.glasses==="sun"){
+    var gg=document.createElementNS(NS,"g"); gg.setAttribute("class","hstyle-extra");
+    gg.appendChild(mk("rect",{x:"35.5", y:"30", width:"18", height:"13", rx:"4.5", fill:"#101018", opacity:".92"}));
+    gg.appendChild(mk("rect",{x:"50.5", y:"30", width:"18", height:"13", rx:"4.5", fill:"#101018", opacity:".92"}));
+    gg.appendChild(mk("rect",{x:"38.5", y:"32.5", width:"7", height:"3.4", rx:"1.7", fill:"#ffffff", opacity:".35"}));
+    headG.appendChild(gg);
+  }
+}
+function applyHeroStyle(){
+  var st=heroStyleById(HSTYLE)||HERO_STYLES[0];
+  var grid=$("styleGrid");
+  var svgs=document.querySelectorAll("svg");
+  for(var i=0;i<svgs.length;i++){
+    if(grid && grid.contains(svgs[i])) continue; /* bản xem trước trong menu giữ phong cách riêng của từng thẻ */
+    if(svgs[i].querySelector(".hero-face")) paintHeroSvg(svgs[i], st);
+  }
+  var cur=$("styleCur");
+  if(cur) cur.innerHTML="Phong cách đang dùng: <b>"+st.name+"</b> — bấm “Chọn phong cách này” ở một thẻ khác để đổi ngay.";
+}
+function renderStyleMenu(){
+  var grid=$("styleGrid"); if(!grid) return;
+  var master=document.querySelector("#charHero svg");
+  var html="";
+  HERO_STYLES.forEach(function(st){
+    html+='<div class="style-card'+(HSTYLE===st.id?" chosen":"")+'">'
+      +'<div class="style-stage" data-stage="'+st.id+'"></div>'
+      +'<div class="style-name">'+st.name+'</div>'
+      +'<div class="style-desc">'+st.desc+'</div>'
+      +(HSTYLE===st.id ? '<span class="style-now">Đang dùng ✓</span>' : '<button class="btn teal" type="button" data-style="'+st.id+'">Chọn phong cách này</button>')
+      +'</div>';
+  });
+  grid.innerHTML=html;
+  HERO_STYLES.forEach(function(st){
+    var stage=grid.querySelector('[data-stage="'+st.id+'"]');
+    if(stage && master){
+      var c=master.cloneNode(true);
+      c.removeAttribute("id");
+      paintHeroSvg(c, st);
+      stage.appendChild(c);
+    }
+  });
+  grid.querySelectorAll("[data-style]").forEach(function(b){
+    b.addEventListener("click", function(){ chooseHeroStyle(b.getAttribute("data-style")); });
+  });
+  applyHeroStyle();
+}
+function chooseHeroStyle(id){
+  if(!heroStyleById(id)) return;
+  HSTYLE=id;
+  sndClick();
+  applyHeroStyle();
+  renderStyleMenu();
+  saveProgress();
+  toast("Đã đổi phong cách: "+heroStyleById(id).name+" — Nhà Du Hành đã thay diện mạo mới ở mọi màn!", 2600);
+}
+function openStyleMenu(from){
+  STYLE_FROM=from||"start";
+  renderStyleMenu();
+  show("screen-style");
+}
+$("styleBtn").addEventListener("click", function(){ sndClick(); openStyleMenu("start"); });
+$("mapStyleBtn").addEventListener("click", function(){ sndClick(); openStyleMenu("map"); });
+$("styleHomeBtn").addEventListener("click", function(){
+  sndClick();
+  if(STYLE_FROM==="map") show("screen-map");
+  else backHome();
+});
+
 /* ================= KHỞI ĐỘNG: khôi phục tiến độ đã lưu & nút xóa tiến độ ================= */
 $("wipeSaveBtn").addEventListener("click", function(){
   var btn=this;
@@ -4964,6 +5153,7 @@ $("wipeSaveBtn").addEventListener("click", function(){
   toast("Đã xóa tiến độ đã lưu trên máy — bắt đầu lại từ đầu nhé!");
 });
 loadProgress();
+applyHeroStyle();
 </script>
 </body>
 </html>
