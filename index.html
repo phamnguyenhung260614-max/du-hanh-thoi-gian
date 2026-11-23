@@ -914,6 +914,83 @@
   .pick-ripple{position:absolute; left:50%; bottom:15px; z-index:1; width:14px; height:6px; border-radius:50%; border:2px solid rgba(245,185,66,.9); transform:translateX(-50%); pointer-events:none; animation:pickRipple .68s ease-out forwards}
   @keyframes pickRipple{from{opacity:.95; transform:translateX(-50%) scale(.6)} to{opacity:0; transform:translateX(-50%) scale(4.6)}}
   @media (prefers-reduced-motion: reduce){ .pick-npc::before{animation:none} .pick-spark,.pick-ripple{display:none} .pick-npc,.pick-bubble,.pick-stage{transition:none} }
+  /* ---------- THÔNG ĐIỆP CỔ ĐIỂN ở màn chọn khối: thẻ trích dẫn giấy vàng + ANIMATION RIÊNG cho từng nhân vật ---------- */
+  /* Bong bóng thoại thành thẻ trích dẫn cổ điển: nền giấy vàng, viền kép mạ vàng, chữ serif nghiêng, dấu trích dẫn lớn */
+  .pick-bubble{background:linear-gradient(180deg,#fdf6dc,#f7e9bd); color:#43300d; border:2px solid #b98a2f; border-radius:10px; padding:11px 34px 9px 14px; box-shadow:0 10px 24px rgba(0,0,0,.5), inset 0 0 0 3px #fdf6dc, inset 0 0 0 5px rgba(185,138,47,.5), 0 0 16px rgba(245,185,66,.35)}
+  .pick-bubble::after{border-top-color:#b98a2f}
+  .pick-bubble .pb-tag{display:block; text-align:center; font-size:10.5px; font-weight:900; letter-spacing:3px; color:#a5761a; margin-bottom:2px}
+  .pick-bubble .pb-who{text-align:center; color:#7c4d03; font-size:13px; margin-bottom:0}
+  .pick-bubble .pb-text{display:block; text-align:center; font-family:Georgia,"Times New Roman",serif; font-style:italic; font-size:15.5px; line-height:1.6; color:#43300d; margin-top:2px}
+  .pick-bubble .pb-text::before{content:"❝ "; color:#b98a2f; font-style:normal}
+  .pick-bubble .pb-text::after{content:" ❞"; color:#b98a2f; font-style:normal}
+  .pick-bubble .pb-src{display:block; text-align:center; color:#8a6a25; font-size:12px; font-style:italic; margin-top:5px}
+  .pick-bubble .pb-src::before{content:"— "}
+  .pick-bubble .pb-count{text-align:center; color:#97762e}
+  .pick-bubble .pb-close{color:#a5761a}
+  .pick-bubble .pb-close:hover{color:#43300d}
+  .pick-stage.has-actor{min-height:312px}
+  @media (max-width:560px){ .pick-stage.has-actor{min-height:338px} }
+  /* ANIMATION CHỜ RIÊNG của từng nhân vật trên sân khấu (không ai giống ai) */
+  .pick-npc[class*="sig-"] svg{transform-origin:50% 92%}
+  .pick-npc.sig-roland svg{animation:guardK 1.7s ease-in-out infinite}
+  @keyframes guardK{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-1.2deg)}55%{transform:translateY(0)}75%{transform:translateY(-2px)}}
+  .pick-npc.sig-libai svg{animation:poetSwayK 3.8s ease-in-out infinite}
+  @keyframes poetSwayK{0%,100%{transform:rotate(-2.6deg) translateX(-2px)}50%{transform:rotate(2.6deg) translateX(2px) translateY(-2px)}}
+  .pick-npc.sig-sri svg{animation:templeDanceK 3.1s ease-in-out infinite}
+  @keyframes templeDanceK{0%,100%{transform:rotate(-3deg) translateY(0)}25%{transform:rotate(0) translateY(-4px) scale(1.03)}50%{transform:rotate(3deg) translateY(0)}75%{transform:rotate(0) translateY(-4px) scale(1.03)}}
+  .pick-npc.sig-columbus svg{animation:shipRockK 2.9s ease-in-out infinite}
+  @keyframes shipRockK{0%,100%{transform:rotate(2.4deg) translateY(-1px)}50%{transform:rotate(-2.4deg) translateY(-5px)}}
+  .pick-npc.sig-imhotep svg{animation:scribeK 1.5s ease-in-out infinite}
+  @keyframes scribeK{0%,100%{transform:translateY(0) rotate(.6deg)}25%{transform:translateY(-1.6px) rotate(-.6deg)}55%{transform:translateY(-.6px) rotate(.8deg)}80%{transform:translateY(-1.8px) rotate(-.4deg)}}
+  .pick-npc.sig-kha svg{animation:sowIdleK 2.7s ease-in-out infinite}
+  @keyframes sowIdleK{0%,100%{transform:rotate(0) translateY(0)}35%{transform:rotate(6.5deg) translateY(3px)}60%{transform:rotate(5deg) translateY(2px)}}
+  .pick-npc.sig-ongba svg{animation:crankIdleK 1.9s linear infinite}
+  @keyframes crankIdleK{0%{transform:translate(0,0)}25%{transform:translate(2px,-2.5px)}50%{transform:translate(0,-4.5px)}75%{transform:translate(-2px,-2.5px)}100%{transform:translate(0,0)}}
+  .pick-npc.sig-phan svg{animation:scholarK 4.4s ease-in-out infinite}
+  @keyframes scholarK{0%,55%,100%{transform:rotate(0) translateY(0)}70%{transform:rotate(4.5deg) translateY(1.5px)}85%{transform:rotate(3.6deg) translateY(1px)}}
+  .pick-npc.sig-ta svg{animation:marchK .95s ease-in-out infinite}
+  @keyframes marchK{0%,100%{transform:translateY(0) rotate(-1.4deg)}25%{transform:translateY(-5px) rotate(0)}50%{transform:translateY(0) rotate(1.4deg)}75%{transform:translateY(-5px) rotate(0)}}
+  .pick-npc.sig-lan svg{animation:teachIdleK 2.3s ease-in-out infinite}
+  @keyframes teachIdleK{0%,100%{transform:translateX(-2.5px) rotate(-1.6deg)}50%{transform:translateX(2.5px) rotate(1.6deg) translateY(-2px)}}
+  /* ANIMATION RIÊNG khi nhân vật đang ĐỌC THÔNG ĐIỆP (lớp .sig-act bật lúc bấm vào) */
+  .pick-npc.sig-act.sig-roland svg{animation:saluteActK .95s ease-in-out infinite}
+  @keyframes saluteActK{0%,100%{transform:translateY(0)}35%{transform:translateY(-8px) rotate(-2deg)}60%{transform:translateY(-6px)}}
+  .pick-npc.sig-act.sig-libai svg{animation:reciteActK 2.1s ease-in-out infinite}
+  @keyframes reciteActK{0%,100%{transform:rotate(-4deg) translateY(-3px)}50%{transform:rotate(2deg) translateY(0)}}
+  .pick-npc.sig-act.sig-sri svg{animation:spinDanceK 1.7s ease-in-out infinite}
+  @keyframes spinDanceK{0%,100%{transform:rotate(-7deg) translateY(-2px)}50%{transform:rotate(7deg) translateY(-5px) scale(1.05)}}
+  .pick-npc.sig-act.sig-columbus svg{animation:pointSeaK 1.5s ease-in-out infinite}
+  @keyframes pointSeaK{0%,100%{transform:translateX(0) rotate(0)}45%{transform:translateX(4px) rotate(3.5deg)}70%{transform:translateX(3px) rotate(3deg)}}
+  .pick-npc.sig-act.sig-imhotep svg{animation:bowK 1.8s ease-in-out infinite}
+  .pick-npc.sig-act.sig-kha svg{animation:sowActK 1.15s ease-in-out infinite}
+  @keyframes sowActK{0%,100%{transform:rotate(1deg) translateY(0)}45%{transform:rotate(11deg) translateY(4px)}70%{transform:rotate(8deg) translateY(3px)}}
+  .pick-npc.sig-act.sig-ongba svg{animation:crankActK .8s linear infinite}
+  @keyframes crankActK{0%{transform:translate(0,0)}25%{transform:translate(3.5px,-3.5px)}50%{transform:translate(0,-6.5px)}75%{transform:translate(-3.5px,-3.5px)}100%{transform:translate(0,0)}}
+  .pick-npc.sig-act.sig-phan svg{animation:scholarActK 2.4s ease-in-out infinite}
+  @keyframes scholarActK{0%,100%{transform:rotate(0)}30%{transform:rotate(6deg) translateY(2px)}60%{transform:rotate(5deg) translateY(1.5px)}}
+  .pick-npc.sig-act.sig-ta svg{animation:stompActK .55s ease-in-out infinite}
+  @keyframes stompActK{0%,100%{transform:translateY(0)}40%{transform:translateY(-6.5px)}}
+  .pick-npc.sig-act.sig-lan svg{animation:teachActK 1.3s ease-in-out infinite}
+  @keyframes teachActK{0%,100%{transform:translateX(-4px) rotate(-2.5deg)}50%{transform:translateX(4px) rotate(2.5deg) translateY(-2px)}}
+  /* TAY RIÊNG khi đọc thông điệp: Roland & Anh Tạ chào nghiêm · Columbus & Cô Lan chỉ tay · Sri vỗ tay · Bác Kha gieo hạt · Ông Ba quay tay máy · Imhotep chép chữ */
+  .pick-npc.sig-roland.speaking .npc-arm-r,.pick-npc.sig-ta.speaking .npc-arm-r{animation:saluteArmK 1.6s ease-in-out infinite}
+  @keyframes saluteArmK{0%,100%{transform:rotate(-158deg)}50%{transform:rotate(-169deg)}}
+  .pick-npc.sig-roland.speaking .npc-arm-r .npc-fore,.pick-npc.sig-ta.speaking .npc-arm-r .npc-fore{animation:none; transform:rotate(-6deg)}
+  .pick-npc.sig-columbus.speaking .npc-arm-r,.pick-npc.sig-lan.speaking .npc-arm-r{animation:pointArmK 1.7s ease-in-out infinite}
+  .pick-npc.sig-columbus.speaking .npc-arm-r .npc-fore,.pick-npc.sig-lan.speaking .npc-arm-r .npc-fore{animation:pointForeK 1.7s ease-in-out infinite}
+  .pick-npc.sig-sri.speaking .npc-arm-l{animation:clapArmLK .64s ease-in-out infinite}
+  .pick-npc.sig-sri.speaking .npc-arm-r{animation:clapArmRK .64s ease-in-out infinite}
+  .pick-npc.sig-sri.speaking .npc-arm-l .npc-fore{animation:clapForeLK .3s ease-in-out infinite alternate}
+  .pick-npc.sig-sri.speaking .npc-arm-r .npc-fore{animation:clapForeRK .3s ease-in-out infinite alternate}
+  .pick-npc.sig-kha.speaking .npc-arm-r{animation:sowArmK 1.15s ease-in-out infinite}
+  @keyframes sowArmK{0%,100%{transform:rotate(-8deg)}45%{transform:rotate(-52deg)}70%{transform:rotate(-38deg)}}
+  .pick-npc.sig-ongba.speaking .npc-arm-r{animation:none; transform:rotate(-64deg)}
+  .pick-npc.sig-ongba.speaking .npc-arm-r .npc-fore{animation:crankForeK .8s linear infinite; transform-origin:50% 10%}
+  @keyframes crankForeK{from{transform:rotate(0)} to{transform:rotate(360deg)}}
+  .pick-npc.sig-imhotep.speaking .npc-arm-r{animation:scribeArmK .5s ease-in-out infinite}
+  @keyframes scribeArmK{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(-41deg)}}
+  .pick-npc.sig-phan.speaking .npc-head{animation:nodK 1.6s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){ .pick-npc[class*="sig-"] svg,.pick-npc.sig-act svg,.pick-npc.speaking .npc-arm-l,.pick-npc.speaking .npc-arm-r,.pick-npc.speaking .npc-arm-l .npc-fore,.pick-npc.speaking .npc-arm-r .npc-fore,.pick-npc.speaking .npc-head{animation:none} }
 </style>
 </head>
 <body>
@@ -1019,7 +1096,7 @@
   <!-- ============ CHỌN KHỐI TRƯỚC KHI VÀO GAME ============ -->
   <section class="screen" id="screen-pick">
     <h2 class="map-title">Chọn khối — chọn chuyến đi của bạn</h2>
-    <p class="map-sub">Trước khi lên đường, hãy <b style="color:var(--ink)">chọn khối lớp của mình</b>. Mỗi khối là một chuyến phiêu lưu riêng với cốt truyện riêng — và đứng trên sân khấu của từng khối là những <b style="color:var(--ink)">nhân vật nổi tiếng trong chính câu chuyện bạn sắp khám phá</b>, đang vẫy gọi bạn đấy. Chọn khối 7 để xem đoạn phim mở đầu rồi vào hành trình chính; chọn khối 6, 8 hoặc 9 để vào thẳng truyện phiêu lưu của khối đó. <b style="color:var(--gold2)">Bấm vào từng nhân vật trên sân khấu</b> để nghe họ <b style="color:var(--ink)">nói thoại và làm hành động theo đúng cốt truyện</b> của khối đó — bấm tiếp vào nhân vật để nghe câu thoại tiếp theo!</p>
+    <p class="map-sub">Trước khi lên đường, hãy <b style="color:var(--ink)">chọn khối lớp của mình</b>. Mỗi khối là một chuyến phiêu lưu riêng với cốt truyện riêng — và đứng trên sân khấu của từng khối là những <b style="color:var(--ink)">nhân vật nổi tiếng trong chính câu chuyện bạn sắp khám phá</b>, đang vẫy gọi bạn đấy. Chọn khối 7 để xem đoạn phim mở đầu rồi vào hành trình chính; chọn khối 6, 8 hoặc 9 để vào thẳng truyện phiêu lưu của khối đó. <b style="color:var(--gold2)">Bấm vào từng nhân vật trên sân khấu</b> để nghe họ <b style="color:var(--ink)">đọc một thông điệp · câu nói cổ điển</b> của thời đại mình — mỗi nhân vật có một điệu bộ và animation riêng, không ai giống ai. Bấm tiếp vào nhân vật để nghe thông điệp tiếp theo!</p>
     <div class="pick-grid" id="pickGrid"></div>
     <div class="dialog-nav">
       <button class="btn ghost" id="pickHomeBtn" type="button">← Về màn hình chính</button>
@@ -4597,7 +4674,7 @@ function renderPick(){
     var worldYears = g===7 ? "476 – thế kỉ XVI · 5 thời kỳ của lịch sử thế giới trung đại" : w.years;
     var stageBg = g===7 ? ERAS[0].scene : w.scene;
     var npcHtml=npcs.map(function(n,ni){
-      return '<div class="pick-npc" role="button" tabindex="0" data-pnpc="'+ni+'" data-pgrade="'+g+'" title="Bấm để nghe '+n.n+' nói thoại theo cốt truyện" aria-label="Nghe '+n.n+' nói thoại theo cốt truyện khối '+g+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span></div></div>';
+      return '<div class="pick-npc sig-'+pickSigOf(n.n)+'" role="button" tabindex="0" data-pnpc="'+ni+'" data-pgrade="'+g+'" title="Bấm để nghe thông điệp cổ điển của '+n.n+'" aria-label="Nghe thông điệp cổ điển của '+n.n+', khối '+g+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span></div></div>';
     }).join("");
     var castHtml=npcs.map(function(n){ return n.n+" — "+n.r; }).join("<br>");
     html+='<div class="pick-card '+m.color+(PICK.grade===g?" chosen":"")+'">'
@@ -4629,70 +4706,74 @@ function renderPick(){
   });
 }
 /* ---------- HIỆU ỨNG RIÊNG Ở MÀN CHỌN KHỐI: bấm vào nhân vật → THOẠI + HÀNH ĐỘNG theo cốt truyện ---------- */
-/* Mỗi nhân vật trên sân khấu có 3 câu thoại lấy ĐÚNG từ đoạn truyện mở đầu và gợi ý
-   của chính nhân vật đó trong hành trình của khối (ERAS khối 7 · GWORLDS khối 6/8/9):
-   câu 1 chào hỏi theo truyện, câu 2 kể tình tiết / gợi ý cốt truyện, câu 3 mời vào khối.
-   Mỗi câu kèm một HÀNH ĐỘNG (a): wave = vẫy tay chào · point = chỉ tay · bow = cúi chào ·
-   nod = gật đầu · clap = vỗ tay, và biểu cảm mặt (m): happy = cười to. Bấm lần nữa vào
-   cùng nhân vật để nghe câu tiếp theo; bấm sang nhân vật khác thì người đó lên thoại. */
+/* Mỗi nhân vật trên sân khấu có 3 THÔNG ĐIỆP · CÂU NÓI CỔ ĐIỂN của thời đại mình
+   (t): thơ Lý Bạch, thơ Tố Hữu, thơ Hoàng Trung Thông, thơ Phan Bội Châu, ca dao,
+   tục ngữ, ngạn ngữ kim tự tháp… kèm nguồn (s) hiện dưới câu trích dẫn, và biểu cảm
+   mặt (m): happy = cười to ở thông điệp cuối. Mỗi nhân vật có một ANIMATION RIÊNG
+   (PICK_SIG): điệu chờ trên sân khấu + điệu đọc thông điệp + kiểu tay + tông âm
+   thanh riêng — không nhân vật nào giống nhân vật nào. Bấm lần nữa vào cùng nhân
+   vật để nghe thông điệp tiếp theo; bấm sang nhân vật khác thì người đó lên đọc. */
 var PICK_LINES={
  "Hiệp sĩ Roland":[
-  {t:"Đứng lại! Ta là hiệp sĩ Roland, người gác cổng lâu đài. Muốn qua cổng, lữ khách phải chứng tỏ mình hiểu về vùng đất phong kiến này.", a:"wave"},
-  {t:"Nhớ lấy: lãnh chúa là chủ của đất đai, còn nông nô phải làm việc và nộp tô cho lãnh chúa. Hiểu rõ điều đó mới qua được ải của ta!", a:"point"},
-  {t:"Chọn khối 7 và đến thử thách của ta ở Châu Âu Trung Đại năm 1100 nhé — Mảnh Thời Gian số 1 đang chờ người xứng đáng!", a:"clap", m:"happy"}],
+  {t:"Danh dự của người hiệp sĩ không nằm ở thanh gươm sắc, mà ở lời hứa được giữ trọn đến cùng.", s:"Lời thề hiệp sĩ châu Âu trung đại"},
+  {t:"Kẻ mạnh thật sự là kẻ biết cúi mình che chở cho người yếu hơn mình.", s:"Thông điệp của hiệp sĩ Roland"},
+  {t:"Thanh gươm chém được sắt thép, nhưng chỉ có tri thức mới mở được mọi cánh cổng.", s:"Thông điệp của hiệp sĩ Roland", m:"happy"}],
  "Học giả Lý Bạch":[
-  {t:"Chào lữ khách phương xa. Ta là Lý Bạch, học giả của triều Đường — người đời tôn vinh là “Thi tiên”. Đất nước ta rộng lớn, văn hóa rực rỡ.", a:"bow"},
-  {t:"Nhà Đường là đỉnh cao của chế độ phong kiến Trung Quốc, và ta chỉ trao báu vật cho người thật sự am hiểu. Từ Vạn Lý Trường Thành đến tứ đại phát minh — ngươi có dám thử?", a:"point"},
-  {t:"Chọn khối 7, theo Con đường Tơ lụa đến với ta: ngâm thơ, xem kho báu và giành lại Mảnh Thời Gian số 2 nào!", a:"wave", m:"happy"}],
+  {t:"Ngẩng đầu ngắm ánh trăng sáng, cúi đầu lòng nhớ cố hương.", s:"Lý Bạch — bài thơ “Tĩnh dạ tứ”"},
+  {t:"Hãy xem nước sông Hoàng Hà từ trời đổ xuống, chảy ra biển khơi chẳng hề quay lại.", s:"Lý Bạch — bài thơ “Tương tiến tửu”"},
+  {t:"Thơ ca là rượu của tâm hồn: nhấp một câu, nhớ một đời.", s:"Thông điệp của “Thi tiên” Lý Bạch", m:"happy"}],
  "Nữ vương Sri":[
-  {t:"Ta là nữ vương Sri của vương quốc Ăng-co. Vương quốc ta xây những ngôi đền đá khổng lồ thờ thần, và ruộng lúa nuôi sống muôn dân.", a:"wave"},
-  {t:"Mảnh Thời Gian số 4 nằm trong ngôi đền Ăng-co lớn nhất, giữa rừng xanh Đông Nam Á. Kẻ áo đen suýt nữa đã lấy được nó rồi đấy!", a:"point"},
-  {t:"Chọn khối 7 và đến Đông Nam Á trung đại cùng ta — trả lời đúng để mở cửa đền, lấy lại mảnh vỡ nhé!", a:"clap", m:"happy"}],
+  {t:"Đền đá dựng bằng bàn tay con người, nhưng vương quốc dựng bằng lòng dân.", s:"Thông điệp từ vương quốc Ăng-co"},
+  {t:"Giữ đất, giữ nước là giữ cả giang sơn: lúa vàng nuôi muôn dân, sông nước nuôi ruộng đồng.", s:"Thông điệp của Nữ vương Sri"},
+  {t:"Ngôi đền có thể mòn theo mưa nắng, nhưng câu chuyện của cha ông thì không bao giờ cũ.", s:"Thông điệp của Nữ vương Sri", m:"happy"}],
  "Thuyền trưởng Columbus":[
-  {t:"Ta là Columbus, thuyền trưởng đoàn thuyền Tây Ban Nha. Ta tin rằng cứ đi về hướng Tây, vượt Đại Tây Dương, sẽ tới được Ấn Độ!", a:"point"},
-  {t:"Năm 1492, đoàn thuyền của ta chuẩn bị ra khơi. Nhưng Kẻ Đánh Cắp Thời Gian cũng đang lảng vảng quanh đây — hắn nhắm vào mảnh cuối cùng!", a:"wave"},
-  {t:"Chọn khối 7, cùng ta ra khơi ở thời kỳ cuối cùng: thu thập mảnh này là lắp lại được cỗ máy Chrono và trở về năm 3026!", a:"clap", m:"happy"}],
+  {t:"Không ai vượt được đại dương nếu không dám rời mắt khỏi bờ biển quen thuộc.", s:"Câu nói được truyền tụng về Columbus"},
+  {t:"Gió không chờ kẻ chần chừ — cánh buồm chỉ căng khi ta dám ra khơi.", s:"Thông điệp của thuyền trưởng Columbus"},
+  {t:"Mỗi chân trời mới đều bắt đầu từ một bước đi đầu tiên đầy can đảm.", s:"Thông điệp của thuyền trưởng Columbus", m:"happy"}],
  "Thầy ký lục Imhotep":[
-  {t:"Đứng lại đã! Ta là Imhotep, thầy ký lục của pha-ra-ông. Muốn chạm vào báu vật trên kim tự tháp, lữ khách phải chứng tỏ mình hiểu về thế giới cổ đại này.", a:"bow"},
-  {t:"Ai Cập cổ đại sinh ra bên sông Nin: mùa nước lên bồi phù sa cho ruộng đồng, người Ai Cập viết bằng chữ tượng hình, còn kim tự tháp là lăng mộ của các pha-ra-ông.", a:"point"},
-  {t:"Chọn khối 6 và về khoảng 3000 TCN cùng ta — giành lại mảnh vỡ cổ xưa nhất trước khi Kẻ Đánh Cắp viết lại buổi bình minh của văn minh!", a:"wave", m:"happy"}],
+  {t:"Con người sợ thời gian, nhưng thời gian lại sợ kim tự tháp.", s:"Ngạn ngữ cổ về kim tự tháp Ai Cập"},
+  {t:"Chữ viết là kho báu không kẻ trộm nào lấy được, không ngọn lửa nào đốt cháy được.", s:"Lời dạy của thầy ký lục"},
+  {t:"Sông Nin dâng nước rồi lại rút, chỉ có tri thức là ở lại mãi với con người.", s:"Thông điệp của Imhotep", m:"happy"}],
  "Bác Kha, nông dân sông Nin":[
-  {t:"Chào lữ khách lạ! Bác là Kha, nông dân trồng lúa mì bên sông Nin. Sáng nay nước sông dâng, bác thấy một vật sáng lấp lánh mắc trên bậc thềm kim tự tháp…", a:"wave"},
-  {t:"Ở quê hương Việt cổ của các cháu, kinh đô nước Văn Lang đặt ở Phong Châu, đứng đầu là vua Hùng. Cháu có thuộc bài Lịch sử & Địa lí 6 không nào?", a:"nod"},
-  {t:"Chọn khối 6 đi cháu — theo bác dọc sông Nin, qua kim tự tháp và ghé cả đất Văn Lang nhé!", a:"clap", m:"happy"}],
+  {t:"Nhất nước, nhì phân, tam cần, tứ giống.", s:"Tục ngữ Việt Nam về nghề nông"},
+  {t:"Cày đồng đang buổi ban trưa, mồ hôi thánh thót như mưa ruộng cày.", s:"Ca dao Việt Nam"},
+  {t:"Hạt lúa hôm nay gieo xuống, ngày mai nuôi sống cả làng.", s:"Thông điệp của Bác Kha", m:"happy"}],
  "Ông Ba, kĩ sư nhà máy":[
-  {t:"Cẩn thận, cháu nhỏ! Ta là ông Ba, kĩ sư của nhà máy cơ khí này. Hồi sáng có một vật sáng chói rơi trúng bánh răng lớn của cỗ máy hơi nước — máy đang chạy ầm ầm, không ai dám lại gần!", a:"wave"},
-  {t:"Muốn tắt máy an toàn và lấy lại báu vật, phải hiểu rõ thế kỉ XIX đầy biến động này: cách mạng công nghiệp, máy hơi nước và cả phong trào Cần Vương.", a:"point"},
-  {t:"Chọn khối 8 và đến bến cảng cuối thế kỉ XIX cùng ta — đừng để Kẻ Đánh Cắp để cỗ máy nuốt chửng mảnh vỡ!", a:"nod", m:"happy"}],
+  {t:"Bàn tay ta làm nên tất cả, có sức người sỏi đá cũng thành cơm.", s:"Hoàng Trung Thông — “Bài ca vỡ đất”"},
+  {t:"Máy móc chỉ thật sự mạnh khi có bàn tay và khối óc con người điều khiển.", s:"Thông điệp của Ông Ba"},
+  {t:"Một bánh răng nhỏ cũng làm nên cả cỗ máy lớn — như mỗi người dân làm nên lịch sử.", s:"Thông điệp của Ông Ba", m:"happy"}],
  "Cụ Phan, chí sĩ Cần Vương":[
-  {t:"Chớ sợ, cháu. Già là một văn thân theo phong trào Cần Vương. Thời đại này sục sôi lòng yêu nước — già tin cháu sẽ giữ vững được dòng thời gian.", a:"bow"},
-  {t:"Muốn cứu mảnh vỡ, cháu phải hiểu cách mạng tư sản, cách mạng công nghiệp và những cuộc khởi nghĩa yêu nước của cha ông. Kiến thức LSĐL 8 chính là chìa khóa.", a:"point"},
-  {t:"Chọn khối 8 nhé cháu — cùng già tắt cỗ máy hơi nước và giành lại Mảnh Thời Gian phụ thứ hai!", a:"wave", m:"happy"}],
+  {t:"Ví phỏng đường đời bằng phẳng cả, anh hùng hào kiệt có hơn ai.", s:"Câu thơ được truyền tụng của Phan Bội Châu"},
+  {t:"Nước còn thì nhà còn — giữ được hồn nước là giữ được tất cả.", s:"Thông điệp của Cụ Phan"},
+  {t:"Tuổi trẻ là mùa xuân của đất nước: hãy học cho giỏi để dựng xây ngày mai.", s:"Thông điệp của Cụ Phan", m:"happy"}],
  "Anh Tạ, bộ đội Điện Biên":[
-  {t:"Dừng lại, đồng chí nhỏ! Ta là Tạ, bộ đội vừa từ mặt trận Điện Biên trở về. Trên đồi kia có vật gì phát sáng từ đêm qua — mảnh vỡ cuối cùng đấy!", a:"wave"},
-  {t:"Đường lên đồi còn nhiều thử thách: phải hiểu rõ những năm 1919–1954 — từ ngày thành lập Đảng, Cách mạng tháng Tám tới chiến thắng Điện Biên Phủ ngày 7/5/1954.", a:"point"},
-  {t:"Chọn khối 9 và lên đồi cùng anh — giữ lấy kí ức hào hùng này, đừng để Kẻ Đánh Cắp xóa mất!", a:"clap", m:"happy"}],
+  {t:"Chín năm làm một Điện Biên, nên vành hoa đỏ, nên thiên sử vàng.", s:"Tố Hữu — “Hoan hô chiến sĩ Điện Biên”"},
+  {t:"Đường lên đồi dốc đến đâu, lòng quyết tâm của người lính cao đến đó.", s:"Thông điệp của Anh Tạ"},
+  {t:"Hòa bình hôm nay được đánh đổi bằng mồ hôi và xương máu của cha anh — hãy nhớ lấy.", s:"Thông điệp của Anh Tạ", m:"happy"}],
  "Cô Lan, giáo viên Hà Nội":[
-  {t:"Đừng nghe lời Kẻ Đánh Cắp, cháu. Cô là Lan, giáo viên ở Hà Nội. Lịch sử những năm 1919–1954 là niềm tự hào của cả dân tộc mình.", a:"wave"},
-  {t:"Ngày 2/9/1945, Bác Hồ đọc bản Tuyên ngôn Độc lập ở quảng trường Ba Đình. Trả lời cho thật chắc, cháu sẽ giữ được trang sử vàng này.", a:"nod"},
-  {t:"Chọn khối 9 nhé — cô trò mình cùng lên đường tới mùa xuân 1954, giành lại Mảnh Thời Gian phụ cuối cùng!", a:"clap", m:"happy"}]
+  {t:"Lịch sử là ngọn đèn soi đường: quên quá khứ là lạc lối giữa tương lai.", s:"Thông điệp của Cô Lan"},
+  {t:"Một dân tộc biết trân trọng trang sử của mình sẽ không bao giờ bị đánh bại.", s:"Thông điệp của Cô Lan"},
+  {t:"Học sử không phải để thuộc lòng năm tháng, mà để hiểu vì sao ta có ngày hôm nay.", s:"Thông điệp của Cô Lan", m:"happy"}]
 };
+var PICK_SIG={"Hiệp sĩ Roland":"roland","Học giả Lý Bạch":"libai","Nữ vương Sri":"sri","Thuyền trưởng Columbus":"columbus","Thầy ký lục Imhotep":"imhotep","Bác Kha, nông dân sông Nin":"kha","Ông Ba, kĩ sư nhà máy":"ongba","Cụ Phan, chí sĩ Cần Vương":"phan","Anh Tạ, bộ đội Điện Biên":"ta","Cô Lan, giáo viên Hà Nội":"lan"};
+var PICK_FREQ={roland:330,libai:392,sri:440,columbus:349,imhotep:294,kha:262,ongba:311,phan:370,ta:466,lan:494};
+function pickSigOf(n){ return PICK_SIG[n]||"roland"; }
 var PICK_TALK={key:null, idx:0, typing:null, gestT:null};
 var PICK_GESTS=["gest-wave","gest-point","gest-bow","gest-nod","gest-clap"];
 function pickLinesFor(npc){
   var L=PICK_LINES[npc.n];
   if(L) return L;
   return [
-    {t:"Chào Nhà Du Hành! Ta là "+npc.n+" — "+npc.r+".", a:"wave", m:"happy"},
-    {t:"Cốt truyện của khối này đang chờ bạn khám phá. Vào thế giới mở, hãy ghé thăm ta để nghe gợi ý nhé!", a:"point"},
-    {t:"Chọn khối này và lên đường cùng ta nào!", a:"clap", m:"happy"}
+    {t:"Tri thức là ngọn đèn không bao giờ tắt — hãy mang nó theo trong mọi chuyến đi.", s:"Thông điệp cổ điển", m:"happy"},
+    {t:"Mỗi thời đại đều để lại một bài học cho người biết lắng nghe.", s:"Thông điệp của "+npc.n},
+    {t:"Chọn khối này và lên đường cùng ta nào — câu chuyện hay đang chờ phía trước!", s:"Thông điệp của "+npc.n, m:"happy"}
   ];
 }
 function pickBubbleOf(stage){
   var b=stage.querySelector(".pick-bubble");
   if(!b){
     b=document.createElement("div"); b.className="pick-bubble"; b.setAttribute("aria-live","polite");
-    b.innerHTML='<button class="pb-close" type="button" aria-label="Đóng thoại">✕</button><b class="pb-who"></b><span class="pb-text"></span><span class="pb-count"></span>';
+    b.innerHTML='<button class="pb-close" type="button" aria-label="Đóng thông điệp">✕</button><span class="pb-tag">✦ THÔNG ĐIỆP CỔ ĐIỂN ✦</span><b class="pb-who"></b><span class="pb-text"></span><span class="pb-src"></span><span class="pb-count"></span>';
     stage.appendChild(b);
     b.querySelector(".pb-close").addEventListener("click", function(ev){ ev.stopPropagation(); pickCloseTalk(stage); });
   }
@@ -4701,7 +4782,7 @@ function pickBubbleOf(stage){
 function pickClearActor(stage){
   stage.classList.remove("has-actor");
   stage.querySelectorAll(".pick-npc").forEach(function(x){
-    x.classList.remove("pick-acting","speaking","mood-happy");
+    x.classList.remove("pick-acting","speaking","mood-happy","sig-act");
     PICK_GESTS.forEach(function(gc){ x.classList.remove(gc); });
   });
 }
@@ -4729,7 +4810,7 @@ function pickTalk(el){
   pickClearActor(stage);
   stage.classList.add("has-actor");
   el.classList.add("pick-acting","speaking");
-  if(line.a) el.classList.add("gest-"+line.a);
+  el.classList.add("sig-act");
   if(line.m) el.classList.add("mood-"+line.m);
   var reduced=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(!reduced){
@@ -4746,8 +4827,9 @@ function pickTalk(el){
   }
   var b=pickBubbleOf(stage);
   b.querySelector(".pb-who").textContent=npc.n+" · Khối "+g;
+  b.querySelector(".pb-src").textContent=line.s||"Thông điệp cổ điển";
   var txt=b.querySelector(".pb-text");
-  b.querySelector(".pb-count").textContent="Thoại "+(PICK_TALK.idx+1)+"/"+lines.length+(PICK_TALK.idx===lines.length-1?" · Bấm nhân vật lần nữa để nghe lại từ đầu":" · Bấm nhân vật lần nữa để nghe câu tiếp theo");
+  b.querySelector(".pb-count").textContent="Thông điệp "+(PICK_TALK.idx+1)+"/"+lines.length+(PICK_TALK.idx===lines.length-1?" · Bấm nhân vật lần nữa để nghe lại từ đầu":" · Bấm nhân vật lần nữa để nghe thông điệp tiếp theo");
   b.classList.add("show");
   if(PICK_TALK.typing){ clearInterval(PICK_TALK.typing); PICK_TALK.typing=null; }
   if(reduced){
@@ -4760,11 +4842,11 @@ function pickTalk(el){
     }, 16);
   }
   sndClick();
-  var fq=line.a==="clap"?740:(line.a==="bow"?392:(line.a==="point"?587:523));
+  var fq=PICK_FREQ[pickSigOf(npc.n)]||523;
   setTimeout(function(){ beep(fq,.09); }, 70);
-  if(line.a==="clap") setTimeout(function(){ beep(880,.1); }, 190);
+  setTimeout(function(){ beep(Math.round(fq*1.335),.08); }, 215);
   if(PICK_TALK.gestT) clearTimeout(PICK_TALK.gestT);
-  PICK_TALK.gestT=setTimeout(function(){ PICK_GESTS.forEach(function(gc){ el.classList.remove(gc); }); }, 3400);
+  PICK_TALK.gestT=setTimeout(function(){ el.classList.remove("sig-act"); }, 3600);
 }
 function openPick(){
   renderPick(); show("screen-pick");
