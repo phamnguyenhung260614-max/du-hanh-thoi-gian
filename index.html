@@ -913,8 +913,8 @@
   @media (prefers-reduced-motion: reduce){ .pick-npc::before{animation:none} .pick-spark,.pick-ripple{display:none} .pick-npc,.pick-bubble,.pick-stage{transition:none} }
   /* ---------- THÔNG ĐIỆP CỔ ĐIỂN ở màn chọn khối: thẻ trích dẫn giấy vàng + ANIMATION RIÊNG cho từng nhân vật ---------- */
   /* Bong bóng thoại thành thẻ trích dẫn cổ điển: nền giấy vàng, viền kép mạ vàng, chữ serif nghiêng, dấu trích dẫn lớn */
-  .pick-bubble{top:12px; max-width:min(320px,88%); background:linear-gradient(180deg,#fdf6dc,#f7e9bd); color:#43300d; border:2px solid #b98a2f; border-radius:9px; padding:7px 25px 6px 10px; box-shadow:0 8px 18px rgba(0,0,0,.5), inset 0 0 0 3px #fdf6dc, inset 0 0 0 5px rgba(185,138,47,.5), 0 0 12px rgba(245,185,66,.3)}
-  .pick-bubble::after{border-top-color:#b98a2f}
+  .pick-bubble{top:auto; bottom:150px; max-width:min(320px,88%); background:linear-gradient(180deg,#fdf6dc,#f7e9bd); color:#43300d; border:2px solid #b98a2f; border-radius:9px; padding:7px 25px 6px 10px; box-shadow:0 8px 18px rgba(0,0,0,.5), inset 0 0 0 3px #fdf6dc, inset 0 0 0 5px rgba(185,138,47,.5), 0 0 12px rgba(245,185,66,.3)}
+  .pick-bubble::after{border-top-color:#b98a2f; left:var(--tail-x,50%)}
   .pick-bubble .pb-tag{display:block; text-align:center; font-size:9px; font-weight:900; letter-spacing:2px; color:#a5761a; margin-bottom:1px}
   .pick-bubble .pb-who{text-align:center; color:#7c4d03; font-size:11.5px; margin-bottom:0}
   .pick-bubble .pb-text{display:block; text-align:center; font-family:"Times New Roman",Georgia,serif; font-style:italic; font-size:13px; line-height:1.45; color:#43300d; margin-top:1px}
@@ -925,8 +925,11 @@
   .pick-bubble .pb-count{text-align:center; color:#97762e; font-size:10.5px; margin-top:2px}
   .pick-bubble .pb-close{color:#a5761a}
   .pick-bubble .pb-close:hover{color:#43300d}
-  .pick-stage.has-actor{min-height:272px}
-  @media (max-width:560px){ .pick-stage.has-actor{min-height:292px} }
+  /* Khung thông điệp neo SÁT TRÊN ĐẦU nhân vật đang nói (JS đặt left/bottom
+     theo đúng vị trí đầu của nhân vật đó), nên sân khấu cần đủ khoảng trống
+     phía trên đầu nhân vật để khung không bị cắt. */
+  .pick-stage.has-actor{min-height:292px}
+  @media (max-width:560px){ .pick-stage.has-actor{min-height:312px} }
   /* Nhân vật trên sân khấu ĐỨNG YÊN khi chưa được bấm: không nhãn mô tả hành
      động dưới tên, không animation chờ. Animation CHỈ bắt đầu khi người chơi
      bấm vào nhân vật — xem các rule .sig-act và .speaking ngay dưới đây. */
@@ -4762,6 +4765,29 @@ function pickBubbleOf(stage){
   }
   return b;
 }
+/* Neo khung thông điệp SÁT TRÊN ĐẦU nhân vật đang nói: tâm ngang của khung
+   trùng với tâm của nhân vật, mép dưới khung cách đỉnh đầu ~12px, đuôi khung
+   trỏ thẳng xuống đầu nhân vật. Nhân vật đứng ở mép dưới sân khấu nên khoảng
+   cách từ đầu tới đáy sân khấu không đổi khi sân khấu giãn chiều cao. */
+function positionPickBubble(stage, el, b){
+  if(!stage||!el) return;
+  b=b||stage.querySelector(".pick-bubble"); if(!b) return;
+  var sr=stage.getBoundingClientRect(), er=el.getBoundingClientRect();
+  if(!sr.width||!er.width) return;
+  var cx=er.left-sr.left+er.width/2;
+  var bw=b.offsetWidth||280, half=bw/2;
+  var lo=half+6, hi=sr.width-half-6;
+  var clamped=(hi<lo)? sr.width/2 : Math.max(lo, Math.min(hi, cx));
+  b.style.left=clamped+"px";
+  b.style.bottom=((sr.bottom-er.top)+12)+"px";
+  b.style.setProperty("--tail-x", Math.max(16, Math.min(bw-16, cx-(clamped-half)))+"px");
+}
+window.addEventListener("resize", function(){
+  document.querySelectorAll(".pick-stage.has-actor").forEach(function(st){
+    var act=st.querySelector(".pick-npc.pick-acting");
+    if(act) positionPickBubble(st, act);
+  });
+});
 function pickClearActor(stage){
   stage.classList.remove("has-actor");
   stage.querySelectorAll(".pick-npc").forEach(function(x){
@@ -4818,6 +4844,11 @@ function pickTalk(el){
   var txt=b.querySelector(".pb-text");
   b.querySelector(".pb-count").textContent="Thông điệp "+(PICK_TALK.idx+1)+"/"+lines.length+(PICK_TALK.idx===lines.length-1?" · Bấm nhân vật lần nữa để nghe lại từ đầu":" · Bấm nhân vật lần nữa để nghe thông điệp tiếp theo");
   b.classList.add("show");
+  /* Đặt khung SÁT TRÊN ĐẦU nhân vật đang nói: đo với câu đầy đủ để bề ngang
+     khung là bề ngang cuối cùng. Nhân vật neo ở đáy sân khấu nên vị trí này
+     giữ nguyên cả khi sân khấu giãn chiều cao và khi chữ đang gõ dần. */
+  txt.textContent=fullMsg;
+  positionPickBubble(stage, el, b);
   if(PICK_TALK.typing){ clearInterval(PICK_TALK.typing); PICK_TALK.typing=null; }
   if(reduced){
     txt.textContent=fullMsg; el.classList.remove("speaking");
