@@ -872,6 +872,48 @@
   .pick-note{font-size:12.5px; color:var(--muted); text-align:center; margin-top:8px; line-height:1.5}
   @media (max-width:560px){ .pick-npc svg{width:48px} .pick-npc .pname{font-size:10.5px; max-width:82px} .pick-stage{min-height:146px} }
   @media (prefers-reduced-motion: reduce){ .pick-npc,.pick-npc svg{animation:none} }
+  /* ---------- Hiệu ứng RIÊNG ở màn chọn khối: bấm vào nhân vật → nhân vật THOẠI + HÀNH ĐỘNG theo cốt truyện ---------- */
+  /* Sân khấu cao thêm khi có nhân vật đang thoại, để bong bóng thoại không che mất nhân vật */
+  .pick-stage{transition:min-height .35s ease}
+  .pick-stage.has-actor{min-height:282px}
+  @media (max-width:560px){ .pick-stage.has-actor{min-height:302px} }
+  /* Nhân vật bấm được: nhấc lên khi rê chuột, huy hiệu bong bóng thoại mini nhấp nhô rủ bấm */
+  .pick-npc{position:relative; cursor:pointer; border-radius:12px; outline:none; transition:transform .25s ease, opacity .25s ease, filter .25s ease}
+  .pick-npc:hover{transform:translateY(-4px)}
+  .pick-npc:hover .pname{background:var(--gold); color:#231a02}
+  .pick-npc:focus-visible{box-shadow:0 0 0 2px var(--gold2)}
+  .pick-npc::before{content:""; position:absolute; top:-8px; right:0; z-index:4; width:18px; height:14px; border-radius:5px; background-color:#fff; background-image:radial-gradient(circle 1.7px at 5px 7px, #12203a 98%, transparent),radial-gradient(circle 1.7px at 9px 7px, #12203a 98%, transparent),radial-gradient(circle 1.7px at 13px 7px, #12203a 98%, transparent); box-shadow:0 2px 6px rgba(0,0,0,.4); animation:pickHintBob 1.6s ease-in-out infinite alternate}
+  @keyframes pickHintBob{from{transform:translateY(0)} to{transform:translateY(-3px)}}
+  /* Spotlight: nhân vật đang thoại nổi bật hẳn lên, các nhân vật còn lại trên sân khấu mờ đi */
+  .pick-stage.has-actor .pick-npc{opacity:.48; filter:saturate(.55)}
+  .pick-stage.has-actor .pick-npc.pick-acting{opacity:1; filter:none}
+  .pick-npc.pick-acting{transform:translateY(-7px) scale(1.13); z-index:3}
+  .pick-npc.pick-acting::before{opacity:0; animation:none}
+  .pick-npc.pick-acting svg{filter:drop-shadow(0 0 10px rgba(245,185,66,.85)) drop-shadow(0 7px 7px rgba(0,0,0,.5))}
+  .pick-npc.pick-acting .pname{background:linear-gradient(180deg,var(--gold2),var(--gold)); color:#231a02}
+  /* Đang thoại: miệng tròn nhấp nháy + tay phải đưa lên giảng giải (như trong truyện); vui: cười to, má hồng rõ */
+  .pick-npc.speaking .mouth-idle{opacity:0}
+  .pick-npc.speaking .mouth-o{opacity:1; animation:talkO .26s ease-in-out infinite alternate}
+  .pick-npc.speaking .npc-arm-r{animation:talkArmK 1.5s ease-in-out infinite}
+  .pick-npc.speaking .npc-arm-r .npc-fore{animation:talkForeK 1.5s ease-in-out infinite}
+  .pick-npc.gest-bow svg{animation:bowK 1.8s ease-in-out infinite; transform-origin:50% 100%}
+  .pick-npc.mood-happy .mouth-happy{opacity:1}
+  .pick-npc.mood-happy .mouth-idle{opacity:0}
+  .pick-npc.mood-happy .cheek{opacity:.95}
+  /* Bong bóng thoại lớn trên sân khấu, có đuôi trỏ xuống nhân vật đang nói */
+  .pick-bubble{position:absolute; left:50%; top:40px; transform:translateX(-50%) translateY(-6px); z-index:6; width:max-content; max-width:94%; background:rgba(5,8,20,.96); border:1.5px solid var(--gold); border-radius:14px; padding:9px 32px 8px 13px; color:var(--ink); font-size:13.5px; line-height:1.55; text-align:left; box-shadow:0 10px 24px rgba(0,0,0,.5), 0 0 14px rgba(245,185,66,.25); opacity:0; pointer-events:none; transition:opacity .22s ease, transform .22s ease}
+  .pick-bubble.show{opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto}
+  .pick-bubble::after{content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%); border:8px solid transparent; border-top-color:var(--gold); border-bottom:none}
+  .pick-bubble .pb-who{display:block; color:var(--gold2); font-weight:900; font-size:12.5px; margin-bottom:2px}
+  .pick-bubble .pb-count{display:block; color:var(--muted); font-size:11.5px; font-weight:700; margin-top:4px}
+  .pick-bubble .pb-close{position:absolute; top:4px; right:6px; background:none; border:none; color:var(--muted); font-size:15px; font-weight:900; cursor:pointer; padding:2px 5px; line-height:1; min-height:0}
+  .pick-bubble .pb-close:hover{color:var(--ink)}
+  /* Tia lửa bung ra quanh nhân vật + vòng sóng lan dưới chân mỗi lần bấm */
+  .pick-spark{position:absolute; left:50%; top:34%; z-index:5; width:7px; height:7px; border-radius:50%; background:radial-gradient(circle,#fff8d6,#f5b942 60%,transparent 72%); pointer-events:none; animation:pickSparkFly .72s ease-out forwards}
+  @keyframes pickSparkFly{from{opacity:1; transform:translate(-50%,-50%) scale(1)} to{opacity:0; transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,0px))) scale(.35)}}
+  .pick-ripple{position:absolute; left:50%; bottom:15px; z-index:1; width:14px; height:6px; border-radius:50%; border:2px solid rgba(245,185,66,.9); transform:translateX(-50%); pointer-events:none; animation:pickRipple .68s ease-out forwards}
+  @keyframes pickRipple{from{opacity:.95; transform:translateX(-50%) scale(.6)} to{opacity:0; transform:translateX(-50%) scale(4.6)}}
+  @media (prefers-reduced-motion: reduce){ .pick-npc::before{animation:none} .pick-spark,.pick-ripple{display:none} .pick-npc,.pick-bubble,.pick-stage{transition:none} }
 </style>
 </head>
 <body>
@@ -977,7 +1019,7 @@
   <!-- ============ CHỌN KHỐI TRƯỚC KHI VÀO GAME ============ -->
   <section class="screen" id="screen-pick">
     <h2 class="map-title">Chọn khối — chọn chuyến đi của bạn</h2>
-    <p class="map-sub">Trước khi lên đường, hãy <b style="color:var(--ink)">chọn khối lớp của mình</b>. Mỗi khối là một chuyến phiêu lưu riêng với cốt truyện riêng — và đứng trên sân khấu của từng khối là những <b style="color:var(--ink)">nhân vật nổi tiếng trong chính câu chuyện bạn sắp khám phá</b>, đang vẫy gọi bạn đấy. Chọn khối 7 để xem đoạn phim mở đầu rồi vào hành trình chính; chọn khối 6, 8 hoặc 9 để vào thẳng truyện phiêu lưu của khối đó.</p>
+    <p class="map-sub">Trước khi lên đường, hãy <b style="color:var(--ink)">chọn khối lớp của mình</b>. Mỗi khối là một chuyến phiêu lưu riêng với cốt truyện riêng — và đứng trên sân khấu của từng khối là những <b style="color:var(--ink)">nhân vật nổi tiếng trong chính câu chuyện bạn sắp khám phá</b>, đang vẫy gọi bạn đấy. Chọn khối 7 để xem đoạn phim mở đầu rồi vào hành trình chính; chọn khối 6, 8 hoặc 9 để vào thẳng truyện phiêu lưu của khối đó. <b style="color:var(--gold2)">Bấm vào từng nhân vật trên sân khấu</b> để nghe họ <b style="color:var(--ink)">nói thoại và làm hành động theo đúng cốt truyện</b> của khối đó — bấm tiếp vào nhân vật để nghe câu thoại tiếp theo!</p>
     <div class="pick-grid" id="pickGrid"></div>
     <div class="dialog-nav">
       <button class="btn ghost" id="pickHomeBtn" type="button">← Về màn hình chính</button>
@@ -4554,8 +4596,8 @@ function renderPick(){
     var worldName = g===7 ? "Hành trình chính — 5 thời kỳ xuyên thời gian" : w.name;
     var worldYears = g===7 ? "476 – thế kỉ XVI · 5 thời kỳ của lịch sử thế giới trung đại" : w.years;
     var stageBg = g===7 ? ERAS[0].scene : w.scene;
-    var npcHtml=npcs.map(function(n){
-      return '<div class="pick-npc" title="'+n.n+' — '+n.r+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span></div></div>';
+    var npcHtml=npcs.map(function(n,ni){
+      return '<div class="pick-npc" role="button" tabindex="0" data-pnpc="'+ni+'" data-pgrade="'+g+'" title="Bấm để nghe '+n.n+' nói thoại theo cốt truyện" aria-label="Nghe '+n.n+' nói thoại theo cốt truyện khối '+g+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span></div></div>';
     }).join("");
     var castHtml=npcs.map(function(n){ return n.n+" — "+n.r; }).join("<br>");
     html+='<div class="pick-card '+m.color+(PICK.grade===g?" chosen":"")+'">'
@@ -4580,6 +4622,149 @@ function renderPick(){
   $("pickGrid").querySelectorAll("[data-pick]").forEach(function(b){
     b.addEventListener("click", function(){ chooseGrade(parseInt(b.getAttribute("data-pick"),10)); });
   });
+  /* Bấm (hoặc gõ Enter / Space) vào nhân vật trên sân khấu: nhân vật thoại + hành động theo cốt truyện */
+  $("pickGrid").querySelectorAll(".pick-npc").forEach(function(el){
+    el.addEventListener("click", function(){ pickTalk(el); });
+    el.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); pickTalk(el); } });
+  });
+}
+/* ---------- HIỆU ỨNG RIÊNG Ở MÀN CHỌN KHỐI: bấm vào nhân vật → THOẠI + HÀNH ĐỘNG theo cốt truyện ---------- */
+/* Mỗi nhân vật trên sân khấu có 3 câu thoại lấy ĐÚNG từ đoạn truyện mở đầu và gợi ý
+   của chính nhân vật đó trong hành trình của khối (ERAS khối 7 · GWORLDS khối 6/8/9):
+   câu 1 chào hỏi theo truyện, câu 2 kể tình tiết / gợi ý cốt truyện, câu 3 mời vào khối.
+   Mỗi câu kèm một HÀNH ĐỘNG (a): wave = vẫy tay chào · point = chỉ tay · bow = cúi chào ·
+   nod = gật đầu · clap = vỗ tay, và biểu cảm mặt (m): happy = cười to. Bấm lần nữa vào
+   cùng nhân vật để nghe câu tiếp theo; bấm sang nhân vật khác thì người đó lên thoại. */
+var PICK_LINES={
+ "Hiệp sĩ Roland":[
+  {t:"Đứng lại! Ta là hiệp sĩ Roland, người gác cổng lâu đài. Muốn qua cổng, lữ khách phải chứng tỏ mình hiểu về vùng đất phong kiến này.", a:"wave"},
+  {t:"Nhớ lấy: lãnh chúa là chủ của đất đai, còn nông nô phải làm việc và nộp tô cho lãnh chúa. Hiểu rõ điều đó mới qua được ải của ta!", a:"point"},
+  {t:"Chọn khối 7 và đến thử thách của ta ở Châu Âu Trung Đại năm 1100 nhé — Mảnh Thời Gian số 1 đang chờ người xứng đáng!", a:"clap", m:"happy"}],
+ "Học giả Lý Bạch":[
+  {t:"Chào lữ khách phương xa. Ta là Lý Bạch, học giả của triều Đường — người đời tôn vinh là “Thi tiên”. Đất nước ta rộng lớn, văn hóa rực rỡ.", a:"bow"},
+  {t:"Nhà Đường là đỉnh cao của chế độ phong kiến Trung Quốc, và ta chỉ trao báu vật cho người thật sự am hiểu. Từ Vạn Lý Trường Thành đến tứ đại phát minh — ngươi có dám thử?", a:"point"},
+  {t:"Chọn khối 7, theo Con đường Tơ lụa đến với ta: ngâm thơ, xem kho báu và giành lại Mảnh Thời Gian số 2 nào!", a:"wave", m:"happy"}],
+ "Nữ vương Sri":[
+  {t:"Ta là nữ vương Sri của vương quốc Ăng-co. Vương quốc ta xây những ngôi đền đá khổng lồ thờ thần, và ruộng lúa nuôi sống muôn dân.", a:"wave"},
+  {t:"Mảnh Thời Gian số 4 nằm trong ngôi đền Ăng-co lớn nhất, giữa rừng xanh Đông Nam Á. Kẻ áo đen suýt nữa đã lấy được nó rồi đấy!", a:"point"},
+  {t:"Chọn khối 7 và đến Đông Nam Á trung đại cùng ta — trả lời đúng để mở cửa đền, lấy lại mảnh vỡ nhé!", a:"clap", m:"happy"}],
+ "Thuyền trưởng Columbus":[
+  {t:"Ta là Columbus, thuyền trưởng đoàn thuyền Tây Ban Nha. Ta tin rằng cứ đi về hướng Tây, vượt Đại Tây Dương, sẽ tới được Ấn Độ!", a:"point"},
+  {t:"Năm 1492, đoàn thuyền của ta chuẩn bị ra khơi. Nhưng Kẻ Đánh Cắp Thời Gian cũng đang lảng vảng quanh đây — hắn nhắm vào mảnh cuối cùng!", a:"wave"},
+  {t:"Chọn khối 7, cùng ta ra khơi ở thời kỳ cuối cùng: thu thập mảnh này là lắp lại được cỗ máy Chrono và trở về năm 3026!", a:"clap", m:"happy"}],
+ "Thầy ký lục Imhotep":[
+  {t:"Đứng lại đã! Ta là Imhotep, thầy ký lục của pha-ra-ông. Muốn chạm vào báu vật trên kim tự tháp, lữ khách phải chứng tỏ mình hiểu về thế giới cổ đại này.", a:"bow"},
+  {t:"Ai Cập cổ đại sinh ra bên sông Nin: mùa nước lên bồi phù sa cho ruộng đồng, người Ai Cập viết bằng chữ tượng hình, còn kim tự tháp là lăng mộ của các pha-ra-ông.", a:"point"},
+  {t:"Chọn khối 6 và về khoảng 3000 TCN cùng ta — giành lại mảnh vỡ cổ xưa nhất trước khi Kẻ Đánh Cắp viết lại buổi bình minh của văn minh!", a:"wave", m:"happy"}],
+ "Bác Kha, nông dân sông Nin":[
+  {t:"Chào lữ khách lạ! Bác là Kha, nông dân trồng lúa mì bên sông Nin. Sáng nay nước sông dâng, bác thấy một vật sáng lấp lánh mắc trên bậc thềm kim tự tháp…", a:"wave"},
+  {t:"Ở quê hương Việt cổ của các cháu, kinh đô nước Văn Lang đặt ở Phong Châu, đứng đầu là vua Hùng. Cháu có thuộc bài Lịch sử & Địa lí 6 không nào?", a:"nod"},
+  {t:"Chọn khối 6 đi cháu — theo bác dọc sông Nin, qua kim tự tháp và ghé cả đất Văn Lang nhé!", a:"clap", m:"happy"}],
+ "Ông Ba, kĩ sư nhà máy":[
+  {t:"Cẩn thận, cháu nhỏ! Ta là ông Ba, kĩ sư của nhà máy cơ khí này. Hồi sáng có một vật sáng chói rơi trúng bánh răng lớn của cỗ máy hơi nước — máy đang chạy ầm ầm, không ai dám lại gần!", a:"wave"},
+  {t:"Muốn tắt máy an toàn và lấy lại báu vật, phải hiểu rõ thế kỉ XIX đầy biến động này: cách mạng công nghiệp, máy hơi nước và cả phong trào Cần Vương.", a:"point"},
+  {t:"Chọn khối 8 và đến bến cảng cuối thế kỉ XIX cùng ta — đừng để Kẻ Đánh Cắp để cỗ máy nuốt chửng mảnh vỡ!", a:"nod", m:"happy"}],
+ "Cụ Phan, chí sĩ Cần Vương":[
+  {t:"Chớ sợ, cháu. Già là một văn thân theo phong trào Cần Vương. Thời đại này sục sôi lòng yêu nước — già tin cháu sẽ giữ vững được dòng thời gian.", a:"bow"},
+  {t:"Muốn cứu mảnh vỡ, cháu phải hiểu cách mạng tư sản, cách mạng công nghiệp và những cuộc khởi nghĩa yêu nước của cha ông. Kiến thức LSĐL 8 chính là chìa khóa.", a:"point"},
+  {t:"Chọn khối 8 nhé cháu — cùng già tắt cỗ máy hơi nước và giành lại Mảnh Thời Gian phụ thứ hai!", a:"wave", m:"happy"}],
+ "Anh Tạ, bộ đội Điện Biên":[
+  {t:"Dừng lại, đồng chí nhỏ! Ta là Tạ, bộ đội vừa từ mặt trận Điện Biên trở về. Trên đồi kia có vật gì phát sáng từ đêm qua — mảnh vỡ cuối cùng đấy!", a:"wave"},
+  {t:"Đường lên đồi còn nhiều thử thách: phải hiểu rõ những năm 1919–1954 — từ ngày thành lập Đảng, Cách mạng tháng Tám tới chiến thắng Điện Biên Phủ ngày 7/5/1954.", a:"point"},
+  {t:"Chọn khối 9 và lên đồi cùng anh — giữ lấy kí ức hào hùng này, đừng để Kẻ Đánh Cắp xóa mất!", a:"clap", m:"happy"}],
+ "Cô Lan, giáo viên Hà Nội":[
+  {t:"Đừng nghe lời Kẻ Đánh Cắp, cháu. Cô là Lan, giáo viên ở Hà Nội. Lịch sử những năm 1919–1954 là niềm tự hào của cả dân tộc mình.", a:"wave"},
+  {t:"Ngày 2/9/1945, Bác Hồ đọc bản Tuyên ngôn Độc lập ở quảng trường Ba Đình. Trả lời cho thật chắc, cháu sẽ giữ được trang sử vàng này.", a:"nod"},
+  {t:"Chọn khối 9 nhé — cô trò mình cùng lên đường tới mùa xuân 1954, giành lại Mảnh Thời Gian phụ cuối cùng!", a:"clap", m:"happy"}]
+};
+var PICK_TALK={key:null, idx:0, typing:null, gestT:null};
+var PICK_GESTS=["gest-wave","gest-point","gest-bow","gest-nod","gest-clap"];
+function pickLinesFor(npc){
+  var L=PICK_LINES[npc.n];
+  if(L) return L;
+  return [
+    {t:"Chào Nhà Du Hành! Ta là "+npc.n+" — "+npc.r+".", a:"wave", m:"happy"},
+    {t:"Cốt truyện của khối này đang chờ bạn khám phá. Vào thế giới mở, hãy ghé thăm ta để nghe gợi ý nhé!", a:"point"},
+    {t:"Chọn khối này và lên đường cùng ta nào!", a:"clap", m:"happy"}
+  ];
+}
+function pickBubbleOf(stage){
+  var b=stage.querySelector(".pick-bubble");
+  if(!b){
+    b=document.createElement("div"); b.className="pick-bubble"; b.setAttribute("aria-live","polite");
+    b.innerHTML='<button class="pb-close" type="button" aria-label="Đóng thoại">✕</button><b class="pb-who"></b><span class="pb-text"></span><span class="pb-count"></span>';
+    stage.appendChild(b);
+    b.querySelector(".pb-close").addEventListener("click", function(ev){ ev.stopPropagation(); pickCloseTalk(stage); });
+  }
+  return b;
+}
+function pickClearActor(stage){
+  stage.classList.remove("has-actor");
+  stage.querySelectorAll(".pick-npc").forEach(function(x){
+    x.classList.remove("pick-acting","speaking","mood-happy");
+    PICK_GESTS.forEach(function(gc){ x.classList.remove(gc); });
+  });
+}
+function pickCloseTalk(stage){
+  if(PICK_TALK.typing){ clearInterval(PICK_TALK.typing); PICK_TALK.typing=null; }
+  if(PICK_TALK.gestT){ clearTimeout(PICK_TALK.gestT); PICK_TALK.gestT=null; }
+  pickClearActor(stage);
+  var b=stage.querySelector(".pick-bubble"); if(b) b.classList.remove("show");
+  PICK_TALK.key=null; PICK_TALK.idx=0;
+}
+function pickTalk(el){
+  var stage=el.closest(".pick-stage");
+  if(!stage) return;
+  var g=parseInt(el.getAttribute("data-pgrade"),10);
+  var npcs=pickNpcsFor(g), npc=npcs[parseInt(el.getAttribute("data-pnpc"),10)];
+  if(!npc) return;
+  var lines=pickLinesFor(npc), key=g+"|"+npc.n;
+  if(PICK_TALK.key===key){
+    PICK_TALK.idx=(PICK_TALK.idx+1)%lines.length;
+  } else {
+    document.querySelectorAll(".pick-stage.has-actor").forEach(function(st){ if(st!==stage) pickCloseTalk(st); });
+    PICK_TALK.key=key; PICK_TALK.idx=0;
+  }
+  var line=lines[PICK_TALK.idx];
+  pickClearActor(stage);
+  stage.classList.add("has-actor");
+  el.classList.add("pick-acting","speaking");
+  if(line.a) el.classList.add("gest-"+line.a);
+  if(line.m) el.classList.add("mood-"+line.m);
+  var reduced=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduced){
+    for(var i=0;i<7;i++){
+      var sp=document.createElement("span"); sp.className="pick-spark";
+      var ang=(Math.PI*2*i)/7+Math.random()*.5, dist=30+Math.random()*26;
+      sp.style.setProperty("--dx", Math.cos(ang)*dist+"px");
+      sp.style.setProperty("--dy", (Math.sin(ang)*dist-8)+"px");
+      el.appendChild(sp);
+      (function(s){ setTimeout(function(){ if(s.parentNode) s.parentNode.removeChild(s); }, 760); })(sp);
+    }
+    var rp=document.createElement("span"); rp.className="pick-ripple"; el.appendChild(rp);
+    setTimeout(function(){ if(rp.parentNode) rp.parentNode.removeChild(rp); }, 720);
+  }
+  var b=pickBubbleOf(stage);
+  b.querySelector(".pb-who").textContent=npc.n+" · Khối "+g;
+  var txt=b.querySelector(".pb-text");
+  b.querySelector(".pb-count").textContent="Thoại "+(PICK_TALK.idx+1)+"/"+lines.length+(PICK_TALK.idx===lines.length-1?" · Bấm nhân vật lần nữa để nghe lại từ đầu":" · Bấm nhân vật lần nữa để nghe câu tiếp theo");
+  b.classList.add("show");
+  if(PICK_TALK.typing){ clearInterval(PICK_TALK.typing); PICK_TALK.typing=null; }
+  if(reduced){
+    txt.textContent=line.t; el.classList.remove("speaking");
+  } else {
+    txt.textContent=""; var ci=0;
+    PICK_TALK.typing=setInterval(function(){
+      ci++; txt.textContent=line.t.slice(0,ci);
+      if(ci>=line.t.length){ clearInterval(PICK_TALK.typing); PICK_TALK.typing=null; el.classList.remove("speaking"); }
+    }, 16);
+  }
+  sndClick();
+  var fq=line.a==="clap"?740:(line.a==="bow"?392:(line.a==="point"?587:523));
+  setTimeout(function(){ beep(fq,.09); }, 70);
+  if(line.a==="clap") setTimeout(function(){ beep(880,.1); }, 190);
+  if(PICK_TALK.gestT) clearTimeout(PICK_TALK.gestT);
+  PICK_TALK.gestT=setTimeout(function(){ PICK_GESTS.forEach(function(gc){ el.classList.remove(gc); }); }, 3400);
 }
 function openPick(){
   renderPick(); show("screen-pick");
