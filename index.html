@@ -308,9 +308,9 @@
   @keyframes clapForeRK{from{transform:rotate(-5deg)}to{transform:rotate(-33deg)}}
   /* CÚI CHÀO: cả người cúi nhẹ về phía trước, đầu gật theo (màn tái hiện) */
   .ractor.gest-bow svg,.cactor.gest-bow svg,.char.gest-bow svg,.wnpc.gest-bow svg{animation:bowK 1.8s ease-in-out infinite; transform-origin:50% 100%}
-  @keyframes bowK{0%,100%{transform:rotate(0deg) translateY(0)}32%,62%{transform:rotate(6.5deg) translateY(4px)}}
+  @keyframes bowK{0%,100%{transform:rotate(0deg) translateY(0)}32%,62%{transform:rotate(11deg) translateY(6px)}}
   .gest-bow .head-joint,.gest-bow .npc-head{animation:bowHeadK 1.8s ease-in-out infinite}
-  @keyframes bowHeadK{0%,100%{transform:rotate(0deg)}32%,62%{transform:rotate(9deg) translateY(1px)}}
+  @keyframes bowHeadK{0%,100%{transform:rotate(0deg)}32%,62%{transform:rotate(14deg) translateY(1.5px)}}
   /* GẬT ĐẦU đồng tình */
   .gest-nod .head-joint,.gest-nod .npc-head{animation:nodK .8s ease-in-out infinite}
   @keyframes nodK{0%,100%{transform:rotate(0deg) translateY(0)}45%{transform:rotate(6deg) translateY(1.2px)}}
@@ -930,48 +930,75 @@
   .pick-bubble .pb-close:hover{color:#43300d}
   .pick-stage.has-actor{min-height:312px}
   @media (max-width:560px){ .pick-stage.has-actor{min-height:338px} }
-  /* ANIMATION CHỜ RIÊNG của từng nhân vật trên sân khấu (không ai giống ai) */
+  /* ANIMATION CHỜ RIÊNG của từng nhân vật trên sân khấu (không ai giống ai).
+     Biên độ LỚN và nhịp khác hẳn nhau để nhìn từ xa cũng phân biệt được:
+     Roland nhảy chào kiếm · Lý Bạch đung đưa ngâm thơ · Sri xoay vòng múa đền ·
+     Columbus chao mạnh như trên thuyền · Imhotep cúi chép chữ · Bác Kha cúi sâu gieo hạt ·
+     Ông Ba chạy vòng tròn như bánh răng · Cụ Phan gật đầu sâu · Anh Tạ hành quân dậm chân ·
+     Cô Lan bước ngang giảng bài. Kèm nhãn tên điệu bộ (.pmove) ngay dưới tên nhân vật. */
   .pick-npc[class*="sig-"] svg{transform-origin:50% 92%}
-  .pick-npc.sig-roland svg{animation:guardK 1.7s ease-in-out infinite}
-  @keyframes guardK{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-1.2deg)}55%{transform:translateY(0)}75%{transform:translateY(-2px)}}
-  .pick-npc.sig-libai svg{animation:poetSwayK 3.8s ease-in-out infinite}
-  @keyframes poetSwayK{0%,100%{transform:rotate(-2.6deg) translateX(-2px)}50%{transform:rotate(2.6deg) translateX(2px) translateY(-2px)}}
-  .pick-npc.sig-sri svg{animation:templeDanceK 3.1s ease-in-out infinite}
-  @keyframes templeDanceK{0%,100%{transform:rotate(-3deg) translateY(0)}25%{transform:rotate(0) translateY(-4px) scale(1.03)}50%{transform:rotate(3deg) translateY(0)}75%{transform:rotate(0) translateY(-4px) scale(1.03)}}
-  .pick-npc.sig-columbus svg{animation:shipRockK 2.9s ease-in-out infinite}
-  @keyframes shipRockK{0%,100%{transform:rotate(2.4deg) translateY(-1px)}50%{transform:rotate(-2.4deg) translateY(-5px)}}
-  .pick-npc.sig-imhotep svg{animation:scribeK 1.5s ease-in-out infinite}
-  @keyframes scribeK{0%,100%{transform:translateY(0) rotate(.6deg)}25%{transform:translateY(-1.6px) rotate(-.6deg)}55%{transform:translateY(-.6px) rotate(.8deg)}80%{transform:translateY(-1.8px) rotate(-.4deg)}}
-  .pick-npc.sig-kha svg{animation:sowIdleK 2.7s ease-in-out infinite}
-  @keyframes sowIdleK{0%,100%{transform:rotate(0) translateY(0)}35%{transform:rotate(6.5deg) translateY(3px)}60%{transform:rotate(5deg) translateY(2px)}}
-  .pick-npc.sig-ongba svg{animation:crankIdleK 1.9s linear infinite}
-  @keyframes crankIdleK{0%{transform:translate(0,0)}25%{transform:translate(2px,-2.5px)}50%{transform:translate(0,-4.5px)}75%{transform:translate(-2px,-2.5px)}100%{transform:translate(0,0)}}
-  .pick-npc.sig-phan svg{animation:scholarK 4.4s ease-in-out infinite}
-  @keyframes scholarK{0%,55%,100%{transform:rotate(0) translateY(0)}70%{transform:rotate(4.5deg) translateY(1.5px)}85%{transform:rotate(3.6deg) translateY(1px)}}
-  .pick-npc.sig-ta svg{animation:marchK .95s ease-in-out infinite}
-  @keyframes marchK{0%,100%{transform:translateY(0) rotate(-1.4deg)}25%{transform:translateY(-5px) rotate(0)}50%{transform:translateY(0) rotate(1.4deg)}75%{transform:translateY(-5px) rotate(0)}}
-  .pick-npc.sig-lan svg{animation:teachIdleK 2.3s ease-in-out infinite}
-  @keyframes teachIdleK{0%,100%{transform:translateX(-2.5px) rotate(-1.6deg)}50%{transform:translateX(2.5px) rotate(1.6deg) translateY(-2px)}}
+  .pick-npc .pmove{display:block; margin-top:2px; font-size:10px; font-weight:800; letter-spacing:.2px; color:var(--gold2); opacity:.95; white-space:nowrap}
+  .pick-npc.sig-roland svg{animation:guardK 2s ease-in-out infinite}
+  @keyframes guardK{0%,52%,100%{transform:translateY(0) rotate(0)}62%{transform:translateY(-13px) rotate(-6deg)}72%{transform:translateY(0) rotate(0)}80%{transform:translateY(-4px) rotate(2deg)}88%{transform:translateY(0) rotate(0)}}
+  .pick-npc.sig-libai svg{animation:poetSwayK 3.2s ease-in-out infinite}
+  @keyframes poetSwayK{0%,100%{transform:rotate(-10deg) translateX(-6px) translateY(0)}50%{transform:rotate(10deg) translateX(6px) translateY(-4px)}}
+  .pick-npc.sig-sri svg{animation:templeDanceK 2.6s ease-in-out infinite}
+  @keyframes templeDanceK{0%,100%{transform:rotate(-6deg) translateY(0) scale(1)}18%{transform:rotate(6deg) translateY(-10px) scale(1.05)}36%{transform:rotate(-6deg) translateY(0) scale(1)}46%{transform:translateY(2px) scale(.93)}72%{transform:rotate(360deg) translateY(-9px) scale(1.04)}82%,96%{transform:rotate(360deg) translateY(0) scale(1)}}
+  .pick-npc.sig-columbus svg{animation:shipRockK 2.4s ease-in-out infinite}
+  @keyframes shipRockK{0%,100%{transform:rotate(11deg) translateY(-2px)}50%{transform:rotate(-11deg) translateY(-9px)}}
+  .pick-npc.sig-imhotep svg{animation:scribeK 1.7s ease-in-out infinite}
+  @keyframes scribeK{0%,100%{transform:rotate(0) translateY(0)}18%{transform:rotate(8deg) translateY(5px)}36%{transform:rotate(5deg) translateY(3px)}54%{transform:rotate(9deg) translateY(6px)}72%{transform:rotate(4deg) translateY(2px)}}
+  .pick-npc.sig-kha svg{animation:sowIdleK 2.2s ease-in-out infinite}
+  @keyframes sowIdleK{0%,100%{transform:rotate(0) translateY(0)}38%{transform:rotate(20deg) translateY(8px)}58%{transform:rotate(17deg) translateY(7px)}78%{transform:rotate(6deg) translateY(2px)}}
+  .pick-npc.sig-ongba svg{animation:crankIdleK 1.3s linear infinite}
+  @keyframes crankIdleK{0%{transform:translate(0,0)}25%{transform:translate(6px,-6px)}50%{transform:translate(0,-11px)}75%{transform:translate(-6px,-6px)}100%{transform:translate(0,0)}}
+  .pick-npc.sig-phan svg{animation:scholarK 3.4s ease-in-out infinite}
+  @keyframes scholarK{0%,38%,100%{transform:rotate(0) translateY(0)}55%{transform:rotate(12deg) translateY(5px)}72%{transform:rotate(10deg) translateY(4px)}86%{transform:rotate(3deg) translateY(1px)}}
+  .pick-npc.sig-ta svg{animation:marchK .8s ease-in-out infinite}
+  @keyframes marchK{0%,100%{transform:translateY(0) translateX(-2px) rotate(-5deg)}25%{transform:translateY(-11px) translateX(0) rotate(0)}50%{transform:translateY(0) translateX(2px) rotate(5deg)}75%{transform:translateY(-11px) translateX(0) rotate(0)}}
+  .pick-npc.sig-lan svg{animation:teachIdleK 1.9s ease-in-out infinite}
+  @keyframes teachIdleK{0%,100%{transform:translateX(-9px) rotate(-4deg) translateY(0)}50%{transform:translateX(9px) rotate(4deg) translateY(-3px)}}
+  /* TAY RIÊNG ngay cả khi ĐỨNG CHỜ (chưa bấm): mỗi nhân vật một cử chỉ tay khác nhau.
+     Khi bấm vào (thêm .speaking) các rule .speaking ở dưới có độ ưu tiên cao hơn nên vẫn thắng. */
+  .pick-npc.sig-roland .npc-arm-r{animation:waveArmK 1.15s ease-in-out infinite}
+  .pick-npc.sig-roland .npc-arm-r .npc-fore{animation:waveForeK .55s ease-in-out infinite}
+  .pick-npc.sig-libai .npc-arm-r{animation:talkArmK 2.2s ease-in-out infinite}
+  .pick-npc.sig-libai .npc-arm-r .npc-fore{animation:talkForeK 2.2s ease-in-out infinite}
+  .pick-npc.sig-sri .npc-arm-l{animation:clapArmLK .64s ease-in-out infinite}
+  .pick-npc.sig-sri .npc-arm-r{animation:clapArmRK .64s ease-in-out infinite}
+  .pick-npc.sig-sri .npc-arm-l .npc-fore{animation:clapForeLK .3s ease-in-out infinite alternate}
+  .pick-npc.sig-sri .npc-arm-r .npc-fore{animation:clapForeRK .3s ease-in-out infinite alternate}
+  .pick-npc.sig-columbus .npc-arm-r{animation:pointArmK 1.7s ease-in-out infinite}
+  .pick-npc.sig-columbus .npc-arm-r .npc-fore{animation:pointForeK 1.7s ease-in-out infinite}
+  .pick-npc.sig-imhotep .npc-arm-r{animation:scribeArmK .5s ease-in-out infinite}
+  .pick-npc.sig-kha .npc-arm-r{animation:sowArmK 1.15s ease-in-out infinite}
+  .pick-npc.sig-ongba .npc-arm-r{animation:none; transform:rotate(-64deg)}
+  .pick-npc.sig-ongba .npc-arm-r .npc-fore{animation:crankForeK .8s linear infinite; transform-origin:50% 10%}
+  .pick-npc.sig-phan .npc-head{animation:nodK 1.6s ease-in-out infinite}
+  .pick-npc.sig-ta .npc-arm-r{animation:saluteArmK 1.6s ease-in-out infinite}
+  .pick-npc.sig-ta .npc-arm-r .npc-fore{animation:none; transform:rotate(-6deg)}
+  .pick-npc.sig-lan .npc-arm-r{animation:talkArmK 1.5s ease-in-out infinite}
+  .pick-npc.sig-lan .npc-arm-r .npc-fore{animation:talkForeK 1.5s ease-in-out infinite}
   /* ANIMATION RIÊNG khi nhân vật đang ĐỌC THÔNG ĐIỆP (lớp .sig-act bật lúc bấm vào) */
   .pick-npc.sig-act.sig-roland svg{animation:saluteActK .95s ease-in-out infinite}
-  @keyframes saluteActK{0%,100%{transform:translateY(0)}35%{transform:translateY(-8px) rotate(-2deg)}60%{transform:translateY(-6px)}}
+  @keyframes saluteActK{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-17px) rotate(-4deg)}60%{transform:translateY(-12px) rotate(-2deg)}}
   .pick-npc.sig-act.sig-libai svg{animation:reciteActK 2.1s ease-in-out infinite}
-  @keyframes reciteActK{0%,100%{transform:rotate(-4deg) translateY(-3px)}50%{transform:rotate(2deg) translateY(0)}}
-  .pick-npc.sig-act.sig-sri svg{animation:spinDanceK 1.7s ease-in-out infinite}
-  @keyframes spinDanceK{0%,100%{transform:rotate(-7deg) translateY(-2px)}50%{transform:rotate(7deg) translateY(-5px) scale(1.05)}}
+  @keyframes reciteActK{0%,100%{transform:rotate(-11deg) translateX(-5px) translateY(-4px)}50%{transform:rotate(7deg) translateX(4px) translateY(0)}}
+  .pick-npc.sig-act.sig-sri svg{animation:spinDanceK 1.5s ease-in-out infinite}
+  @keyframes spinDanceK{0%{transform:rotate(0) translateY(0) scale(1)}30%{transform:rotate(0) translateY(3px) scale(.93)}65%{transform:rotate(360deg) translateY(-13px) scale(1.07)}85%,100%{transform:rotate(360deg) translateY(0) scale(1)}}
   .pick-npc.sig-act.sig-columbus svg{animation:pointSeaK 1.5s ease-in-out infinite}
-  @keyframes pointSeaK{0%,100%{transform:translateX(0) rotate(0)}45%{transform:translateX(4px) rotate(3.5deg)}70%{transform:translateX(3px) rotate(3deg)}}
+  @keyframes pointSeaK{0%,100%{transform:translateX(0) rotate(0)}45%{transform:translateX(9px) rotate(8deg)}70%{transform:translateX(7px) rotate(6deg)}}
   .pick-npc.sig-act.sig-imhotep svg{animation:bowK 1.8s ease-in-out infinite}
   .pick-npc.sig-act.sig-kha svg{animation:sowActK 1.15s ease-in-out infinite}
-  @keyframes sowActK{0%,100%{transform:rotate(1deg) translateY(0)}45%{transform:rotate(11deg) translateY(4px)}70%{transform:rotate(8deg) translateY(3px)}}
+  @keyframes sowActK{0%,100%{transform:rotate(1deg) translateY(0)}45%{transform:rotate(23deg) translateY(9px)}70%{transform:rotate(18deg) translateY(7px)}}
   .pick-npc.sig-act.sig-ongba svg{animation:crankActK .8s linear infinite}
-  @keyframes crankActK{0%{transform:translate(0,0)}25%{transform:translate(3.5px,-3.5px)}50%{transform:translate(0,-6.5px)}75%{transform:translate(-3.5px,-3.5px)}100%{transform:translate(0,0)}}
+  @keyframes crankActK{0%{transform:translate(0,0)}25%{transform:translate(7px,-7px)}50%{transform:translate(0,-13px)}75%{transform:translate(-7px,-7px)}100%{transform:translate(0,0)}}
   .pick-npc.sig-act.sig-phan svg{animation:scholarActK 2.4s ease-in-out infinite}
-  @keyframes scholarActK{0%,100%{transform:rotate(0)}30%{transform:rotate(6deg) translateY(2px)}60%{transform:rotate(5deg) translateY(1.5px)}}
+  @keyframes scholarActK{0%,100%{transform:rotate(0) translateY(0)}30%{transform:rotate(13deg) translateY(5px)}60%{transform:rotate(11deg) translateY(4px)}}
   .pick-npc.sig-act.sig-ta svg{animation:stompActK .55s ease-in-out infinite}
-  @keyframes stompActK{0%,100%{transform:translateY(0)}40%{transform:translateY(-6.5px)}}
+  @keyframes stompActK{0%,100%{transform:translateY(0)}40%{transform:translateY(-13px)}}
   .pick-npc.sig-act.sig-lan svg{animation:teachActK 1.3s ease-in-out infinite}
-  @keyframes teachActK{0%,100%{transform:translateX(-4px) rotate(-2.5deg)}50%{transform:translateX(4px) rotate(2.5deg) translateY(-2px)}}
+  @keyframes teachActK{0%,100%{transform:translateX(-8px) rotate(-5deg)}50%{transform:translateX(8px) rotate(5deg) translateY(-4px)}}
   /* TAY RIÊNG khi đọc thông điệp: Roland & Anh Tạ chào nghiêm · Columbus & Cô Lan chỉ tay · Sri vỗ tay · Bác Kha gieo hạt · Ông Ba quay tay máy · Imhotep chép chữ */
   .pick-npc.sig-roland.speaking .npc-arm-r,.pick-npc.sig-ta.speaking .npc-arm-r{animation:saluteArmK 1.6s ease-in-out infinite}
   @keyframes saluteArmK{0%,100%{transform:rotate(-158deg)}50%{transform:rotate(-169deg)}}
@@ -990,7 +1017,7 @@
   .pick-npc.sig-imhotep.speaking .npc-arm-r{animation:scribeArmK .5s ease-in-out infinite}
   @keyframes scribeArmK{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(-41deg)}}
   .pick-npc.sig-phan.speaking .npc-head{animation:nodK 1.6s ease-in-out infinite}
-  @media (prefers-reduced-motion: reduce){ .pick-npc[class*="sig-"] svg,.pick-npc.sig-act svg,.pick-npc.speaking .npc-arm-l,.pick-npc.speaking .npc-arm-r,.pick-npc.speaking .npc-arm-l .npc-fore,.pick-npc.speaking .npc-arm-r .npc-fore,.pick-npc.speaking .npc-head{animation:none} }
+  @media (prefers-reduced-motion: reduce){ .pick-npc[class*="sig-"] svg,.pick-npc.sig-act svg,.pick-npc .npc-arm-l,.pick-npc .npc-arm-r,.pick-npc .npc-arm-l .npc-fore,.pick-npc .npc-arm-r .npc-fore,.pick-npc .npc-head{animation:none} }
 </style>
 </head>
 <body>
@@ -4674,7 +4701,7 @@ function renderPick(){
     var worldYears = g===7 ? "476 – thế kỉ XVI · 5 thời kỳ của lịch sử thế giới trung đại" : w.years;
     var stageBg = g===7 ? ERAS[0].scene : w.scene;
     var npcHtml=npcs.map(function(n,ni){
-      return '<div class="pick-npc sig-'+pickSigOf(n.n)+'" role="button" tabindex="0" data-pnpc="'+ni+'" data-pgrade="'+g+'" title="Bấm để nghe thông điệp cổ điển của '+n.n+'" aria-label="Nghe thông điệp cổ điển của '+n.n+', khối '+g+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span></div></div>';
+      return '<div class="pick-npc sig-'+pickSigOf(n.n)+'" role="button" tabindex="0" data-pnpc="'+ni+'" data-pgrade="'+g+'" title="Bấm để nghe thông điệp cổ điển của '+n.n+'" aria-label="Nghe thông điệp cổ điển của '+n.n+', khối '+g+'">'+n.svg+'<div class="pshadow"></div><div><span class="pname">'+n.n+'</span><span class="pmove">'+(PICK_MOVE[pickSigOf(n.n)]||"")+'</span></div></div>';
     }).join("");
     var castHtml=npcs.map(function(n){ return n.n+" — "+n.r; }).join("<br>");
     html+='<div class="pick-card '+m.color+(PICK.grade===g?" chosen":"")+'">'
@@ -4757,6 +4784,7 @@ var PICK_LINES={
 };
 var PICK_SIG={"Hiệp sĩ Roland":"roland","Học giả Lý Bạch":"libai","Nữ vương Sri":"sri","Thuyền trưởng Columbus":"columbus","Thầy ký lục Imhotep":"imhotep","Bác Kha, nông dân sông Nin":"kha","Ông Ba, kĩ sư nhà máy":"ongba","Cụ Phan, chí sĩ Cần Vương":"phan","Anh Tạ, bộ đội Điện Biên":"ta","Cô Lan, giáo viên Hà Nội":"lan"};
 var PICK_FREQ={roland:330,libai:392,sri:440,columbus:349,imhotep:294,kha:262,ongba:311,phan:370,ta:466,lan:494};
+var PICK_MOVE={roland:"Nhảy chào kiếm",libai:"Đung đưa ngâm thơ",sri:"Xoay vòng múa đền",columbus:"Chao đảo trên thuyền",imhotep:"Cúi mình chép chữ",kha:"Cúi sâu gieo hạt",ongba:"Chạy vòng như bánh răng",phan:"Gật đầu học giả",ta:"Hành quân dậm chân",lan:"Bước ngang giảng bài"};
 function pickSigOf(n){ return PICK_SIG[n]||"roland"; }
 var PICK_TALK={key:null, idx:0, typing:null, gestT:null};
 var PICK_GESTS=["gest-wave","gest-point","gest-bow","gest-nod","gest-clap"];
