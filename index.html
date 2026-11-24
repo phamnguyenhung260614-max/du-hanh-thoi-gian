@@ -2401,32 +2401,58 @@ function updateJourney(){
   if(bEl) bEl.innerHTML = nb>0 ? "Di sản sao vàng: <b>+"+Math.min(6,nb*2)+" giây</b> cho mỗi câu hỏi" : "Đạt 3 sao một thời kỳ để nhận di sản +2 giây/câu";
 }
 
-/* ================= STARFIELD ================= */
+/* ================= STARFIELD (nền động) ================= */
 (function(){
-  var c=$("stars"), ctx=c.getContext("2d"), pts=[], meteors=[];
+  var c=$("stars"), ctx=c.getContext("2d"), pts=[], meteors=[], dust=[];
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function size(){ c.width=innerWidth; c.height=innerHeight; }
   size(); addEventListener("resize", size);
   var cols=["#cfe6ff","#ffffff","#ffe9a8","#a5f3ea"];
-  for(var i=0;i<150;i++) pts.push({x:Math.random(), y:Math.random(), r:Math.random()*1.7+.4, p:Math.random()*6.28, col:cols[i%4], sp:.6+Math.random()*.9});
-  var neb=[{x:.82,y:.08,r:.5,col:"45,212,191",a:.10},{x:.08,y:.34,r:.42,col:"245,185,66",a:.07},{x:.5,y:1.05,r:.55,col:"110,90,220",a:.10}];
-  function drawNeb(){
+  for(var i=0;i<170;i++){ var rr=Math.random()*1.7+.4;
+    pts.push({x:Math.random(), y:Math.random(), r:rr, p:Math.random()*6.28, col:cols[i%4], sp:.6+Math.random()*.9,
+      vx:-(0.000002+rr*0.0000045), vy:0.000003+rr*0.000006, sway:Math.random()*6.28});
+  }
+  for(var d=0;d<26;d++) dust.push({x:Math.random(), y:Math.random(), r:2+Math.random()*3.6,
+    vx:-(0.000008+Math.random()*0.000016), vy:-(0.000004+Math.random()*0.000009),
+    col:(d%2 ? "45,212,191" : "245,185,66"), p:Math.random()*6.28});
+  var neb=[{x:.82,y:.08,r:.5,col:"45,212,191",a:.10,ph:0},{x:.08,y:.34,r:.42,col:"245,185,66",a:.07,ph:2.1},{x:.5,y:1.05,r:.55,col:"110,90,220",a:.10,ph:4.2}];
+  function drawNeb(t){
     for(var i=0;i<neb.length;i++){ var n=neb[i], R=n.r*Math.max(c.width,c.height);
-      var g=ctx.createRadialGradient(n.x*c.width, n.y*c.height, 0, n.x*c.width, n.y*c.height, R);
-      g.addColorStop(0,"rgba("+n.col+","+n.a+")"); g.addColorStop(1,"rgba("+n.col+",0)");
+      var nx=n.x, ny=n.y, na=n.a;
+      if(!reduced){ nx += 0.045*Math.sin(t*0.000021 + n.ph); ny += 0.035*Math.cos(t*0.000017 + n.ph*1.3); na = n.a*(0.72 + 0.28*Math.sin(t*0.00023 + n.ph)); }
+      var g=ctx.createRadialGradient(nx*c.width, ny*c.height, 0, nx*c.width, ny*c.height, R);
+      g.addColorStop(0,"rgba("+n.col+","+na+")"); g.addColorStop(1,"rgba("+n.col+",0)");
       ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
     }
   }
+  var lastT=0;
   (function loop(t){
+    var dt=Math.min(50, (t-lastT)||16); lastT=t;
     ctx.clearRect(0,0,c.width,c.height);
-    drawNeb();
+    drawNeb(t);
     for(var i=0;i<pts.length;i++){ var s=pts[i];
+      if(!reduced){ s.x += s.vx*dt; s.y += s.vy*dt;
+        if(s.x < -0.01) s.x += 1.02; if(s.y > 1.01) s.y -= 1.02; }
+      var sx = s.x*c.width + (reduced ? 0 : Math.sin(t/2800 + s.sway)*3.5);
+      var sy = s.y*c.height;
       ctx.globalAlpha = .3 + .6*Math.abs(Math.sin(t/(1500*s.sp) + s.p));
-      ctx.fillStyle=s.col; ctx.beginPath(); ctx.arc(s.x*c.width, s.y*c.height, s.r, 0, 6.29); ctx.fill();
-      if(s.r>1.6){ ctx.globalAlpha*=.5; ctx.fillRect(s.x*c.width-s.r*3, s.y*c.height-.5, s.r*6, 1); ctx.fillRect(s.x*c.width-.5, s.y*c.height-s.r*3, 1, s.r*6); }
+      ctx.fillStyle=s.col; ctx.beginPath(); ctx.arc(sx, sy, s.r, 0, 6.29); ctx.fill();
+      if(s.r>1.6){ ctx.globalAlpha*=.5; ctx.fillRect(sx-s.r*3, sy-.5, s.r*6, 1); ctx.fillRect(sx-.5, sy-s.r*3, 1, s.r*6); }
     }
     if(!reduced){
-      if(Math.random()<0.004 && meteors.length<2) meteors.push({x:Math.random()*c.width*.7+c.width*.2, y:Math.random()*c.height*.25, vx:-(5+Math.random()*3), vy:3+Math.random()*2, life:1});
+      for(var j=0;j<dust.length;j++){ var du=dust[j];
+        du.x += du.vx*dt; du.y += du.vy*dt;
+        if(du.x < -0.02){ du.x = 1.02; du.y = Math.random(); }
+        if(du.y < -0.02){ du.y = 1.02; du.x = Math.random(); }
+        var da = .10 + .13*(0.5 + 0.5*Math.sin(t/1900 + du.p));
+        var dg = ctx.createRadialGradient(du.x*c.width, du.y*c.height, 0, du.x*c.width, du.y*c.height, du.r*3.2);
+        dg.addColorStop(0, "rgba("+du.col+","+da+")"); dg.addColorStop(1, "rgba("+du.col+",0)");
+        ctx.globalAlpha = 1; ctx.fillStyle = dg;
+        ctx.beginPath(); ctx.arc(du.x*c.width, du.y*c.height, du.r*3.2, 0, 6.29); ctx.fill();
+      }
+    }
+    if(!reduced){
+      if(Math.random()<0.007 && meteors.length<3) meteors.push({x:Math.random()*c.width*.7+c.width*.2, y:Math.random()*c.height*.25, vx:-(5+Math.random()*3), vy:3+Math.random()*2, life:1});
       for(var m=meteors.length-1;m>=0;m--){ var mt=meteors[m]; mt.x+=mt.vx; mt.y+=mt.vy; mt.life-=.016;
         if(mt.life<=0 || mt.x<-60 || mt.y>c.height+60){ meteors.splice(m,1); continue; }
         var mg=ctx.createLinearGradient(mt.x, mt.y, mt.x-mt.vx*9, mt.y-mt.vy*9);
@@ -4765,9 +4791,10 @@ function pickBubbleOf(stage){
   }
   return b;
 }
-/* Neo khung thông điệp SÁT TRÊN ĐẦU nhân vật đang nói: tâm ngang của khung
-   trùng với tâm của nhân vật, mép dưới khung cách đỉnh đầu ~12px, đuôi khung
-   trỏ thẳng xuống đầu nhân vật. Nhân vật đứng ở mép dưới sân khấu nên khoảng
+/* Neo khung thông điệp NGAY TRÊN ĐẦU nhân vật đang nói: tâm ngang của khung
+   trùng với tâm của nhân vật, mép dưới khung chạm thẳng đỉnh đầu (khoảng cách
+   0px) và đuôi khung dài 8px trỏ xuống, chạm ngay vào đầu nhân vật như bong
+   bóng thoại dính liền trên đầu. Nhân vật đứng ở mép dưới sân khấu nên khoảng
    cách từ đầu tới đáy sân khấu không đổi khi sân khấu giãn chiều cao. */
 function positionPickBubble(stage, el, b){
   if(!stage||!el) return;
@@ -4779,7 +4806,7 @@ function positionPickBubble(stage, el, b){
   var lo=half+6, hi=sr.width-half-6;
   var clamped=(hi<lo)? sr.width/2 : Math.max(lo, Math.min(hi, cx));
   b.style.left=clamped+"px";
-  b.style.bottom=((sr.bottom-er.top)+12)+"px";
+  b.style.bottom=(sr.bottom-er.top)+"px";
   b.style.setProperty("--tail-x", Math.max(16, Math.min(bw-16, cx-(clamped-half)))+"px");
 }
 window.addEventListener("resize", function(){
