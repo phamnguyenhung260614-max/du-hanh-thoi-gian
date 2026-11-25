@@ -1175,6 +1175,37 @@
   .wmap-node.done{border-color:var(--gold); color:var(--ink); background:linear-gradient(180deg,#4a3608,#33270a); box-shadow:0 0 16px rgba(245,185,66,.35)}
   .wmap-node.done .wn-num{background:var(--gold); color:#231a02}
   .wmap-node.dark{opacity:.48; filter:grayscale(.8)}
+
+  /* ================= 3 TÍNH NĂNG MỚI: nhiệm vụ hằng ngày · thành tựu & huy hiệu · quà đăng nhập ================= */
+  .daily-card{border-color:rgba(245,185,66,.55)}
+  .gift-line{background:rgba(245,185,66,.12); border:1px dashed rgba(245,185,66,.7); border-radius:12px; padding:9px 12px; margin-top:10px; line-height:1.55; font-size:14px}
+  .gift-line b{color:var(--gold2)}
+  .dm-row{display:flex; align-items:center; gap:9px; background:#0d1330; border:1px solid var(--line); border-radius:12px; padding:9px 12px; margin-top:8px; font-size:14px; flex-wrap:wrap}
+  .dm-ico{font-size:18px; flex:none}
+  .dm-name{font-weight:800; flex:1; min-width:130px; line-height:1.4}
+  .dm-name small{display:block; font-weight:600; color:var(--muted); font-size:12.5px; line-height:1.45}
+  .dm-prog{font-weight:900; color:var(--gold2); flex:none}
+  .dm-state{font-size:12.5px; font-weight:800; color:var(--muted); flex:none}
+  .dm-state.done{color:#7df0df}
+  .claim-btn{background:linear-gradient(180deg,#ffd97a,#f5b942); color:#231a02; border:none; border-radius:10px; padding:9px 15px; font-weight:900; font-size:13.5px; min-height:40px; box-shadow:0 4px 12px rgba(245,185,66,.35); flex:none}
+  .claim-btn:disabled{background:#2c376e; color:#8b93bd; box-shadow:none; cursor:default}
+  .streak-row{display:flex; gap:7px; flex-wrap:wrap; margin-top:8px}
+  .streak-cell{flex:1 1 86px; min-width:86px; text-align:center; border:1.5px solid var(--line); border-radius:14px; padding:10px 6px; background:#121a3d; font-size:12.5px; line-height:1.45; color:var(--muted)}
+  .streak-cell .sc-day{font-weight:900; font-size:13.5px; display:block; color:var(--ink)}
+  .streak-cell.got{border-color:rgba(45,212,191,.6); opacity:.78}
+  .streak-cell.got .sc-day{color:#7df0df}
+  .streak-cell.today{border-color:var(--gold); background:linear-gradient(180deg,#4a3608,#33270a); box-shadow:0 0 14px rgba(245,185,66,.35); color:var(--ink)}
+  .streak-cell.today .sc-day{color:var(--gold2)}
+  .streak-cell.big{border-width:2px}
+  .badge-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:12px; margin-top:12px}
+  .badge-card{border-radius:16px; padding:14px 12px; text-align:center; border:1.5px solid var(--gold); background:linear-gradient(180deg,#2a2140,#1a1430); box-shadow:0 8px 20px rgba(0,0,0,.35)}
+  .badge-card .bc-art{height:56px; display:flex; align-items:center; justify-content:center}
+  .badge-card .bc-name{font-weight:900; font-size:15.5px; margin-top:6px; color:var(--gold2); line-height:1.3}
+  .badge-card .bc-desc{color:var(--ink); font-size:12.5px; margin-top:6px; line-height:1.5; opacity:.92}
+  .badge-card .bc-state{display:inline-block; margin-top:8px; font-size:12px; font-weight:900; color:#0b2f42; background:linear-gradient(180deg,#7df0df,#2dd4bf); border-radius:999px; padding:3px 11px}
+  .badge-card.locked{border-color:var(--line); background:linear-gradient(180deg,#1c2656,#141b3d); filter:grayscale(.9); opacity:.62}
+  .badge-card.locked .bc-name{color:var(--muted)}
+  .badge-card.locked .bc-state{background:#2c376e; color:#8b93bd}
 </style>
 </head>
 <body>
@@ -1268,6 +1299,7 @@
       <div id="homeLbList"></div>
     </div>
     <div class="pet-card" id="petCard"></div>
+    <div class="pet-card daily-card" id="dailyCard" style="display:none"></div>
     <div class="story-box">
       <b>Năm 3026.</b> Cỗ máy thời gian <b>Chrono</b> bị Kẻ Đánh Cắp Thời Gian phá vỡ. Năm Mảnh Thời Gian văng tung tóe về 5 thời kỳ khác nhau của lịch sử nhân loại. Nếu không thu hồi đủ các mảnh, lịch sử sẽ bị xáo trộn mãi mãi!
       <br><br>Bạn là <b>Nhà Du Hành</b> trẻ tuổi. Cùng robot trợ lý <b>Tí Nị</b>, hãy lên đường: đến châu Âu trung đại, Trung Quốc phong kiến, Ấn Độ, Đông Nam Á — và kết thúc ở thời đại Phát kiến địa lí &amp; Phục hưng.
@@ -1296,6 +1328,9 @@
       <br>• <b>Cốt truyện &amp; Thế giới mở cho cả 4 khối 6 · 7 · 8 · 9</b> — mỗi khối có <b>13 thế giới mở nối tiếp nhau theo cốt truyện</b> (riêng khối 7 có 12 thế giới mở phụ, cộng thêm hành trình chính 5 thời kỳ): mở đầu bằng <b>đoạn truyện đối thoại</b> với Tí Nị, nhân vật lịch sử và Kẻ Đánh Cắp Thời Gian, rồi vào <b>bản đồ thế giới mở</b> đi tự do bằng phím WASD / nút ảo, tìm <b>10 trạm câu hỏi</b>, ghé NPC nghe gợi ý, giữ 3 tim, ăn điểm tốc độ — trả lời sai vẫn kích hoạt <b>hiệu ứng cánh bướm</b> và <b>trang sử bị viết lại</b> như hành trình chính. Vào qua nút “Thế giới mở 6 · 7 · 8 · 9” ở màn hình đầu, bản đồ hành trình hoặc thẻ của từng khối trong màn Cấp độ &amp; Phân khối.
       <br>• <b>Boss cuối mỗi khối</b> — qua hết mọi thế giới của một khối sẽ mở khóa trận quyết chiến với <b>Kẻ Đánh Cắp Thời Gian</b>: phải trả lời <b>đúng liên tiếp 5 câu</b> mới phá được 5 lớp khiên của hắn, sai một câu là chuỗi đúng về 0 và mất 1 tim.
       <br>• <b>Bảng xếp hạng bạn bè</b> — điểm cao nhất, tổng sao và số Boss đã hạ của từng người chơi được lưu ngay trên máy này; bạn bè chơi cùng một máy nhập tên của mình để ghi điểm riêng, rồi so xem ai nhiều sao hơn (mở qua nút “🏆 Bảng xếp hạng bạn bè” trong menu Học tập &amp; khám phá).
+      <br>• <b>Nhiệm vụ hằng ngày</b> — mỗi ngày có 3 nhiệm vụ nhỏ (trả lời đúng 5 câu, qua 1 màn, nói chuyện với 2 NPC); làm xong nhiệm vụ nào nhận sao và điểm thưởng của nhiệm vụ đó, xong cả 3 còn được thưởng thêm.
+      <br>• <b>Quà đăng nhập hằng ngày</b> — vào game mỗi ngày là nhận ngay 1 phần quà; giữ chuỗi đăng nhập liên tiếp đủ 7 ngày sẽ nhận quà lớn: +300 điểm, +2 sao và +1 tim dự trữ.
+      <br>• <b>Thành tựu &amp; huy hiệu</b> — 8 huy hiệu riêng cho các cột mốc lớn: qua hết từng khối 6 · 7 · 8 · 9, trả lời đúng trọn 10/10, sưu tầm đủ 5 Mảnh Thời Gian, hạ gục Boss cuối khối và sưu tầm đủ bộ 12 thẻ bài danh nhân.
     </div>
     <h3 class="cast-title">Gặp gỡ dàn nhân vật</h3>
     <div class="cast-grid" id="castGrid"></div>
@@ -1321,6 +1356,8 @@
         <button class="hub-btn" id="weeklyBtn" type="button" title="Mỗi tuần một chủ đề lớn — hoàn thành để nhận danh hiệu riêng của tuần">📅 Nhiệm vụ theo tuần</button>
         <button class="hub-btn" id="shopBtn" type="button" title="Dùng điểm đổi trang phục theo thời kỳ cho Nhà Du Hành: áo giáp hiệp sĩ, áo dài, đồ samurai">🛍️ Cửa hàng trang phục</button>
         <button class="hub-btn gold" id="wmapBtn" type="button" title="Một bản đồ lớn hiện cả 51 thế giới mở và 5 thời kỳ — đi tới đâu, bản đồ sáng tới đó">🗺️ Bản đồ thế giới tổng</button>
+        <button class="hub-btn gold" id="dailyBtn" type="button" title="Mỗi ngày 3 nhiệm vụ nhỏ: trả lời đúng 5 câu, qua 1 màn, nói chuyện với 2 NPC — làm xong nhận sao và điểm thưởng; vào game mỗi ngày nhận quà đăng nhập, đủ 7 ngày liên tiếp nhận quà lớn">📋 Nhiệm vụ hằng ngày & Quà đăng nhập</button>
+        <button class="hub-btn gold" id="badgesBtn" type="button" title="Bộ sưu tập huy hiệu thành tựu: qua hết 1 khối, trả lời đúng 10/10, sưu tầm đủ 5 Mảnh Thời Gian… mỗi thành tựu có một huy hiệu riêng">🏅 Thành tựu & huy hiệu</button>
       </div>
     </div>
     <div class="save-box" id="saveBox">
@@ -1923,6 +1960,33 @@
     <div class="dialog-nav">
       <button class="btn ghost" id="wmapHomeBtn" type="button">Về màn hình chính</button>
       <button class="btn ghost" id="wmapHubBtn" type="button">Vào sảnh thế giới mở</button>
+    </div>
+  </section>
+
+  <!-- ============ NHIỆM VỤ HẰNG NGÀY & QUÀ ĐĂNG NHẬP ============ -->
+  <section class="screen" id="screen-daily">
+    <h2 class="map-title">📋 Nhiệm vụ hằng ngày &amp; Quà đăng nhập</h2>
+    <p class="map-sub">Mỗi ngày, Cổng Thời Gian giao cho bạn <b style="color:var(--ink)">3 nhiệm vụ nhỏ</b> và <b style="color:var(--ink)">1 phần quà đăng nhập</b>. Làm xong nhiệm vụ nào thì bấm <b style="color:var(--ink)">Nhận thưởng</b> của nhiệm vụ đó để nhận <b style="color:var(--ink)">sao và điểm thưởng</b>; làm xong cả 3 nhiệm vụ trong một ngày còn được <b style="color:var(--ink)">thưởng thêm</b>. Nhiệm vụ làm mới vào ngày hôm sau. Vào game <b style="color:var(--ink)">mỗi ngày</b> để giữ chuỗi đăng nhập — đủ <b style="color:var(--ink)">7 ngày liên tiếp</b> sẽ nhận <b style="color:var(--ink)">quà lớn</b>!</p>
+    <h3 style="margin:16px 0 2px; font-size:19px">🎁 Quà đăng nhập hằng ngày</h3>
+    <p style="color:var(--muted); line-height:1.6; margin:4px 0" id="loginStreakInfo"></p>
+    <div class="streak-row" id="streakRow"></div>
+    <h3 style="margin:20px 0 2px; font-size:19px">📋 3 nhiệm vụ hôm nay</h3>
+    <div id="dailyList"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="dailyHomeBtn" type="button">Về màn hình chính</button>
+      <button class="btn ghost" id="dailyHubBtn" type="button">Vào sảnh thế giới mở — làm nhiệm vụ</button>
+    </div>
+  </section>
+
+  <!-- ============ THÀNH TỰU & HUY HIỆU ============ -->
+  <section class="screen" id="screen-badges">
+    <h2 class="map-title">🏅 Thành tựu &amp; huy hiệu</h2>
+    <p class="map-sub">Mỗi cột mốc lớn trong hành trình đều có <b style="color:var(--ink)">một huy hiệu riêng</b> chờ bạn mở khóa: qua hết một khối, trả lời đúng trọn <b style="color:var(--ink)">10/10</b>, sưu tầm đủ <b style="color:var(--ink)">5 Mảnh Thời Gian</b>, hạ gục Kẻ Đánh Cắp Thời Gian… Huy hiệu đã mở sẽ sáng rực trong bộ sưu tập này mãi mãi.</p>
+    <p class="shop-bal" id="badgesCount"></p>
+    <div class="badge-grid" id="badgesGrid"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="badgesHomeBtn" type="button">Về màn hình chính</button>
+      <button class="btn ghost" id="badgesHubBtn" type="button">Vào sảnh thế giới mở — chinh phục tiếp</button>
     </div>
   </section>
 </div>
@@ -3221,6 +3285,7 @@ function finishAnswer(chosen){
   if(chosen===item.ans){
     var bonus=Math.round(S.timeLeft)*2;
     var pts=100+bonus; S.eraScore+=pts; S.score+=pts; S.eraCorrect++;
+    if(typeof dailyProgress==="function") dailyProgress("correct");
     sndGood();
     ex.innerHTML="<b>Đúng rồi! +"+pts+" điểm</b> (100 điểm kiến thức + "+bonus+" điểm tốc độ).<br>"+item.explain;
     toast("Đúng rồi! +"+pts+" điểm");
@@ -3359,7 +3424,7 @@ function eraResult(){
   stopWorldLoop();
   var era=ERAS[S.era];
   var passed = S.eraCorrect>=6;
-  var exHtml = (passed && typeof exComplete==="function") ? exComplete("era") : "";
+  var exHtml = (passed && typeof exComplete==="function") ? exComplete("era", S.eraCorrect) : "";
   var stars = S.eraCorrect>=9 ? 3 : (S.eraCorrect>=7 ? 2 : (S.eraCorrect>=6 ? 1 : 0));
   var card=$("resultCard");
   var eLog=eraButterflyEntries(), bflyHtml="";
@@ -3411,6 +3476,7 @@ function eraResult(){
     $("resRetry").addEventListener("click", function(){ sndClick(); startStory(S.era); });
     $("resMap").addEventListener("click", function(){ sndClick(); renderMap(); });
   }
+  if(passed && typeof checkBadges==="function") checkBadges(false); /* kiểm tra lại huy hiệu sau khi mảnh/sao của thời kỳ này đã được ghi nhận */
   show("screen-result");
   if(passed){
     $("resNext").addEventListener("click", function(){
@@ -3667,7 +3733,9 @@ function checkNear(){
         for(var si=0;si<era.story.length;si++) if(era.story[si].who===np.who){ line=era.story[si].text; break; }
       }
       bubble.innerHTML="<b>"+nm+":</b> "+line;
-      bubble.style.display="block"; shown=true; break;
+      bubble.style.display="block"; shown=true;
+      if(typeof dailyNpcTalk==="function") dailyNpcTalk("era", "era"+S.era+"-"+np.who);
+      break;
     }
   }
   if(!shown && WV.thiefPos && Math.hypot(WV.thiefPos.x-WV.x, WV.thiefPos.y-WV.y)<105){
@@ -4276,7 +4344,7 @@ function setLibraryGrade(g){
 function backHome(){
   sndClick();
   if($("hud").style.display==="flex") renderMap();
-  else { show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); if(typeof renderPetCard==="function") renderPetCard(); }
+  else { show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); if(typeof renderPetCard==="function") renderPetCard(); if(typeof renderDailyCard==="function") renderDailyCard(); }
 }
 $("levelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
 $("mapLevelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
@@ -9494,6 +9562,7 @@ function bossFinishAnswer(chosen){
   if(isGood){
     var bonus=Math.round(Math.max(0,BV.timeLeft))*2;
     var pts=100+bonus; BV.score+=pts; BV.correct++; BV.streak++;
+    if(typeof dailyProgress==="function") dailyProgress("correct");
     sndGood();
     if(BV.streak>=BOSS_NEED) won=true;
     ex.innerHTML="<b>Đúng rồi! +"+pts+" điểm</b> (100 điểm kiến thức + "+bonus+" điểm tốc độ). Chuỗi đúng liên tiếp: <b>"+BV.streak+"/"+BOSS_NEED+"</b>"+(won?" — lớp khiên cuối cùng đã vỡ tan!":" — khiên của Kẻ Đánh Cắp nứt thêm một lớp!")+"<br>"+item.explain;
@@ -9888,6 +9957,7 @@ function pickTalk(el){
   var npcs=pickNpcsFor(g), npc=npcs[parseInt(el.getAttribute("data-pnpc"),10)];
   if(!npc) return;
   var lines=pickLinesFor(npc), key=g+"|"+npc.n;
+  if(typeof dailyProgress==="function") dailyProgress("npc", "pick-"+key);
   if(PICK_TALK.key===key){
     PICK_TALK.idx=(PICK_TALK.idx+1)%lines.length;
   } else {
@@ -10209,7 +10279,9 @@ function gCheckNear(){
       var nm = np.who==="npc" ? w.npcName : w.npc2Name;
       var line = np.who==="npc" ? w.npcHint : w.npc2Hint;
       bubble.innerHTML="<b>"+nm+":</b> "+line;
-      bubble.style.display="block"; shown=true; break;
+      bubble.style.display="block"; shown=true;
+      if(typeof dailyNpcTalk==="function") dailyNpcTalk("gw", "w"+w.id+"-"+np.who);
+      break;
     }
   }
   if(!shown) bubble.style.display="none";
@@ -10323,6 +10395,7 @@ function gFinishAnswer(chosen){
   if(isGood){
     var bonus=Math.round(Math.max(0,GV.timeLeft))*2;
     var pts=100+bonus; GV.score+=pts; GV.correct++;
+    if(typeof dailyProgress==="function") dailyProgress("correct");
     sndGood();
     ex.innerHTML="<b>Đúng rồi! +"+pts+" điểm</b> (100 điểm kiến thức + "+bonus+" điểm tốc độ).<br>"+item.explain;
     toast("Đúng rồi! +"+pts+" điểm");
@@ -10423,7 +10496,7 @@ function gResult(){
   var prev=GW.done[w.id];
   if(!prev || GV.score>prev.score || stars>prev.stars){ GW.done[w.id]={stars:stars, score:GV.score, correct:GV.correct}; }
   saveProgress();
-  var exHtml = (pass && typeof exComplete==="function") ? exComplete("world") : "";
+  var exHtml = (pass && typeof exComplete==="function") ? exComplete("world", GV.correct) : "";
   var gwCount=gradeWorldsDone(w.grade);
   var gradeComplete = gwCount.total>0 && gwCount.done>=gwCount.total;
   var bossBeaten = !!(typeof BOSS_DONE!=="undefined" && BOSS_DONE[w.grade] && BOSS_DONE[w.grade].wins>0);
@@ -10715,9 +10788,11 @@ function refreshPlayerUI(){
 function enterGame(){
   authError("");
   if(typeof PROFILE!=="undefined" && PROFILE && typeof LB!=="undefined" && LB && typeof setLBPlayer==="function" && LB.player!==PROFILE.name) setLBPlayer(PROFILE.name);
+  if(typeof checkDailyLogin==="function") checkDailyLogin();
   show("screen-start");
   if(typeof renderHomeLB==="function") renderHomeLB();
   if(typeof renderPetCard==="function") renderPetCard();
+  if(typeof renderDailyCard==="function") renderDailyCard();
   refreshPlayerUI();
 }
 function doAuth(){
@@ -10793,9 +10868,11 @@ function initAuthGate(){
   setAuthMode(PROFILE ? "login" : "register");
   if(PROFILE){
     $("authName").value=PROFILE.name;
+    if(typeof checkDailyLogin==="function") checkDailyLogin();
     show("screen-start");
     if(typeof renderHomeLB==="function") renderHomeLB();
     if(typeof renderPetCard==="function") renderPetCard();
+    if(typeof renderDailyCard==="function") renderDailyCard();
     refreshPlayerUI();
   } else {
     show("screen-login");
@@ -10808,7 +10885,10 @@ function initAuthGate(){
 function freshEX(){
   return { wheelDate:"", wheelPrize:"", stories:[], bonusHearts:0, bonusStars:0,
     petXp:0, cards:{}, weekly:{week:"", prog:0, claimed:false}, titles:[],
-    costumes:{}, costume:"", spent:0 };
+    costumes:{}, costume:"", spent:0,
+    daily:{date:"", correct:0, levels:0, npcs:0, npcIds:[], claimed:{}, allBonus:false},
+    login:{last:"", streak:0, claimed:"", gift:""},
+    badges:{} };
 }
 var EX = freshEX();
 function cleanEX(obj){
@@ -10830,6 +10910,25 @@ function cleanEX(obj){
   if(obj.costumes && typeof obj.costumes==="object"){ COSTUMES.forEach(function(c){ if(obj.costumes[c.id]) out.costumes[c.id]=true; }); }
   if(typeof obj.costume==="string" && costumeById(obj.costume) && out.costumes[obj.costume]) out.costume=obj.costume;
   var sp=parseInt(obj.spent,10); out.spent=(sp>=0 && sp<=10000000)?sp:0;
+  if(obj.daily && typeof obj.daily==="object"){
+    var dd=obj.daily;
+    if(typeof dd.date==="string") out.daily.date=dd.date.slice(0,16);
+    ["correct","levels","npcs"].forEach(function(k){ var n=parseInt(dd[k],10); out.daily[k]=(n>=0 && n<=999)?n:0; });
+    if(dd.npcIds && typeof dd.npcIds.length==="number"){ for(var di=0; di<dd.npcIds.length && out.daily.npcIds.length<60; di++){ if(typeof dd.npcIds[di]==="string") out.daily.npcIds.push(dd.npcIds[di].slice(0,48)); } }
+    if(dd.claimed && typeof dd.claimed==="object"){ ["correct","levels","npcs"].forEach(function(k){ if(dd.claimed[k]) out.daily.claimed[k]=true; }); }
+    out.daily.allBonus=!!dd.allBonus;
+    /* Bản lưu của ngày khác: nhiệm vụ hôm nay chưa làm — đặt lại bộ đếm nhưng giữ nguyên ngày để dailyState() tự làm mới khi mở game */
+    if(out.daily.date!==todayStr()){ out.daily.correct=0; out.daily.levels=0; out.daily.npcs=0; out.daily.npcIds=[]; out.daily.claimed={}; out.daily.allBonus=false; }
+  }
+  if(obj.login && typeof obj.login==="object"){
+    if(typeof obj.login.last==="string") out.login.last=obj.login.last.slice(0,16);
+    if(typeof obj.login.claimed==="string") out.login.claimed=obj.login.claimed.slice(0,16);
+    if(typeof obj.login.gift==="string") out.login.gift=obj.login.gift.slice(0,300);
+    var ls=parseInt(obj.login.streak,10); out.login.streak=(ls>=0 && ls<=100000)?ls:0;
+  }
+  if(obj.badges && typeof obj.badges==="object"){
+    ["khoi6","khoi7","khoi8","khoi9","perfect10","shards5","boss1","cards12"].forEach(function(id){ if(obj.badges[id]) out.badges[id]=true; });
+  }
   return out;
 }
 function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
@@ -10909,12 +11008,14 @@ function renderPetCard(){
     +'<button class="pet-link" type="button" data-plink="weekly">📅 Nhiệm vụ tuần<small>'+th.name+' · đã xong '+ws.prog+'/'+th.target+' màn'+(ws.claimed?" · Đã nhận danh hiệu!":"")+'</small>'+(!ws.claimed?'<span class="dot"></span>':"")+'</button>'
     +'<button class="pet-link" type="button" data-plink="shop">🛍️ Cửa hàng trang phục<small>'+((EX.costume && costumeById(EX.costume)) ? "Đang mặc: "+costumeById(EX.costume).name : "Áo giáp hiệp sĩ · Áo dài · Đồ samurai")+'</small></button>'
     +'<button class="pet-link" type="button" data-plink="wmap">🗺️ Bản đồ thế giới tổng<small>51 thế giới mở + 5 thời kỳ trên một bản đồ</small></button>'
+    +'<button class="pet-link" type="button" data-plink="daily">📋 Nhiệm vụ hằng ngày<small>'+dailyCardSummary()+'</small>'+(dailyAnyClaimable()?'<span class="dot"></span>':"")+'</button>'
+    +'<button class="pet-link" type="button" data-plink="badges">🏅 Thành tựu & huy hiệu<small>Đã mở khóa '+badgeCount()+'/8 huy hiệu</small></button>'
     +'</div>';
   box.querySelectorAll("[data-plink]").forEach(function(b){
     b.addEventListener("click", function(){
       sndClick();
       var k=b.getAttribute("data-plink");
-      if(k==="wheel") openWheel(); else if(k==="cards") openCards(); else if(k==="weekly") openWeekly(); else if(k==="shop") openShop(); else if(k==="wmap") openWorldMap();
+      if(k==="wheel") openWheel(); else if(k==="cards") openCards(); else if(k==="weekly") openWeekly(); else if(k==="shop") openShop(); else if(k==="wmap") openWorldMap(); else if(k==="daily") openDaily(); else if(k==="badges") openBadges();
     });
   });
 }
@@ -11229,7 +11330,9 @@ function renderWorldMap(){
 }
 
 /* ---------- NHẬN THƯỞNG KHI QUA MÀN: XP pet + thẻ bài + nhiệm vụ tuần ---------- */
-function exComplete(kind){
+function exComplete(kind, correctCount){
+  if(typeof dailyProgress==="function") dailyProgress("levels");
+  if(typeof checkBadges==="function") checkBadges(correctCount===10);
   var xpGain = kind==="boss" ? 20 : (kind==="era" ? 15 : 10);
   var oldLv=petLevel();
   EX.petXp+=xpGain;
@@ -11254,6 +11357,246 @@ function exComplete(kind){
   renderPetCard();
   return '<div class="ex-gain"><b>Phần thưởng qua màn:</b><br>'+parts.join("<br>")+'</div>';
 }
+
+/* ================= 3 TÍNH NĂNG MỚI: NHIỆM VỤ HẰNG NGÀY · THÀNH TỰU & HUY HIỆU · QUÀ ĐĂNG NHẬP ================= */
+/* Trạng thái nằm trong EX.daily / EX.login / EX.badges và được lưu chung bản
+   lưu trên máy với tiến độ game (freshEX/cleanEX/saveSnapshot lo việc này). */
+
+/* ---------- Ý 1 (đợt ý tưởng 3): NHIỆM VỤ HẰNG NGÀY ---------- */
+/* Mỗi ngày 3 nhiệm vụ nhỏ: trả lời đúng 5 câu · qua 1 màn · nói chuyện với
+   2 NPC khác nhau. Xong nhiệm vụ nào, bấm Nhận thưởng của nhiệm vụ đó để
+   nhận sao/điểm; xong cả 3 thì được thưởng thêm +150 điểm và +1 sao. */
+var DAILY_MISSIONS=[
+  {key:"correct", icon:"🎯", name:"Trả lời đúng 5 câu hỏi", target:5, reward:"+50 điểm", desc:"Trả lời đúng 5 câu bất kỳ — trong thời kỳ, thế giới mở hay trận Boss đều tính."},
+  {key:"levels", icon:"🗺️", name:"Qua 1 màn chơi", target:1, reward:"★ +1 sao thưởng", desc:"Hoàn thành 1 thời kỳ, 1 thế giới mở hoặc thắng 1 trận Boss cuối khối."},
+  {key:"npcs", icon:"💬", name:"Nói chuyện với 2 NPC", target:2, reward:"+80 điểm", desc:"Lại gần 2 nhân vật khác nhau trong các thế giới để nghe gợi ý của họ (hoặc bấm nói chuyện với nhân vật ở màn chọn khối). Mỗi NPC chỉ tính 1 lần mỗi ngày."}
+];
+function dailyMissionByKey(key){ for(var i=0;i<DAILY_MISSIONS.length;i++) if(DAILY_MISSIONS[i].key===key) return DAILY_MISSIONS[i]; return null; }
+function dailyState(){
+  var t=todayStr();
+  if(!EX.daily || EX.daily.date!==t) EX.daily={date:t, correct:0, levels:0, npcs:0, npcIds:[], claimed:{}, allBonus:false};
+  return EX.daily;
+}
+function dailyProgress(kind, npcKey){
+  if(typeof EX==="undefined" || !EX) return;
+  var d=dailyState(), changed=false, justDone=null;
+  if(kind==="correct"){
+    d.correct++; changed=true;
+    if(d.correct===5) justDone="correct";
+  } else if(kind==="levels"){
+    if(d.levels<1){ d.levels=1; changed=true; justDone="levels"; }
+  } else if(kind==="npc"){
+    if(npcKey && d.npcIds.indexOf(npcKey)<0){
+      d.npcIds.push(npcKey); d.npcs=d.npcIds.length; changed=true;
+      if(d.npcs===2) justDone="npcs";
+    }
+  }
+  if(changed) saveProgress();
+  if(justDone && !d.claimed[justDone]){
+    var m=dailyMissionByKey(justDone);
+    setTimeout(function(){ toast("📋 Nhiệm vụ ngày hoàn thành: “"+m.name+"” — về màn hình chính, mở “Nhiệm vụ hằng ngày” để nhận "+m.reward+" nhé!", 3600); sndGood(); }, 500);
+  }
+}
+var NPC_TALK_LAST={};
+function dailyNpcTalk(source, key){
+  if(NPC_TALK_LAST[source]===key) return;
+  NPC_TALK_LAST[source]=key;
+  dailyProgress("npc", key);
+}
+function dailyAnyClaimable(){
+  var d=dailyState();
+  return DAILY_MISSIONS.some(function(m){ return d[m.key]>=m.target && !d.claimed[m.key]; });
+}
+function dailyCardSummary(){
+  var d=dailyState();
+  var doneN=0; DAILY_MISSIONS.forEach(function(m){ if(d[m.key]>=m.target) doneN++; });
+  var L=EX.login||{streak:0};
+  return "Hôm nay: "+doneN+"/3 nhiệm vụ đã xong · Chuỗi đăng nhập "+(L.streak||0)+" ngày liên tiếp";
+}
+function claimDaily(key){
+  var d=dailyState(), m=dailyMissionByKey(key);
+  if(!m || d.claimed[key] || d[key]<m.target) return;
+  d.claimed[key]=true;
+  if(key==="correct") S.score+=50;
+  if(key==="levels") EX.bonusStars+=1;
+  if(key==="npcs") S.score+=80;
+  updateHUD(); sndGood();
+  var allClaimed=DAILY_MISSIONS.every(function(x){ return d.claimed[x.key]; });
+  if(allClaimed && !d.allBonus){
+    d.allBonus=true; S.score+=150; EX.bonusStars+=1; updateHUD(); confetti();
+    toast("🎉 Hoàn thành cả 3 nhiệm vụ hôm nay! Bạn nhận thưởng của nhiệm vụ “"+m.name+"” ("+m.reward+") và THƯỞNG THÊM +150 điểm · ★ +1 sao thưởng!", 4200);
+  } else {
+    toast("Đã nhận thưởng nhiệm vụ “"+m.name+"”: "+m.reward+"!", 3000);
+  }
+  saveProgress();
+  renderDaily(); renderDailyCard(); renderPetCard();
+}
+function renderDailyCard(){
+  var box=$("dailyCard"); if(!box) return;
+  var d=dailyState();
+  var L=EX.login||{streak:0, claimed:"", gift:""};
+  var rows=DAILY_MISSIONS.map(function(m){
+    var done=d[m.key]>=m.target, cl=!!d.claimed[m.key];
+    return '<div class="dm-row"><span class="dm-ico">'+m.icon+'</span><span class="dm-name">'+m.name+'</span><span class="dm-prog">'+Math.min(d[m.key],m.target)+'/'+m.target+'</span>'
+      +(cl ? '<span class="dm-state done">Đã nhận ✓</span>' : (done ? '<span class="dm-state" style="color:var(--gold2)">Nhận thưởng được!</span>' : '<span class="dm-state">Chưa xong</span>'))+'</div>';
+  }).join("");
+  var giftHtml=(L.claimed===todayStr() && L.gift) ? '<div class="gift-line">🎁 <b>Quà đăng nhập hôm nay:</b> '+L.gift+'</div>' : "";
+  box.innerHTML='<div class="pet-head"><div class="pet-ava">📋</div><div style="flex:1; min-width:200px">'
+    +'<div class="pet-name">Nhiệm vụ &amp; quà <b>mỗi ngày</b></div>'
+    +'<div class="pet-sub">Chuỗi đăng nhập: <b style="color:var(--gold2)">'+(L.streak||0)+' ngày liên tiếp</b> · đăng nhập đủ 7 ngày liên tiếp nhận quà lớn · 3 nhiệm vụ hôm nay sẽ làm mới vào ngày mai</div></div></div>'
+    +giftHtml+rows
+    +'<div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap">'
+    +'<button class="btn" type="button" id="dailyCardOpen" style="font-size:14.5px; padding:11px 18px">Mở nhiệm vụ &amp; quà ngày'+(dailyAnyClaimable()?' — có thưởng đang chờ!':'')+'</button>'
+    +'<button class="btn ghost" type="button" id="dailyCardBadges" style="font-size:14.5px; padding:11px 18px">🏅 Huy hiệu: đã mở '+badgeCount()+'/8</button>'
+    +'</div>';
+  box.style.display="";
+  $("dailyCardOpen").addEventListener("click", function(){ sndClick(); openDaily(); });
+  $("dailyCardBadges").addEventListener("click", function(){ sndClick(); openBadges(); });
+}
+function openDaily(){ dailyState(); show("screen-daily"); renderDaily(); }
+function renderDaily(){
+  var d=dailyState();
+  var L=EX.login||{streak:0, claimed:"", gift:""};
+  var claimedToday = L.claimed===todayStr();
+  var curDay = claimedToday ? ((L.streak-1)%7)+1 : ((L.streak||0)%7)+1;
+  var info=$("loginStreakInfo");
+  if(info){
+    info.innerHTML = claimedToday
+      ? 'Chuỗi đăng nhập của bạn: <b style="color:var(--gold2)">'+L.streak+' ngày liên tiếp</b> — hôm nay là <b style="color:var(--gold2)">ngày '+curDay+'</b> của vòng quà 7 ngày, và quà đã được trao ngay khi bạn vào game: <b style="color:var(--ink)">'+(L.gift||"")+'</b> Ngày mai vào tiếp để giữ chuỗi nhé — lỡ mất một ngày là chuỗi quay về ngày 1 đấy!'
+      : 'Chuỗi đăng nhập của bạn: <b style="color:var(--gold2)">'+(L.streak||0)+' ngày liên tiếp</b>. Quà của hôm nay sẽ tự được trao ngay khi bạn vào màn hình chính.';
+  }
+  var row=$("streakRow");
+  if(row){
+    var html="";
+    for(var i=1;i<=7;i++){
+      var cls="streak-cell"+(i===7?" big":"");
+      var state;
+      if(claimedToday && i<curDay){ cls+=" got"; state="Đã nhận ✓"; }
+      else if(claimedToday && i===curDay){ cls+=" today"; state="Đã nhận hôm nay ✓"; }
+      else state="Chưa tới";
+      html+='<div class="'+cls+'"><span class="sc-day">Ngày '+i+(i===7?" · QUÀ LỚN":"")+'</span>'+LOGIN_GIFTS[i-1].label+'<br>'+state+'</div>';
+    }
+    row.innerHTML=html;
+  }
+  var list=$("dailyList");
+  if(list){
+    var html2="";
+    DAILY_MISSIONS.forEach(function(m){
+      var prog=Math.min(d[m.key], m.target), done=d[m.key]>=m.target, cl=!!d.claimed[m.key];
+      var pct=Math.round(prog/m.target*100);
+      html2+='<div class="dm-row" style="align-items:flex-start"><span class="dm-ico">'+m.icon+'</span>'
+        +'<span class="dm-name">'+m.name+'<small>'+m.desc+'</small>'
+        +'<span class="pet-xpbar" style="display:block; margin-top:7px"><i style="width:'+pct+'%"></i></span></span>'
+        +'<span class="dm-prog">'+prog+'/'+m.target+'</span>'
+        +(cl ? '<span class="dm-state done">Đã nhận thưởng ✓</span>'
+          : done ? '<button class="claim-btn" type="button" data-dclaim="'+m.key+'">Nhận '+m.reward+'</button>'
+          : '<span class="dm-state">Thưởng: '+m.reward+'</span>')
+        +'</div>';
+    });
+    if(d.allBonus) html2+='<div class="gift-line">🎉 Bạn đã hoàn thành <b>cả 3 nhiệm vụ hôm nay</b> và nhận thưởng thêm <b>+150 điểm · ★ +1 sao thưởng</b> rồi. Ngày mai quay lại làm bộ nhiệm vụ mới nhé!</div>';
+    else if(DAILY_MISSIONS.every(function(m){ return d[m.key]>=m.target; })) html2+='<div class="gift-line">Cả 3 nhiệm vụ đều đã xong — nhận nốt các phần thưởng còn lại để mở <b>thưởng thêm +150 điểm · ★ +1 sao thưởng</b> nhé!</div>';
+    list.innerHTML=html2;
+    list.querySelectorAll("[data-dclaim]").forEach(function(b){ b.addEventListener("click", function(){ claimDaily(b.getAttribute("data-dclaim")); }); });
+  }
+}
+
+/* ---------- Ý 10 (đợt ý tưởng 3): QUÀ ĐĂNG NHẬP HẰNG NGÀY ---------- */
+/* Vào game mỗi ngày nhận 1 phần quà theo vòng 7 ngày; giữ chuỗi đăng nhập
+   liên tiếp đủ 7 ngày thì ngày 7 nhận QUÀ LỚN. Lỡ một ngày, chuỗi về ngày 1. */
+function yesterdayStr(){ var d=new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+var LOGIN_GIFTS=[
+  {label:"+30 điểm", run:function(){ S.score+=30; return "+30 điểm vào tổng điểm của bạn."; }},
+  {label:"+50 điểm", run:function(){ S.score+=50; return "+50 điểm vào tổng điểm của bạn."; }},
+  {label:"♥ +1 tim dự trữ", run:function(){ if(EX.bonusHearts>=3){ S.score+=40; return "Bạn đang giữ đủ 3 tim dự trữ rồi, nên quà hôm nay tự đổi thành +40 điểm!"; } EX.bonusHearts+=1; return "+1 tim dự trữ (đang giữ "+EX.bonusHearts+"/3 tim) — tim sẽ tự cộng vào màn chơi tiếp theo của bạn."; }},
+  {label:"+80 điểm", run:function(){ S.score+=80; return "+80 điểm vào tổng điểm của bạn."; }},
+  {label:"★ +1 sao thưởng", run:function(){ EX.bonusStars+=1; return "+1 sao thưởng — sao này tính vào tổng sao và bảng xếp hạng bạn bè của bạn."; }},
+  {label:"+120 điểm", run:function(){ S.score+=120; return "+120 điểm vào tổng điểm của bạn."; }},
+  {label:"QUÀ LỚN: +300 điểm · ★ +2 sao · ♥ +1 tim", run:function(){ S.score+=300; EX.bonusStars+=2; var h; if(EX.bonusHearts>=3){ S.score+=40; h="phần tim đổi thêm +40 điểm vì bạn đã giữ đủ 3 tim dự trữ"; } else { EX.bonusHearts+=1; h="♥ +1 tim dự trữ"; } return "QUÀ LỚN của chuỗi 7 ngày liên tiếp: +300 điểm · ★ +2 sao thưởng · "+h+"!"; }}
+];
+function checkDailyLogin(){
+  if(typeof EX==="undefined" || !EX) return;
+  if(!EX.login) EX.login={last:"", streak:0, claimed:"", gift:""};
+  var L=EX.login, t=todayStr();
+  if(L.claimed===t) return;
+  L.streak = (L.last===yesterdayStr()) ? (L.streak||0)+1 : 1;
+  L.last=t; L.claimed=t;
+  var day=((L.streak-1)%7)+1;
+  var txt=LOGIN_GIFTS[day-1].run();
+  L.gift="Ngày "+day+" · chuỗi "+L.streak+" ngày liên tiếp — "+txt;
+  updateHUD(); saveProgress();
+  setTimeout(function(){
+    toast("🎁 Quà đăng nhập "+(day===7?"ĐẶC BIỆT — ":"")+"ngày "+day+" (chuỗi "+L.streak+" ngày liên tiếp): "+txt, 4400);
+    sndGood();
+    if(day===7) confetti();
+  }, 900);
+}
+
+/* ---------- Ý 2 (đợt ý tưởng 3): THÀNH TỰU & HUY HIỆU ---------- */
+/* 8 huy hiệu: qua hết từng khối 6/7/8/9, đúng trọn 10/10, đủ 5 Mảnh Thời
+   Gian, thắng Boss cuối khối lần đầu, sưu tầm đủ 12 thẻ bài danh nhân. */
+function badgeShieldArt(n, col){
+  return '<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 3 l15 5 v12 c0 11 -6.5 19 -15 24 c-8.5 -5 -15 -13 -15 -24 V8z" fill="'+col+'"/><path d="M24 7.2 l11 3.7 V20 c0 8.6 -4.9 15.2 -11 19.2 C17.9 35.2 13 28.6 13 20 V10.9z" fill="rgba(255,255,255,.16)"/><text x="24" y="30.5" text-anchor="middle" font-size="16" font-weight="900" fill="#ffffff">'+n+'</text></svg>';
+}
+var BADGES=[
+  {id:"khoi6", name:"Chinh Phục Khối 6", desc:"Qua hết tất cả 13 thế giới mở của khối 6.", art:badgeShieldArt("6","#2f9e8f")},
+  {id:"khoi7", name:"Chinh Phục Khối 7", desc:"Qua hết 5 thời kỳ của hành trình chính và tất cả 12 thế giới mở của khối 7.", art:badgeShieldArt("7","#b98a1d")},
+  {id:"khoi8", name:"Chinh Phục Khối 8", desc:"Qua hết tất cả 13 thế giới mở của khối 8.", art:badgeShieldArt("8","#4a6fd4")},
+  {id:"khoi9", name:"Chinh Phục Khối 9", desc:"Qua hết tất cả 13 thế giới mở của khối 9.", art:badgeShieldArt("9","#c0453e")},
+  {id:"perfect10", name:"Hoàn Hảo 10/10", desc:"Trả lời đúng trọn 10/10 câu trong một thời kỳ hoặc một thế giới mở.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 3.5 l6.1 13 14.2 1.8 -10.4 9.7 2.7 14 L24 34.9 11.4 42 l2.7 -14 -10.4 -9.7 14.2 -1.8z" fill="#f5b942" stroke="#b98a1d" stroke-width="1.6"/><text x="24" y="29.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5c3d05">10</text></svg>'},
+  {id:"shards5", name:"Đủ 5 Mảnh Thời Gian", desc:"Thu thập đủ cả 5 Mảnh Thời Gian của hành trình chính — lắp lại cỗ máy Chrono.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 4 l5 8 -5 8 -5 -8z" fill="#2dd4bf"/><path d="M9 16 l4.5 7 -4.5 7 -4.5 -7z" fill="#7df0df"/><path d="M39 16 l4.5 7 -4.5 7 -4.5 -7z" fill="#7df0df"/><path d="M16 30 l4.5 7 -4.5 7 -4.5 -7z" fill="#4ade80"/><path d="M32 30 l4.5 7 -4.5 7 -4.5 -7z" fill="#4ade80"/></svg>'},
+  {id:"boss1", name:"Kẻ Hạ Gục Bóng Tối", desc:"Thắng trận Boss cuối khối — đánh bại Kẻ Đánh Cắp Thời Gian ít nhất một lần.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M10 6 l4 -2 20 26 -3 3z" fill="#c3cbdd"/><path d="M38 6 l-4 -2 -20 26 3 3z" fill="#9fb0cc"/><rect x="7" y="30" width="10" height="3.4" rx="1.7" fill="#8a6d1f" transform="rotate(38 12 31)"/><rect x="31" y="30" width="10" height="3.4" rx="1.7" fill="#8a6d1f" transform="rotate(-38 36 31)"/><circle cx="24" cy="40" r="3.4" fill="#f5b942"/></svg>'},
+  {id:"cards12", name:"Nhà Sưu Tầm Danh Nhân", desc:"Sưu tầm đủ bộ 12 thẻ bài nhân vật lịch sử.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="8" y="10" width="24" height="32" rx="3" fill="#39415e" transform="rotate(-7 20 26)"/><rect x="15" y="7" width="24" height="32" rx="3" fill="#f2f0e4" stroke="#b98a1d" stroke-width="1.6"/><path d="M27 13 l1.9 4 4.4 .5 -3.2 3 0.9 4.3 -4 -2.3 -4 2.3 0.9 -4.3 -3.2 -3 4.4 -.5z" fill="#f5b942"/><path d="M20 31 h14 M20 35.5 h10" stroke="#39415e" stroke-width="2" stroke-linecap="round"/></svg>'}
+];
+function badgeById(id){ for(var i=0;i<BADGES.length;i++) if(BADGES[i].id===id) return BADGES[i]; return null; }
+function badgeCount(){ var n=0; if(typeof EX!=="undefined" && EX && EX.badges){ for(var k in EX.badges) if(EX.badges[k]) n++; } return n; }
+function checkBadges(perfect, quiet){
+  if(typeof EX==="undefined" || !EX) return [];
+  if(!EX.badges) EX.badges={};
+  var news=[];
+  function grant(id){ if(!EX.badges[id]){ EX.badges[id]=true; var b=badgeById(id); if(b) news.push(b); } }
+  [6,7,8,9].forEach(function(g){
+    var c=gradeWorldsDone(g);
+    var ok = c.total>0 && c.done>=c.total;
+    if(g===7){ var allEra=true; ERAS.forEach(function(e){ if(!S.done[e.id]) allEra=false; }); ok = ok && allEra; }
+    if(ok) grant("khoi"+g);
+  });
+  var shards=true; ERAS.forEach(function(e){ if(!S.done[e.id]) shards=false; });
+  if(shards) grant("shards5");
+  if(perfect) grant("perfect10");
+  var bw=false;
+  if(typeof BOSS_DONE!=="undefined" && BOSS_DONE){ for(var g2 in BOSS_DONE){ if(BOSS_DONE[g2] && BOSS_DONE[g2].wins>0) bw=true; } }
+  if(bw) grant("boss1");
+  var nc=0; for(var k in EX.cards) if(EX.cards[k]) nc++;
+  if(nc>=12) grant("cards12");
+  if(news.length){
+    saveProgress();
+    if(!quiet){
+      sndGood();
+      toast("🏅 Thành tựu mới mở khóa: "+news.map(function(b){ return "“"+b.name+"”"; }).join(", ")+"! Xem huy hiệu trong mục “Thành tựu & huy hiệu” ở màn hình chính nhé.", 4200);
+    }
+  }
+  return news;
+}
+function openBadges(){ checkBadges(false, true); show("screen-badges"); renderBadges(); }
+function renderBadges(){
+  var n=badgeCount();
+  var bc=$("badgesCount");
+  if(bc) bc.innerHTML="Đã mở khóa: <b>"+n+"/8 huy hiệu</b>"+(n>=8 ? " — đủ bộ 8 huy hiệu rồi, bạn đúng là huyền thoại của dòng thời gian!" : " — chinh phục thêm các cột mốc để thắp sáng cả bộ sưu tập nhé.");
+  var html="";
+  BADGES.forEach(function(b){
+    if(EX.badges[b.id]) html+='<div class="badge-card"><div class="bc-art">'+b.art+'</div><div class="bc-name">'+b.name+'</div><div class="bc-desc">'+b.desc+'</div><span class="bc-state">Đã mở khóa ✓</span></div>';
+    else html+='<div class="badge-card locked"><div class="bc-art">'+b.art+'</div><div class="bc-name">'+b.name+'</div><div class="bc-desc">'+b.desc+'</div><span class="bc-state">Chưa mở khóa</span></div>';
+  });
+  $("badgesGrid").innerHTML=html;
+}
+
+/* ---------- NỐI NÚT BẤM CỦA 3 TÍNH NĂNG MỚI ---------- */
+$("dailyBtn").addEventListener("click", function(){ sndClick(); openDaily(); });
+$("badgesBtn").addEventListener("click", function(){ sndClick(); openBadges(); });
+$("dailyHomeBtn").addEventListener("click", backHome);
+$("dailyHubBtn").addEventListener("click", function(){ sndClick(); openGHub(); });
+$("badgesHomeBtn").addEventListener("click", backHome);
+$("badgesHubBtn").addEventListener("click", function(){ sndClick(); openGHub(); });
 
 /* ---------- NỐI NÚT BẤM CỦA 7 TÍNH NĂNG MỚI ---------- */
 $("wheelBtn").addEventListener("click", function(){ sndClick(); openWheel(); });
