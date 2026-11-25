@@ -1093,6 +1093,88 @@
   .player-chip{background:var(--panel); border:1px solid var(--gold); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14.5px; font-weight:700; display:inline-flex; gap:6px; align-items:center}
   .player-chip b{color:var(--gold2)}
   @media (prefers-reduced-motion: reduce){ .hero-art img{animation:none} h1.title{animation:none} }
+
+  /* ================= 7 TÍNH NĂNG MỚI: vòng quay · pet · thẻ bài · nhiệm vụ tuần · thời tiết · trang phục · bản đồ tổng ================= */
+  /* --- Thẻ pet Tí Nị ở màn hình chính --- */
+  .pet-card{background:linear-gradient(180deg,#1c2656,#141b3d); border:1.5px solid rgba(45,212,191,.55); border-radius:20px; padding:14px 16px; margin:0 0 16px; box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .pet-head{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .pet-ava{width:52px; height:52px; border-radius:50%; background:radial-gradient(circle at 38% 32%, #2b3f7a, #101736); border:2px solid var(--teal); display:flex; align-items:center; justify-content:center; font-size:25px; flex:none}
+  .pet-name{font-weight:900; font-size:17px}
+  .pet-name b{color:var(--teal)}
+  .pet-sub{color:var(--muted); font-size:13.5px; line-height:1.5}
+  .pet-xpbar{height:10px; border-radius:99px; background:#0d1330; border:1px solid var(--line); overflow:hidden; margin-top:8px}
+  .pet-xpbar i{display:block; height:100%; background:linear-gradient(90deg,#2dd4bf,#4ade80); border-radius:99px; transition:width .5s ease}
+  .pet-skills{display:flex; gap:6px; flex-wrap:wrap; margin-top:9px}
+  .pet-skill{font-size:12.5px; font-weight:700; border-radius:999px; padding:4px 10px; border:1px solid var(--line); color:var(--muted); background:#0d1330}
+  .pet-skill.on{color:#0b2f42; background:linear-gradient(180deg,#7df0df,#2dd4bf); border-color:#2dd4bf}
+  .pet-links{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin-top:12px}
+  .pet-link{position:relative; background:linear-gradient(180deg,#232f66,#182152); border:1px solid var(--gold); color:var(--ink); border-radius:14px; padding:11px 10px; font-weight:800; font-size:14px; box-shadow:0 5px 14px rgba(0,0,0,.3)}
+  .pet-link small{display:block; font-weight:600; color:var(--muted); font-size:12px; margin-top:2px; line-height:1.4}
+  .pet-link .dot{position:absolute; top:8px; right:8px; width:11px; height:11px; border-radius:50%; background:#ff5252; box-shadow:0 0 8px #ff5252}
+  /* --- Thanh pet trong thẻ câu hỏi --- */
+  .pet-bar{display:flex; gap:8px; align-items:center; flex-wrap:wrap; background:rgba(45,212,191,.1); border:1px dashed rgba(45,212,191,.6); border-radius:12px; padding:8px 11px; margin:0 0 12px; font-size:13.5px}
+  .pet-bar .pet-tag{font-weight:900; color:#7df0df}
+  .pet-btn{background:linear-gradient(180deg,#7df0df,#2dd4bf); color:#0b2f42; border:none; border-radius:10px; padding:8px 13px; font-weight:800; font-size:13.5px; min-height:40px}
+  .pet-btn:disabled{background:#2c376e; color:#8b93bd; cursor:default}
+  .pet-note{color:var(--muted); font-size:12.5px}
+  .opt.pet-elim{opacity:.38; text-decoration:line-through; filter:grayscale(.7)}
+  /* --- Hộp phần thưởng khi qua màn --- */
+  .ex-gain{background:linear-gradient(180deg,rgba(245,185,66,.14),rgba(45,212,191,.1)); border:1.5px solid rgba(245,185,66,.65); border-radius:14px; padding:12px 14px; margin:12px auto; max-width:560px; text-align:left; line-height:1.65; font-size:14.5px}
+  .ex-gain b{color:var(--gold2)}
+  /* --- Thời tiết trong thế giới mở --- */
+  .wx-layer{position:absolute; inset:0; z-index:7; pointer-events:none; overflow:hidden; border-radius:inherit}
+  .wx-drop{position:absolute; top:-16%; width:2px; height:15%; border-radius:2px; background:linear-gradient(180deg,rgba(160,210,255,0),rgba(160,210,255,.75)); animation:wxRain linear infinite}
+  @keyframes wxRain{to{transform:translateY(135vh)}}
+  .wx-flake{position:absolute; top:-4%; border-radius:50%; background:#fff; opacity:.9; animation:wxSnow linear infinite}
+  @keyframes wxSnow{0%{transform:translate(0,-4vh)}50%{transform:translate(16px,52vh)}100%{transform:translate(-8px,108vh)}}
+  .wx-fogbank{position:absolute; width:130%; height:34%; left:-15%; border-radius:50%; background:radial-gradient(ellipse at center, rgba(230,238,255,.34), rgba(230,238,255,0) 68%); filter:blur(6px); animation:wxFog ease-in-out infinite alternate}
+  @keyframes wxFog{from{transform:translateX(-4%)}to{transform:translateX(5%)}}
+  .wx-sun{position:absolute; top:-70px; right:-70px; width:230px; height:230px; border-radius:50%; background:radial-gradient(circle, rgba(255,233,168,.5), rgba(255,233,168,0) 65%); animation:wxSunPulse 5s ease-in-out infinite alternate}
+  @keyframes wxSunPulse{from{opacity:.75}to{opacity:1}}
+  .hero-umbrella{display:none; position:absolute; left:50%; top:-24px; transform:translateX(-50%); z-index:7; pointer-events:none; filter:drop-shadow(0 3px 4px rgba(0,0,0,.4))}
+  .hero-w.umbrella .hero-umbrella{display:block; animation:umbBob 1.1s ease-in-out infinite alternate}
+  @keyframes umbBob{from{transform:translateX(-50%) rotate(-3deg)}to{transform:translateX(-50%) rotate(3deg)}}
+  @media (prefers-reduced-motion: reduce){ .wx-drop,.wx-flake,.wx-fogbank,.wx-sun,.hero-w.umbrella .hero-umbrella{animation:none} }
+  /* --- Vòng quay may mắn --- */
+  .wheel-wrap{position:relative; width:min(330px,84vw); margin:8px auto 4px}
+  .wheel-pointer{position:absolute; top:-8px; left:50%; transform:translateX(-50%); z-index:3; width:0; height:0; border-left:14px solid transparent; border-right:14px solid transparent; border-top:22px solid var(--gold); filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+  #wheelSvg{display:block; width:100%; height:auto; filter:drop-shadow(0 14px 26px rgba(0,0,0,.5))}
+  #wheelRot{transition:transform 4.6s cubic-bezier(.12,.8,.16,1); transform-origin:165px 165px}
+  .wheel-status{text-align:center; color:var(--muted); line-height:1.6; margin:10px auto; max-width:520px}
+  .wheel-status b{color:var(--gold2)}
+  .story-list{display:grid; gap:10px; margin-top:10px}
+  .story-item{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px 14px; text-align:left; line-height:1.6; font-size:14.5px}
+  .story-item.locked{opacity:.55}
+  .story-item h4{margin:0 0 4px; font-size:15.5px; color:var(--gold2)}
+  .story-item.locked h4{color:var(--muted)}
+  /* --- Thẻ bài nhân vật --- */
+  .cards-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:12px; margin-top:12px}
+  .hist-card{border-radius:16px; padding:14px 12px; text-align:center; border:1.5px solid var(--gold); background:linear-gradient(180deg,#2a2140,#1a1430); box-shadow:0 8px 20px rgba(0,0,0,.35)}
+  .hist-card .hc-art{height:56px; display:flex; align-items:center; justify-content:center}
+  .hist-card .hc-name{font-weight:900; font-size:15.5px; margin-top:6px; color:var(--gold2); line-height:1.3}
+  .hist-card .hc-era{color:var(--muted); font-size:12.5px; margin-top:2px; line-height:1.4}
+  .hist-card .hc-fact{color:var(--ink); font-size:12.5px; margin-top:7px; line-height:1.5; opacity:.92}
+  .hist-card.locked{border-color:var(--line); background:linear-gradient(180deg,#1c2656,#141b3d); filter:grayscale(.9); opacity:.62}
+  .hist-card.locked .hc-name{color:var(--muted)}
+  /* --- Nhiệm vụ tuần --- */
+  .weekly-box{background:var(--panel); border:1.5px solid rgba(245,185,66,.6); border-radius:18px; padding:16px 18px; line-height:1.65; margin-bottom:14px}
+  .weekly-box h3{margin:0 0 4px; font-size:19px; color:var(--gold2)}
+  .title-chip{display:inline-block; border:1.5px solid var(--gold); color:var(--gold2); border-radius:999px; padding:6px 14px; font-weight:800; font-size:14px; margin:3px 4px 3px 0; background:rgba(245,185,66,.1)}
+  /* --- Cửa hàng trang phục --- */
+  .shop-bal{text-align:center; font-size:16px; margin:4px 0 2px}
+  .shop-bal b{color:var(--gold2)}
+  /* --- Bản đồ thế giới tổng --- */
+  .wmap-grade{margin:18px 0 4px; font-size:18px; font-weight:900}
+  .wmap-grade span{color:var(--muted); font-size:13.5px; font-weight:600}
+  .wmap-path{display:flex; flex-wrap:wrap; gap:9px; margin-top:9px}
+  .wmap-node{position:relative; border-radius:14px; border:1.5px solid var(--line); background:#121a3d; color:var(--muted); padding:9px 11px; font-size:13px; font-weight:700; text-align:left; line-height:1.35; max-width:215px; min-height:44px}
+  .wmap-node .wn-num{display:inline-flex; width:21px; height:21px; border-radius:50%; background:#2c376e; color:#cfd6ff; align-items:center; justify-content:center; font-size:12px; margin-right:6px; vertical-align:-6px}
+  .wmap-node .wn-stars{display:block; color:var(--gold2); font-size:12px; margin-top:3px; letter-spacing:2px}
+  .wmap-node.open{border-color:var(--teal); color:var(--ink); background:linear-gradient(180deg,#173a4a,#12283a); box-shadow:0 0 14px rgba(45,212,191,.25)}
+  .wmap-node.open .wn-num{background:var(--teal); color:#0b2f42}
+  .wmap-node.done{border-color:var(--gold); color:var(--ink); background:linear-gradient(180deg,#4a3608,#33270a); box-shadow:0 0 16px rgba(245,185,66,.35)}
+  .wmap-node.done .wn-num{background:var(--gold); color:#231a02}
+  .wmap-node.dark{opacity:.48; filter:grayscale(.8)}
 </style>
 </head>
 <body>
@@ -1185,6 +1267,7 @@
       </div>
       <div id="homeLbList"></div>
     </div>
+    <div class="pet-card" id="petCard"></div>
     <div class="story-box">
       <b>Năm 3026.</b> Cỗ máy thời gian <b>Chrono</b> bị Kẻ Đánh Cắp Thời Gian phá vỡ. Năm Mảnh Thời Gian văng tung tóe về 5 thời kỳ khác nhau của lịch sử nhân loại. Nếu không thu hồi đủ các mảnh, lịch sử sẽ bị xáo trộn mãi mãi!
       <br><br>Bạn là <b>Nhà Du Hành</b> trẻ tuổi. Cùng robot trợ lý <b>Tí Nị</b>, hãy lên đường: đến châu Âu trung đại, Trung Quốc phong kiến, Ấn Độ, Đông Nam Á — và kết thúc ở thời đại Phát kiến địa lí &amp; Phục hưng.
@@ -1233,6 +1316,11 @@
         <button class="hub-btn gold" id="challengeBtn" type="button" title="Thử thách Vòng Xoáy Thời Gian: trọn 10 câu tổng hợp LSĐL 6–9 trong một màn, 25 giây/câu, tranh sao và lập kỷ lục">Thử thách 10 câu</button>
         <button class="hub-btn" id="styleBtn" type="button" title="Đổi trang phục, kiểu tóc và phụ kiện cho Nhà Du Hành — áp dụng ở mọi màn có nhân vật và được lưu trên máy">Phong cách nhân vật</button>
         <button class="hub-btn gold" id="lbBtn" type="button" title="Lưu điểm cao nhất trên máy này và so sao, so điểm, so số Boss đã hạ với bạn bè chơi cùng trên một máy">🏆 Bảng xếp hạng bạn bè</button>
+        <button class="hub-btn gold" id="wheelBtn" type="button" title="Mỗi ngày quay 1 lần: trúng sao, điểm, tim dự trữ hoặc mở khóa một câu chuyện lịch sử">🎡 Vòng quay may mắn</button>
+        <button class="hub-btn" id="cardsBtn" type="button" title="Qua màn để nhận thẻ bài nhân vật lịch sử — sưu tầm đủ bộ 12 danh nhân">🃏 Thẻ bài nhân vật</button>
+        <button class="hub-btn" id="weeklyBtn" type="button" title="Mỗi tuần một chủ đề lớn — hoàn thành để nhận danh hiệu riêng của tuần">📅 Nhiệm vụ theo tuần</button>
+        <button class="hub-btn" id="shopBtn" type="button" title="Dùng điểm đổi trang phục theo thời kỳ cho Nhà Du Hành: áo giáp hiệp sĩ, áo dài, đồ samurai">🛍️ Cửa hàng trang phục</button>
+        <button class="hub-btn gold" id="wmapBtn" type="button" title="Một bản đồ lớn hiện cả 51 thế giới mở và 5 thời kỳ — đi tới đâu, bản đồ sáng tới đó">🗺️ Bản đồ thế giới tổng</button>
       </div>
     </div>
     <div class="save-box" id="saveBox">
@@ -1372,6 +1460,7 @@
       <div style="display:grid; gap:8px; justify-items:end">
         <div class="explore-prog" id="exploreProg">Đã trả lời: 0/10</div>
         <div class="explore-prog bfly-meter" id="bflyMeter">Dòng thời gian: Ổn định</div>
+        <div class="explore-prog" id="wxChip">Thời tiết: Nắng đẹp</div>
       </div>
     </div>
     <div class="world-viewport" id="worldVp">
@@ -1383,11 +1472,13 @@
         <div class="world-ground"></div>
         <div id="worldItems"></div>
         <div class="hero-w" id="heroW">
+          <div class="hero-umbrella" aria-hidden="true"><svg width="86" height="40" viewBox="0 0 86 40"><path d="M4 26 Q43 -6 82 26 Q71 19 62 26 Q53 19 43 26 Q34 19 24 26 Q14 19 4 26 Z" fill="#d64541"/><path d="M4 26 Q43 -6 82 26" stroke="#8a2323" stroke-width="2" fill="none"/><rect x="41.6" y="24" width="2.8" height="15" rx="1.4" fill="#5d3a17"/></svg></div>
           <div class="hero-shadow" aria-hidden="true"></div>
           <div id="heroSvg"><svg width="62" height="70" viewBox="0 0 104 118" aria-hidden="true"><g class="leg leg-l"><rect x="38.5" y="90" width="11" height="13" rx="5.5" fill="#1b5a74"/><path d="M44.2 92 v9.5" stroke="#0a2e3f" stroke-width="1.6" stroke-linecap="round" opacity=".35"/><ellipse cx="41.6" cy="96" rx="1.8" ry="4.2" fill="#ffffff" opacity=".12"/><g class="shin shin-l"><rect x="39" y="101" width="10" height="10" rx="5" fill="#164e63"/><path d="M46.5 102.5 v7" stroke="#000000" stroke-width="2.6" stroke-linecap="round" opacity=".14"/><rect x="36.5" y="109.5" width="15.5" height="6" rx="3" fill="#0d2a3d"/><rect x="36.5" y="113.6" width="15.5" height="1.9" rx=".95" fill="#000000" opacity=".45"/><path d="M40 111.2 h5 M40.4 113 h5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" opacity=".5"/><ellipse cx="40" cy="110.6" rx="2.2" ry="1" fill="#ffffff" opacity=".18"/></g></g><g class="leg leg-r"><rect x="54.5" y="90" width="11" height="13" rx="5.5" fill="#17506a"/><path d="M60.2 92 v9.5" stroke="#0a2e3f" stroke-width="1.6" stroke-linecap="round" opacity=".35"/><ellipse cx="57.6" cy="96" rx="1.8" ry="4.2" fill="#ffffff" opacity=".10"/><g class="shin shin-r"><rect x="55" y="101" width="10" height="10" rx="5" fill="#123a52"/><path d="M62.5 102.5 v7" stroke="#000000" stroke-width="2.6" stroke-linecap="round" opacity=".16"/><rect x="52" y="109.5" width="15.5" height="6" rx="3" fill="#0d2a3d"/><rect x="52" y="113.6" width="15.5" height="1.9" rx=".95" fill="#000000" opacity=".45"/><path d="M55.5 111.2 h5 M55.9 113 h5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" opacity=".5"/><ellipse cx="55.5" cy="110.6" rx="2.2" ry="1" fill="#ffffff" opacity=".16"/></g></g><g class="hero-bob-group"><g class="hero-pack"><rect x="17" y="54" width="17" height="30" rx="7" fill="#7c4a21"/><rect x="17" y="54" width="17" height="11" rx="5.5" fill="#96622c"/><path d="M17 65.5 h17" stroke="#5d3717" stroke-width="1.6" opacity=".6"/><rect x="19.6" y="69" width="4.4" height="6.5" rx="1.8" fill="#5d3717"/><path d="M21.8 57.2 l1.9 2.5 -1.9 2.5 -1.9 -2.5 z" fill="#2dd4bf"/></g><path class="hero-scarf" d="M38 49 q-14 2 -19.5 12.5 q10.5 3.5 19.5 -0.5 z" fill="#2dd4bf"/><path class="hero-scarf scarf-b" d="M41 51.5 q-10.5 5 -12.5 14.5 q8.5 -.5 13.5 -5.5 z" fill="#2dd4bf" opacity=".82"/><path d="M36.5 51.5 q-8 2.5 -12 8" stroke="#000000" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".14"/><g class="arm arm-l"><rect x="24" y="54" width="10.5" height="16" rx="5.25" fill="#eaa92e"/><rect x="24" y="54" width="3.6" height="16" rx="1.8" fill="#ffffff" opacity=".14"/><g class="fore fore-l"><rect x="24.5" y="68" width="9.5" height="13" rx="4.75" fill="#d9941f"/><rect x="24.5" y="66.8" width="9.5" height="3.8" rx="1.9" fill="#2dd4bf" data-hrole="band"/><circle cx="29.2" cy="82.5" r="4.9" fill="#ffd9a0"/><path d="M26.6 84.6 q2.6 1.2 5.2 0 M27.2 81 q2 -1 4 0" stroke="#d99a5b" stroke-width="1" fill="none" stroke-linecap="round" opacity=".65"/></g></g><g class="arm arm-r"><rect x="69.5" y="54" width="10.5" height="16" rx="5.25" fill="#eaa92e"/><rect x="76.4" y="54" width="3.6" height="16" rx="1.8" fill="#000000" opacity=".12"/><g class="fore fore-r"><rect x="70" y="68" width="9.5" height="13" rx="4.75" fill="#d9941f"/><rect x="70" y="66.8" width="9.5" height="3.8" rx="1.9" fill="#2dd4bf" data-hrole="band"/><circle cx="74.8" cy="82.5" r="4.9" fill="#ffd9a0"/><path d="M72.2 84.6 q2.6 1.2 5.2 0 M72.8 81 q2 -1 4 0" stroke="#d99a5b" stroke-width="1" fill="none" stroke-linecap="round" opacity=".65"/><circle cx="74.8" cy="77.5" r="3.1" fill="#0d2a3d"/><circle cx="74.8" cy="77.5" r="1.7" fill="#2dd4bf"/><path d="M74.8 76.4 v1.1 l.9 .6" stroke="#0a0f24" stroke-width=".8" fill="none" stroke-linecap="round"/></g></g><rect x="34" y="51" width="36" height="41" rx="10" fill="#f5b942"/><rect x="35.2" y="53" width="7" height="37" rx="3.5" fill="#ffffff" opacity=".13"/><rect x="61.8" y="53" width="7" height="37" rx="3.5" fill="#000000" opacity=".12"/><rect x="34" y="51" width="36" height="12" rx="6" fill="#2dd4bf"/><path d="M34.8 57.5 L69.2 84" stroke="#7c4a21" stroke-width="4.2" stroke-linecap="round" opacity=".75"/><rect x="49" y="67.5" width="6" height="5" rx="1.4" fill="#c8ccd8" transform="rotate(38 52 70)"/><path d="M52 63.5 v19" stroke="#000000" stroke-width="1.5" stroke-dasharray="2.4 1.8" opacity=".28"/><rect x="58.5" y="77" width="9" height="8.5" rx="2" fill="#000000" opacity=".13"/><path d="M58.5 80 h9" stroke="#000000" stroke-width="1.2" opacity=".18"/><rect x="34" y="86.5" width="36" height="5.8" fill="#5d3a17"/><rect x="46.8" y="87.3" width="10.4" height="4.4" rx="1.6" fill="none" stroke="#ffd97a" stroke-width="1.7"/><circle cx="52" cy="75" r="6.5" fill="#0a0f24" stroke="#2dd4bf" stroke-width="2.4"/><circle cx="52" cy="75" r="2.9" fill="#2dd4bf" opacity=".85"/><circle cx="50.9" cy="73.9" r="1" fill="#ffffff" opacity=".8"/><rect x="46.5" y="43" width="11" height="11" rx="4" fill="#f0be82"/><ellipse cx="52" cy="45.5" rx="5.4" ry="2.1" fill="#000000" opacity=".16"/><g class="head-joint"><circle cx="34.8" cy="31.5" r="4.2" fill="#ffd9a0"/><circle cx="69.2" cy="31.5" r="4.2" fill="#ffd9a0"/><path d="M36.8 29.5 q1.8 1.6 .6 3.4 M67.2 29.5 q-1.8 1.6 -.6 3.4" stroke="#d99a5b" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="52" cy="29.5" r="17.5" fill="#ffd9a0"/><ellipse cx="43.5" cy="21" rx="8.5" ry="5" fill="#ffffff" opacity=".16"/><ellipse cx="52" cy="45.8" rx="9" ry="2.4" fill="#000000" opacity=".05"/><path d="M34.5 28 Q34.5 11.5 52 11.5 Q69.5 11.5 69.5 28 Q52 21.5 34.5 28 Z" fill="#164e63"/><path d="M40.5 14.8 q2.8 3.8 2 8 M52 12.3 q.4 3.8 -.4 7 M62.5 14.8 q-2.6 3.8 -1.8 8" stroke="#0a3548" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".5"/><path d="M43 13.2 q7 -2.2 13 -.6" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".22"/><rect x="29.5" y="22.5" width="45" height="6" rx="3" fill="#2dd4bf"/><rect x="29.5" y="22.5" width="45" height="2.4" rx="1.2" fill="#ffffff" opacity=".22"/><g class="hero-face"><path class="brow brow-l" d="M39 25.4 q5.2 -3.2 9.5 -.8" stroke="#12203a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path class="brow brow-r" d="M55.5 24.6 q4.3 -2.4 9.5 .8" stroke="#12203a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M41.3 27.8 q4.2 -2.4 8.4 0 M54.3 27.8 q4.2 -2.4 8.4 0" stroke="#12203a" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".45"/><g class="hero-eyes"><g class="eye eye-l"><ellipse cx="45.5" cy="31.5" rx="3.9" ry="4.4" fill="#ffffff"/><circle cx="45.5" cy="31.9" r="3" fill="#3f6186"/><circle cx="45.5" cy="32.2" r="1.9" fill="#12203a"/><circle cx="46.6" cy="29.9" r=".95" fill="#ffffff"/><circle cx="44.2" cy="33.6" r=".45" fill="#ffffff" opacity=".8"/></g><g class="eye eye-r"><ellipse cx="58.5" cy="31.5" rx="3.9" ry="4.4" fill="#ffffff"/><circle cx="58.5" cy="31.9" r="3" fill="#3f6186"/><circle cx="58.5" cy="32.2" r="1.9" fill="#12203a"/><circle cx="59.6" cy="29.9" r=".95" fill="#ffffff"/><circle cx="57.2" cy="33.6" r=".45" fill="#ffffff" opacity=".8"/></g></g><path class="hero-nose" d="M52.4 33.4 q1.4 2.6 -.5 3.8" stroke="#d99a5b" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse class="cheek" cx="38.2" cy="37.5" rx="3.3" ry="1.9" fill="#ff9d76" opacity=".5"/><ellipse class="cheek" cx="65.8" cy="37.5" rx="3.3" ry="1.9" fill="#ff9d76" opacity=".5"/><path class="mouth mouth-idle" d="M46.5 40.8 q5.5 3.6 11 0" stroke="#12203a" stroke-width="2.3" fill="none" stroke-linecap="round"/><path class="mouth mouth-happy" d="M44.8 39.6 q7.2 6.8 14.4 0 q-1.4 5.4 -7.2 5.4 q-5.8 0 -7.2 -5.4z" fill="#8a3b26" stroke="#12203a" stroke-width="1.7" stroke-linejoin="round"/><path class="mouth mouth-sad" d="M46.5 44.2 q5.5 -4 11 0" stroke="#12203a" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle class="mouth mouth-o" cx="52" cy="42.5" r="2.8" fill="#8a3b26" stroke="#12203a" stroke-width="1.5"/><path d="M47.5 45.6 q4.5 1.8 9 0" stroke="#d99a5b" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".45"/></g><path class="hero-back-hair" d="M34.6 28.5 a17.4 17.4 0 0 1 34.8 0 l-.6 8.5 q-8.4 -3.2 -16.8 -3.2 q-8.4 0 -16.8 3.2 z" fill="#164e63"/><path class="hero-back-hair" d="M41 17 q10.5 -4.5 22 0" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".18"/></g></g></svg></div>
           <div><span class="hname">Nhà Du Hành (Bạn)</span></div>
         </div>
       </div>
+      <div class="wx-layer" id="wxLayer"></div>
       <div class="npc-bubble" id="npcBubble" style="display:none"></div>
       <div class="interact-hint" id="interactHint" style="display:none">Nhấn E hoặc chạm nút “Trả lời” để mở câu hỏi</div>
       <div class="touch-pad" id="touchPad">
@@ -1642,6 +1733,7 @@
       <div style="display:grid; gap:8px; justify-items:end">
         <div class="explore-prog" id="gExploreProg">Đã trả lời: 0/10</div>
         <div class="explore-prog bfly-meter" id="gBflyMeter">Dòng thời gian: Ổn định</div>
+        <div class="explore-prog" id="gWxChip">Thời tiết: Nắng đẹp</div>
       </div>
     </div>
     <div class="world-viewport" id="gWorldVp">
@@ -1652,11 +1744,13 @@
         <div class="world-ground"></div>
         <div id="gWorldItems"></div>
         <div class="hero-w" id="gHeroW">
+          <div class="hero-umbrella" aria-hidden="true"><svg width="86" height="40" viewBox="0 0 86 40"><path d="M4 26 Q43 -6 82 26 Q71 19 62 26 Q53 19 43 26 Q34 19 24 26 Q14 19 4 26 Z" fill="#d64541"/><path d="M4 26 Q43 -6 82 26" stroke="#8a2323" stroke-width="2" fill="none"/><rect x="41.6" y="24" width="2.8" height="15" rx="1.4" fill="#5d3a17"/></svg></div>
           <div class="hero-shadow" aria-hidden="true"></div>
           <div id="gHeroSvg"><svg width="62" height="70" viewBox="0 0 104 118" aria-hidden="true"><g class="leg leg-l"><rect x="38.5" y="90" width="11" height="13" rx="5.5" fill="#1b5a74"/><path d="M44.2 92 v9.5" stroke="#0a2e3f" stroke-width="1.6" stroke-linecap="round" opacity=".35"/><ellipse cx="41.6" cy="96" rx="1.8" ry="4.2" fill="#ffffff" opacity=".12"/><g class="shin shin-l"><rect x="39" y="101" width="10" height="10" rx="5" fill="#164e63"/><path d="M46.5 102.5 v7" stroke="#000000" stroke-width="2.6" stroke-linecap="round" opacity=".14"/><rect x="36.5" y="109.5" width="15.5" height="6" rx="3" fill="#0d2a3d"/><rect x="36.5" y="113.6" width="15.5" height="1.9" rx=".95" fill="#000000" opacity=".45"/><path d="M40 111.2 h5 M40.4 113 h5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" opacity=".5"/><ellipse cx="40" cy="110.6" rx="2.2" ry="1" fill="#ffffff" opacity=".18"/></g></g><g class="leg leg-r"><rect x="54.5" y="90" width="11" height="13" rx="5.5" fill="#17506a"/><path d="M60.2 92 v9.5" stroke="#0a2e3f" stroke-width="1.6" stroke-linecap="round" opacity=".35"/><ellipse cx="57.6" cy="96" rx="1.8" ry="4.2" fill="#ffffff" opacity=".10"/><g class="shin shin-r"><rect x="55" y="101" width="10" height="10" rx="5" fill="#123a52"/><path d="M62.5 102.5 v7" stroke="#000000" stroke-width="2.6" stroke-linecap="round" opacity=".16"/><rect x="52" y="109.5" width="15.5" height="6" rx="3" fill="#0d2a3d"/><rect x="52" y="113.6" width="15.5" height="1.9" rx=".95" fill="#000000" opacity=".45"/><path d="M55.5 111.2 h5 M55.9 113 h5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" opacity=".5"/><ellipse cx="55.5" cy="110.6" rx="2.2" ry="1" fill="#ffffff" opacity=".16"/></g></g><g class="hero-bob-group"><g class="hero-pack"><rect x="17" y="54" width="17" height="30" rx="7" fill="#7c4a21"/><rect x="17" y="54" width="17" height="11" rx="5.5" fill="#96622c"/><path d="M17 65.5 h17" stroke="#5d3717" stroke-width="1.6" opacity=".6"/><rect x="19.6" y="69" width="4.4" height="6.5" rx="1.8" fill="#5d3717"/><path d="M21.8 57.2 l1.9 2.5 -1.9 2.5 -1.9 -2.5 z" fill="#2dd4bf"/></g><path class="hero-scarf" d="M38 49 q-14 2 -19.5 12.5 q10.5 3.5 19.5 -0.5 z" fill="#2dd4bf"/><path class="hero-scarf scarf-b" d="M41 51.5 q-10.5 5 -12.5 14.5 q8.5 -.5 13.5 -5.5 z" fill="#2dd4bf" opacity=".82"/><path d="M36.5 51.5 q-8 2.5 -12 8" stroke="#000000" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".14"/><g class="arm arm-l"><rect x="24" y="54" width="10.5" height="16" rx="5.25" fill="#eaa92e"/><rect x="24" y="54" width="3.6" height="16" rx="1.8" fill="#ffffff" opacity=".14"/><g class="fore fore-l"><rect x="24.5" y="68" width="9.5" height="13" rx="4.75" fill="#d9941f"/><rect x="24.5" y="66.8" width="9.5" height="3.8" rx="1.9" fill="#2dd4bf" data-hrole="band"/><circle cx="29.2" cy="82.5" r="4.9" fill="#ffd9a0"/><path d="M26.6 84.6 q2.6 1.2 5.2 0 M27.2 81 q2 -1 4 0" stroke="#d99a5b" stroke-width="1" fill="none" stroke-linecap="round" opacity=".65"/></g></g><g class="arm arm-r"><rect x="69.5" y="54" width="10.5" height="16" rx="5.25" fill="#eaa92e"/><rect x="76.4" y="54" width="3.6" height="16" rx="1.8" fill="#000000" opacity=".12"/><g class="fore fore-r"><rect x="70" y="68" width="9.5" height="13" rx="4.75" fill="#d9941f"/><rect x="70" y="66.8" width="9.5" height="3.8" rx="1.9" fill="#2dd4bf" data-hrole="band"/><circle cx="74.8" cy="82.5" r="4.9" fill="#ffd9a0"/><path d="M72.2 84.6 q2.6 1.2 5.2 0 M72.8 81 q2 -1 4 0" stroke="#d99a5b" stroke-width="1" fill="none" stroke-linecap="round" opacity=".65"/><circle cx="74.8" cy="77.5" r="3.1" fill="#0d2a3d"/><circle cx="74.8" cy="77.5" r="1.7" fill="#2dd4bf"/><path d="M74.8 76.4 v1.1 l.9 .6" stroke="#0a0f24" stroke-width=".8" fill="none" stroke-linecap="round"/></g></g><rect x="34" y="51" width="36" height="41" rx="10" fill="#f5b942"/><rect x="35.2" y="53" width="7" height="37" rx="3.5" fill="#ffffff" opacity=".13"/><rect x="61.8" y="53" width="7" height="37" rx="3.5" fill="#000000" opacity=".12"/><rect x="34" y="51" width="36" height="12" rx="6" fill="#2dd4bf"/><path d="M34.8 57.5 L69.2 84" stroke="#7c4a21" stroke-width="4.2" stroke-linecap="round" opacity=".75"/><rect x="49" y="67.5" width="6" height="5" rx="1.4" fill="#c8ccd8" transform="rotate(38 52 70)"/><path d="M52 63.5 v19" stroke="#000000" stroke-width="1.5" stroke-dasharray="2.4 1.8" opacity=".28"/><rect x="58.5" y="77" width="9" height="8.5" rx="2" fill="#000000" opacity=".13"/><path d="M58.5 80 h9" stroke="#000000" stroke-width="1.2" opacity=".18"/><rect x="34" y="86.5" width="36" height="5.8" fill="#5d3a17"/><rect x="46.8" y="87.3" width="10.4" height="4.4" rx="1.6" fill="none" stroke="#ffd97a" stroke-width="1.7"/><circle cx="52" cy="75" r="6.5" fill="#0a0f24" stroke="#2dd4bf" stroke-width="2.4"/><circle cx="52" cy="75" r="2.9" fill="#2dd4bf" opacity=".85"/><circle cx="50.9" cy="73.9" r="1" fill="#ffffff" opacity=".8"/><rect x="46.5" y="43" width="11" height="11" rx="4" fill="#f0be82"/><ellipse cx="52" cy="45.5" rx="5.4" ry="2.1" fill="#000000" opacity=".16"/><g class="head-joint"><circle cx="34.8" cy="31.5" r="4.2" fill="#ffd9a0"/><circle cx="69.2" cy="31.5" r="4.2" fill="#ffd9a0"/><path d="M36.8 29.5 q1.8 1.6 .6 3.4 M67.2 29.5 q-1.8 1.6 -.6 3.4" stroke="#d99a5b" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="52" cy="29.5" r="17.5" fill="#ffd9a0"/><ellipse cx="43.5" cy="21" rx="8.5" ry="5" fill="#ffffff" opacity=".16"/><ellipse cx="52" cy="45.8" rx="9" ry="2.4" fill="#000000" opacity=".05"/><path d="M34.5 28 Q34.5 11.5 52 11.5 Q69.5 11.5 69.5 28 Q52 21.5 34.5 28 Z" fill="#164e63"/><path d="M40.5 14.8 q2.8 3.8 2 8 M52 12.3 q.4 3.8 -.4 7 M62.5 14.8 q-2.6 3.8 -1.8 8" stroke="#0a3548" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".5"/><path d="M43 13.2 q7 -2.2 13 -.6" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".22"/><rect x="29.5" y="22.5" width="45" height="6" rx="3" fill="#2dd4bf"/><rect x="29.5" y="22.5" width="45" height="2.4" rx="1.2" fill="#ffffff" opacity=".22"/><g class="hero-face"><path class="brow brow-l" d="M39 25.4 q5.2 -3.2 9.5 -.8" stroke="#12203a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path class="brow brow-r" d="M55.5 24.6 q4.3 -2.4 9.5 .8" stroke="#12203a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M41.3 27.8 q4.2 -2.4 8.4 0 M54.3 27.8 q4.2 -2.4 8.4 0" stroke="#12203a" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".45"/><g class="hero-eyes"><g class="eye eye-l"><ellipse cx="45.5" cy="31.5" rx="3.9" ry="4.4" fill="#ffffff"/><circle cx="45.5" cy="31.9" r="3" fill="#3f6186"/><circle cx="45.5" cy="32.2" r="1.9" fill="#12203a"/><circle cx="46.6" cy="29.9" r=".95" fill="#ffffff"/><circle cx="44.2" cy="33.6" r=".45" fill="#ffffff" opacity=".8"/></g><g class="eye eye-r"><ellipse cx="58.5" cy="31.5" rx="3.9" ry="4.4" fill="#ffffff"/><circle cx="58.5" cy="31.9" r="3" fill="#3f6186"/><circle cx="58.5" cy="32.2" r="1.9" fill="#12203a"/><circle cx="59.6" cy="29.9" r=".95" fill="#ffffff"/><circle cx="57.2" cy="33.6" r=".45" fill="#ffffff" opacity=".8"/></g></g><path class="hero-nose" d="M52.4 33.4 q1.4 2.6 -.5 3.8" stroke="#d99a5b" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse class="cheek" cx="38.2" cy="37.5" rx="3.3" ry="1.9" fill="#ff9d76" opacity=".5"/><ellipse class="cheek" cx="65.8" cy="37.5" rx="3.3" ry="1.9" fill="#ff9d76" opacity=".5"/><path class="mouth mouth-idle" d="M46.5 40.8 q5.5 3.6 11 0" stroke="#12203a" stroke-width="2.3" fill="none" stroke-linecap="round"/><path class="mouth mouth-happy" d="M44.8 39.6 q7.2 6.8 14.4 0 q-1.4 5.4 -7.2 5.4 q-5.8 0 -7.2 -5.4z" fill="#8a3b26" stroke="#12203a" stroke-width="1.7" stroke-linejoin="round"/><path class="mouth mouth-sad" d="M46.5 44.2 q5.5 -4 11 0" stroke="#12203a" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle class="mouth mouth-o" cx="52" cy="42.5" r="2.8" fill="#8a3b26" stroke="#12203a" stroke-width="1.5"/><path d="M47.5 45.6 q4.5 1.8 9 0" stroke="#d99a5b" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".45"/></g><path class="hero-back-hair" d="M34.6 28.5 a17.4 17.4 0 0 1 34.8 0 l-.6 8.5 q-8.4 -3.2 -16.8 -3.2 q-8.4 0 -16.8 3.2 z" fill="#164e63"/><path class="hero-back-hair" d="M41 17 q10.5 -4.5 22 0" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".18"/></g></g></svg></div>
           <div><span class="hname">Nhà Du Hành (Bạn)</span></div>
         </div>
       </div>
+      <div class="wx-layer" id="gWxLayer"></div>
       <div class="npc-bubble" id="gNpcBubble" style="display:none"></div>
       <div class="interact-hint" id="gInteractHint" style="display:none">Nhấn E hoặc chạm nút “Trả lời” để mở câu hỏi</div>
       <div class="touch-pad" id="gTouchPad">
@@ -1758,6 +1852,77 @@
     <div class="dialog-nav">
       <button class="btn ghost" id="ch10HomeBtn" type="button">Về màn hình chính</button>
       <button class="btn ghost" id="ch10ToPractice" type="button">Vào Phòng luyện tập</button>
+    </div>
+  </section>
+
+  <!-- ============ VÒNG QUAY MAY MẮN (mỗi ngày 1 lần) ============ -->
+  <section class="screen" id="screen-wheel">
+    <h2 class="map-title">🎡 Vòng quay may mắn</h2>
+    <p class="map-sub">Mỗi ngày, Cổng Thời Gian cho bạn <b style="color:var(--ink)">quay 1 lần miễn phí</b>: trúng <b style="color:var(--ink)">sao thưởng, điểm, tim dự trữ</b> — hoặc mở khóa một <b style="color:var(--ink)">câu chuyện lịch sử</b> trong Sổ truyện bên dưới. Tim dự trữ sẽ tự cộng vào tim của bạn ở màn chơi tiếp theo. Quay xong là phải chờ sang ngày mai mới quay tiếp được nhé!</p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <svg id="wheelSvg" viewBox="0 0 330 330" role="img" aria-label="Vòng quay may mắn 8 ô phần thưởng">
+        <g id="wheelRot"></g>
+        <circle cx="165" cy="165" r="34" fill="#141b3d" stroke="#f5b942" stroke-width="3"/>
+        <text x="165" y="160" text-anchor="middle" fill="#ffd97a" font-size="13" font-weight="900">DU HÀNH</text>
+        <text x="165" y="178" text-anchor="middle" fill="#f2f0e4" font-size="11" font-weight="700">THỜI GIAN</text>
+      </svg>
+    </div>
+    <p class="wheel-status" id="wheelStatus"></p>
+    <div class="center" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+      <button class="btn" id="wheelSpinBtn" type="button">Quay ngay ▸</button>
+      <button class="btn ghost" id="wheelHomeBtn" type="button">Về màn hình chính</button>
+    </div>
+    <h3 style="margin:22px 0 2px; font-size:19px">📖 Sổ truyện lịch sử — <span id="storyCount">0/6 truyện đã mở khóa</span></h3>
+    <p style="color:var(--muted); line-height:1.6; margin:4px 0">Mỗi lần vòng quay dừng ở ô “Câu chuyện”, một truyện lịch sử mới sẽ mở ra ở đây cho bạn đọc.</p>
+    <div class="story-list" id="storyList"></div>
+  </section>
+
+  <!-- ============ THẺ BÀI NHÂN VẬT LỊCH SỬ ============ -->
+  <section class="screen" id="screen-cards">
+    <h2 class="map-title">🃏 Thẻ bài nhân vật lịch sử</h2>
+    <p class="map-sub">Mỗi lần <b style="color:var(--ink)">qua một màn chơi</b> (một thời kỳ, một thế giới mở hoặc thắng trận Boss), bạn nhận được <b style="color:var(--ink)">1 thẻ bài nhân vật</b> rút ngẫu nhiên từ bộ 12 danh nhân. Trúng thẻ đã có rồi thì thẻ tự đổi thành <b style="color:var(--ink)">+25 điểm</b>. Sưu tầm đủ cả bộ 12 thẻ nhé!</p>
+    <p class="shop-bal" id="cardsCount"></p>
+    <div class="cards-grid" id="cardsGrid"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="cardsHomeBtn" type="button">Về màn hình chính</button>
+      <button class="btn ghost" id="cardsHubBtn" type="button">Vào sảnh thế giới mở — qua màn để nhận thẻ</button>
+    </div>
+  </section>
+
+  <!-- ============ NHIỆM VỤ THEO TUẦN ============ -->
+  <section class="screen" id="screen-weekly">
+    <h2 class="map-title">📅 Nhiệm vụ theo tuần</h2>
+    <p class="map-sub">Mỗi tuần, dòng thời gian giao cho bạn <b style="color:var(--ink)">một chủ đề lớn</b>. Hoàn thành đủ số màn chơi trong tuần (thời kỳ, thế giới mở hoặc trận Boss đều tính) để nhận <b style="color:var(--ink)">danh hiệu riêng của tuần đó</b> — danh hiệu kiếm được sẽ ở lại với bạn mãi mãi trong bộ sưu tập bên dưới. Sang tuần mới là chủ đề mới mở ra!</p>
+    <div class="weekly-box" id="weeklyBox"></div>
+    <h3 style="margin:16px 0 6px; font-size:18px">Bộ sưu tập danh hiệu của bạn</h3>
+    <div id="titleList"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="weeklyHomeBtn" type="button">Về màn hình chính</button>
+      <button class="btn ghost" id="weeklyHubBtn" type="button">Vào sảnh thế giới mở — làm nhiệm vụ</button>
+    </div>
+  </section>
+
+  <!-- ============ CỬA HÀNG TRANG PHỤC THEO THỜI KỲ ============ -->
+  <section class="screen" id="screen-shop">
+    <h2 class="map-title">🛍️ Cửa hàng trang phục theo thời kỳ</h2>
+    <p class="map-sub">Dùng <b style="color:var(--ink)">điểm đã kiếm được</b> để đổi trang phục cho Nhà Du Hành. Trang phục đã mua sẽ <b style="color:var(--ink)">tự động được mặc</b> mỗi khi bạn bước vào đúng thời kỳ của nó (áo giáp hiệp sĩ ở châu Âu trung đại, đồ samurai ở Nhật Bản, áo dài ở các thế giới Việt Nam) — hoặc bạn tự bấm “Mặc bộ này” để mặc ở mọi nơi. Mua trang phục <b style="color:var(--ink)">không làm giảm</b> điểm trên bảng xếp hạng đâu nhé!</p>
+    <p class="shop-bal" id="shopBal"></p>
+    <div class="style-grid" id="shopGrid"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="shopHomeBtn" type="button">← Về màn hình chính</button>
+      <button class="btn ghost" id="shopStyleBtn" type="button">Mở Phong cách nhân vật (6 phong cách thường)</button>
+    </div>
+  </section>
+
+  <!-- ============ BẢN ĐỒ THẾ GIỚI TỔNG ============ -->
+  <section class="screen" id="screen-worldmap">
+    <h2 class="map-title">🗺️ Bản đồ thế giới tổng</h2>
+    <p class="map-sub">Cả chuyến đi trên <b style="color:var(--ink)">một bản đồ lớn duy nhất</b>: hành trình chính 5 thời kỳ của khối 7 và toàn bộ <b style="color:var(--ink)">51 thế giới mở</b> của 4 khối. Nơi nào bạn đã đi qua thì <b style="color:var(--gold2)">sáng rực màu vàng</b>, nơi sắp tới thì <b style="color:#7df0df">sáng màu ngọc</b>, còn nơi chưa tới nơi thì vẫn <b style="color:var(--ink)">chìm trong bóng tối</b>. Bấm vào một điểm sáng để đi thẳng tới đó!</p>
+    <div id="wmapBox"></div>
+    <div class="dialog-nav">
+      <button class="btn ghost" id="wmapHomeBtn" type="button">Về màn hình chính</button>
+      <button class="btn ghost" id="wmapHubBtn" type="button">Vào sảnh thế giới mở</button>
     </div>
   </section>
 </div>
@@ -2471,6 +2636,7 @@ function saveSnapshot(){
     pracSel:(typeof P!=="undefined" && P) ? {grade:P.grade, diff:P.diff} : null,
     pick:(typeof PICK!=="undefined" && PICK) ? PICK.grade : 7,
     hstyle:(typeof HSTYLE!=="undefined" && HSTYLE) ? HSTYLE : "mac-dinh",
+    ex:(typeof EX!=="undefined" && EX) ? EX : null,
     profile:(typeof PROFILE!=="undefined" && PROFILE) ? {name:PROFILE.name, pass:PROFILE.pass} : null
   };
 }
@@ -2608,6 +2774,7 @@ function loadProgress(){
   }
   if(typeof GW!=="undefined" && GW) GW.done=cleanGW(d.gw);
   if(typeof cleanBoss==="function") BOSS_DONE=cleanBoss(d.boss);
+  if(typeof cleanEX==="function") EX=cleanEX(d.ex);
   if(typeof cleanLB==="function") LB=cleanLB(d.lb);
   lbSeedPlayer();
   if(typeof G!=="undefined" && G) G.done=cleanGuide(d.guide);
@@ -2697,7 +2864,7 @@ function thiefPower(){
 }
 function qTimeLimit(){
   var n=0; for(var k in S.boons) if(S.boons[k]) n++;
-  return 20 + Math.min(6, n*2);
+  return 20 + Math.min(6, n*2) + ((typeof petTimeBonus==="function") ? petTimeBonus() : 0);
 }
 var ERA_SHORT=["Châu Âu","Trung Quốc","Ấn Độ","Đông Nam Á","Phát Kiến"];
 function updateJourney(){
@@ -2821,6 +2988,7 @@ function travelTo(eraIdx, cb){
 /* ================= STORY ================= */
 function startStory(eraIdx){
   S.era = eraIdx; S.mode="story";
+  if(typeof exAutoCostume==="function") exAutoCostume(ERAS[eraIdx].name+" "+ERAS[eraIdx].desc);
   var lines=ERAS[eraIdx].story.slice();
   if(eraIdx>0 && S.butterfly>0 && S.butterflyLog.length){
     var lastB=S.butterflyLog[S.butterflyLog.length-1];
@@ -2972,12 +3140,15 @@ function renderMap(){
 /* ================= PLAY ================= */
 function startPlay(){
   clearInterval(actTyping); clearInterval(typing);
-  S.q=0; S.hearts=3; S.eraCorrect=0; S.eraScore=0; S.answered=false; S.answeredQs={}; S.eraButterfly=0;
+  S.q=0; S.hearts=3+((typeof exTakeBonusHearts==="function") ? exTakeBonusHearts() : 0); S.eraCorrect=0; S.eraScore=0; S.answered=false; S.answeredQs={}; S.eraButterfly=0;
+  if(typeof petRunReset==="function") petRunReset(); S.petSaved=false;
   var era=ERAS[S.era];
   $("eraBanner").style.background = era.accentBg;
   $("eraBanner").innerHTML = '<div class="banner-flex"><span class="era-art" style="background:rgba(0,0,0,.28)">'+era.art+'</span><div><div class="eyebrow">Thời kỳ '+(S.era+1)+' / 5 · '+era.years+'</div><h2>'+era.name+'</h2><p>'+era.desc+'. Trả lời đúng ít nhất 6/10 câu để nhận Mảnh Thời Gian.</p></div></div>';
   buildWorld(era);
   show("screen-explore");
+  if(typeof applyWeather==="function") applyWeather("wxLayer","wxChip","heroW", era.id);
+  if(typeof exAutoCostume==="function") exAutoCostume(era.name+" "+era.desc);
   updateExploreProg();
   applyDistortion();
   startWorldLoop();
@@ -2985,7 +3156,8 @@ function startPlay(){
   else toast("Hãy di chuyển tự do và tìm 10 điểm thử thách ? nhé!");
 }
 function renderHearts(){
-  var s=""; for(var i=0;i<3;i++) s+='<span class="'+(i<S.hearts?"":"off")+'">♥</span>';
+  var total=Math.max(3, S.hearts);
+  var s=""; for(var i=0;i<total;i++) s+='<span class="'+(i<S.hearts?"":"off")+'">♥</span>';
   $("hearts").innerHTML=s;
 }
 function startTimer(){
@@ -3020,7 +3192,7 @@ function renderQuestion(){
     var qShort=lfT.question.length>95 ? lfT.question.slice(0,95)+"…" : lfT.question;
     echoHtml+='<div class="truth-echo"><b>Sự thật đã bị viết lại (câu '+(lfT.q+1)+'):</b> ở thời kỳ này, mọi người giờ tin rằng đáp án của câu hỏi «'+qShort+'» là <b>«'+lfT.chosen+'»</b> — và họ đang sống theo niềm tin đó, dù sự thật đúng là «'+lfT.correct+'».</div>';
   }
-  var html=echoHtml+'<p class="qtext">'+item.q+'</p><div class="opts">';
+  var html=echoHtml+'<p class="qtext">'+item.q+'</p>'+((typeof petBarHtml==="function") ? petBarHtml() : "")+'<div class="opts">';
   order.forEach(function(i,p){
     html+='<button class="opt" type="button" data-i="'+i+'"><span class="letter">'+letters[p]+'</span><span>'+item.opts[i]+'</span></button>';
   });
@@ -3031,6 +3203,7 @@ function renderQuestion(){
   btns.forEach(function(b){
     b.addEventListener("click", function(){ answer(parseInt(b.getAttribute("data-i"),10)); });
   });
+  if(typeof wirePetBar==="function") wirePetBar(card, item.ans);
   startTimer();
 }
 function finishAnswer(chosen){
@@ -3043,6 +3216,7 @@ function finishAnswer(chosen){
     if(i===item.ans) b.classList.add("correct");
     else if(i===chosen) b.classList.add("wrong");
   });
+  $("qCard").querySelectorAll(".pet-btn").forEach(function(b){ b.disabled=true; });
   var ex=$("explain");
   if(chosen===item.ans){
     var bonus=Math.round(S.timeLeft)*2;
@@ -3052,6 +3226,7 @@ function finishAnswer(chosen){
     toast("Đúng rồi! +"+pts+" điểm");
   } else {
     S.hearts--; renderHearts(); sndBad();
+    if(S.hearts<=0 && typeof petReviveReady==="function" && petReviveReady() && !S.petSaved){ S.petSaved=true; S.hearts=1; renderHearts(); setTimeout(function(){ toast("Tí Nị cấp 5 dùng kỹ năng Hồi Tim: +1 tim ngay lúc nguy cấp — cố lên!", 3200); }, 350); }
     ex.innerHTML="<b>"+(chosen===-1?"Hết giờ rồi!":"Chưa đúng rồi.")+"</b> Đáp án đúng là: <b>"+item.opts[item.ans]+"</b>.<br>"+item.explain;
   }
   ex.classList.add("show");
@@ -3184,6 +3359,7 @@ function eraResult(){
   stopWorldLoop();
   var era=ERAS[S.era];
   var passed = S.eraCorrect>=6;
+  var exHtml = (passed && typeof exComplete==="function") ? exComplete("era") : "";
   var stars = S.eraCorrect>=9 ? 3 : (S.eraCorrect>=7 ? 2 : (S.eraCorrect>=6 ? 1 : 0));
   var card=$("resultCard");
   var eLog=eraButterflyEntries(), bflyHtml="";
@@ -3214,6 +3390,7 @@ function eraResult(){
       '<div class="recap"><div class="item"><b>Kiến thức cần nhớ:</b> '+era.recap+'</div></div>'+
       bflyHtml+
       legacyHtml+
+      exHtml+
       '<div class="btn-row">'+
         (S.era<4 ? '<button class="btn" type="button" id="resNext">Tiếp tục hành trình: '+ERAS[S.era+1].name+' ▸</button>' : '<button class="btn" type="button" id="resNext">Lắp lại cỗ máy Chrono ▸</button>')+
         '<button class="btn ghost" type="button" id="resJourney">Xem toàn cảnh hành trình</button>'+
@@ -4099,7 +4276,7 @@ function setLibraryGrade(g){
 function backHome(){
   sndClick();
   if($("hud").style.display==="flex") renderMap();
-  else { show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); }
+  else { show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); if(typeof renderPetCard==="function") renderPetCard(); }
 }
 $("levelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
 $("mapLevelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
@@ -9254,6 +9431,7 @@ function startBossBattle(){
   GWORLDS.forEach(function(w){ if(w.grade===BV.grade){ w.questions.forEach(function(q){ pool.push(q); }); } });
   bossShuffle(pool);
   BV.pool=pool; BV.qi=0; BV.streak=0; BV.hearts=BOSS_HEARTS; BV.score=0; BV.correct=0; BV.asked=0;
+  if(typeof petRunReset==="function") petRunReset();
   $("bossIntro").style.display="none";
   $("bossResult").style.display="none";
   $("bossBattle").style.display="";
@@ -9269,7 +9447,8 @@ function bossRenderMeta(){
 }
 function bossStartTimer(){
   clearInterval(BV.timer);
-  BV.timeLeft=BOSS_TIME;
+  BV.timeLimit=BOSS_TIME+((typeof petTimeBonus==="function") ? petTimeBonus() : 0);
+  BV.timeLeft=BV.timeLimit;
   $("bossTimerText").textContent=BV.timeLeft+" giây";
   var bar=$("bossTimerBar"); bar.classList.remove("low");
   bar.querySelector("i").style.width="100%";
@@ -9277,7 +9456,7 @@ function bossStartTimer(){
     BV.timeLeft-=0.1;
     if(BV.timeLeft<=0){ BV.timeLeft=0; if(!BV.answeredFlag){ BV.answeredFlag=true; bossFinishAnswer(-1); } return; }
     $("bossTimerText").textContent=Math.ceil(BV.timeLeft)+" giây";
-    bar.querySelector("i").style.width=(BV.timeLeft/BOSS_TIME*100)+"%";
+    bar.querySelector("i").style.width=(BV.timeLeft/BV.timeLimit*100)+"%";
     if(BV.timeLeft<=6) bar.classList.add("low");
   }, 100);
 }
@@ -9289,13 +9468,14 @@ function bossRenderQuestion(){
   $("bossQCount").textContent="Câu "+BV.asked+" · Boss khối "+BV.grade;
   var letters=["A","B","C","D"];
   var order=bossShuffle([0,1,2,3]);
-  var html='<p class="qtext">'+item.q+'</p><div class="opts">';
+  var html='<p class="qtext">'+item.q+'</p>'+((typeof petBarHtml==="function") ? petBarHtml() : "")+'<div class="opts">';
   order.forEach(function(i, p){ html+='<button class="opt" type="button" data-i="'+i+'"><span class="letter">'+letters[p]+'</span><span>'+item.opts[i]+'</span></button>'; });
   html+='</div><div class="explain" id="bossExplain"></div><div class="qnav" id="bossQnav"></div>';
   var card=$("bossQCard"); card.innerHTML=html;
   card.style.animation="none"; void card.offsetWidth; card.style.animation="";
   BV.answeredFlag=false;
   card.querySelectorAll(".opt").forEach(function(b){ b.addEventListener("click", function(){ if(BV.answeredFlag) return; BV.answeredFlag=true; bossFinishAnswer(parseInt(b.getAttribute("data-i"),10)); }); });
+  if(typeof wirePetBar==="function") wirePetBar(card, item.ans);
   bossStartTimer();
 }
 function bossFinishAnswer(chosen){
@@ -9307,6 +9487,7 @@ function bossFinishAnswer(chosen){
     if(i===item.ans) b.classList.add("correct");
     else if(i===chosen) b.classList.add("wrong");
   });
+  $("bossQCard").querySelectorAll(".pet-btn").forEach(function(b){ b.disabled=true; });
   var ex=$("bossExplain");
   var isGood = chosen===item.ans;
   var won=false, lost=false;
@@ -9336,12 +9517,14 @@ function bossWin(){
   S.score+=BV.score;
   updateHUD();
   saveProgress();
+  var exHtml = (typeof exComplete==="function") ? exComplete("boss") : "";
   $("bossBattle").style.display="none";
   var box=$("bossResult"); box.style.display="";
   box.innerHTML='<div class="result-card"><div style="font-size:15px; font-weight:900; letter-spacing:1.2px; color:var(--muted)">KẾT QUẢ TRẬN BOSS · KHỐI '+g+'</div>'
     +'<h2 style="margin:12px 0 2px; font-size:26px">Thắng rồi! Khiên thời gian của Kẻ Đánh Cắp Thời Gian đã vỡ tan!</h2>'
     +'<div class="score-big">'+BV.score+' điểm</div>'
     +'<p style="color:var(--muted); line-height:1.6; margin:8px auto; max-width:520px">Bạn đã trả lời đúng liên tiếp <b style="color:var(--ink)">'+BOSS_NEED+' câu</b> (tổng cộng đúng '+BV.correct+' câu trong trận) và điểm trận đã cộng vào tổng điểm của bạn. Đây là lần thắng Boss khối '+g+' thứ <b style="color:var(--ink)">'+rec.wins+'</b> được lưu trên máy này · Kỷ lục điểm trận Boss khối '+g+': <b style="color:var(--ink)">'+rec.best+' điểm</b>. Mảnh vỡ cuối của khối '+g+' đã an toàn!</p>'
+    +exHtml
     +'<div class="btn-row"><button class="btn" type="button" id="bossResHub">Về sảnh thế giới mở</button>'
     +'<button class="btn teal" type="button" id="bossResAgain">Đấu lại Boss khối '+g+'</button>'
     +'<button class="btn ghost" type="button" id="bossResLb">🏆 Xem bảng xếp hạng bạn bè</button></div></div>';
@@ -9399,6 +9582,7 @@ function cleanLB(obj){
 function totalsNow(){
   var sc=S.score, st=0, bo=0, k;
   for(k in S.stars) st+=S.stars[k];
+  if(typeof EX!=="undefined" && EX) st+=(EX.bonusStars||0); /* sao thưởng từ vòng quay may mắn cũng tính vào tổng sao */
   if(typeof GW!=="undefined" && GW && GW.done){ for(k in GW.done){ sc+=(GW.done[k].score||0); st+=(GW.done[k].stars||0); } }
   if(typeof BOSS_DONE!=="undefined" && BOSS_DONE){ for(k in BOSS_DONE) bo+=(BOSS_DONE[k].wins||0); }
   return {score:sc, stars:st, boss:bo};
@@ -9786,6 +9970,7 @@ $("mapPickBtn").addEventListener("click", function(){ sndClick(); openPick(); })
 function startGStory(gi){
   GV.gi=gi; GS.idx=0; GS.mode="story"; GS.lines=null; GS.pendingVortex=false;
   var w=gwWorld();
+  if(typeof exAutoCostume==="function") exAutoCostume(w.name+" "+w.desc+" "+w.years);
   $("gSceneBg").style.background=w.scene;
   $("gSceneBg").innerHTML=w.sceneSvg||"";
   $("gCharNpc").innerHTML=w.npcSvg+'<div><span class="cname">'+w.npcName+'</span></div>';
@@ -9866,13 +10051,16 @@ function startGOutro(){
 /* ---------- Thế giới mở của khối 6/8/9 ---------- */
 function startGPlay(){
   clearInterval(GS.typing);
-  GV.hearts=3; GV.correct=0; GV.score=0; GV.answered={}; GV.butterfly=0; GV.q=0; GV.lastCorrect=null; GV.overlay=false; GV.keys={};
+  GV.hearts=3+((typeof exTakeBonusHearts==="function") ? exTakeBonusHearts() : 0); GV.correct=0; GV.score=0; GV.answered={}; GV.butterfly=0; GV.q=0; GV.lastCorrect=null; GV.overlay=false; GV.keys={};
+  if(typeof petRunReset==="function") petRunReset(); GV.petSaved=false;
   var w=gwWorld();
   $("gEraBanner").style.background=w.accentBg;
   $("gEraBanner").innerHTML='<div class="banner-flex"><div class="era-art" style="background:rgba(0,0,0,.25)">'+w.art+'</div><div><div class="eyebrow">Khối '+w.grade+' · '+w.yearLabel+'</div><h2 style="margin:3px 0 2px; font-size:23px">'+w.name+'</h2><p style="margin:0; opacity:.88; font-size:14.5px; line-height:1.5">'+w.desc+'</p></div></div>';
   buildGWorld(w);
   gUpdateProg(); gApplyDistortion();
   show("screen-gexplore");
+  if(typeof applyWeather==="function") applyWeather("gWxLayer","gWxChip","gHeroW", w.id);
+  if(typeof exAutoCostume==="function") exAutoCostume(w.name+" "+w.desc+" "+w.years);
   gPositionHero();
   gStartWorldLoop();
   toast("Đã tới "+w.name+"! Tìm 10 điểm ? và thu hồi "+w.artifact+".");
@@ -10071,13 +10259,15 @@ function gCloseQuestion(){
   }
 }
 function gRenderHearts(){
+  var total=Math.max(3, GV.hearts);
   var h="";
-  for(var i=0; i<3; i++) h+='<span class="'+(i<GV.hearts?"":"off")+'">♥</span>';
+  for(var i=0; i<total; i++) h+='<span class="'+(i<GV.hearts?"":"off")+'">♥</span>';
   $("gHearts").innerHTML=h;
 }
 function gStartTimer(){
   clearInterval(GV.timer);
-  GV.timeLeft=25;
+  GV.timeLimit=25+((typeof petTimeBonus==="function") ? petTimeBonus() : 0);
+  GV.timeLeft=GV.timeLimit;
   $("gQTimerText").textContent=GV.timeLeft+" giây";
   var bar=$("gTimerBar"); bar.classList.remove("low");
   bar.querySelector("i").style.width="100%";
@@ -10085,7 +10275,7 @@ function gStartTimer(){
     GV.timeLeft-=0.1;
     if(GV.timeLeft<=0){ GV.timeLeft=0; gFinishAnswer(-1); return; }
     $("gQTimerText").textContent=Math.ceil(GV.timeLeft)+" giây";
-    bar.querySelector("i").style.width=(GV.timeLeft/25*100)+"%";
+    bar.querySelector("i").style.width=(GV.timeLeft/GV.timeLimit*100)+"%";
     if(GV.timeLeft<=6) bar.classList.add("low");
   }, 100);
 }
@@ -10102,7 +10292,7 @@ function gRenderQuestion(){
   if(prevWrong){
     echoHtml='<div class="truth-echo"><b>Sự thật đã bị viết lại (câu '+(prevWrong.q+1)+'):</b> ở thế giới này, mọi người giờ tin rằng đáp án của câu hỏi «'+prevWrong.question+'» là <b>«'+prevWrong.chosen+'»</b> — dù sự thật đúng là «'+prevWrong.correct+'». Học chắc kiến thức đúng để hàn gắn lại nhé.</div>';
   }
-  var html=echoHtml+'<p class="qtext">'+item.q+'</p><div class="opts">';
+  var html=echoHtml+'<p class="qtext">'+item.q+'</p>'+((typeof petBarHtml==="function") ? petBarHtml() : "")+'<div class="opts">';
   order.forEach(function(i, p){
     html+='<button class="opt" type="button" data-i="'+i+'"><span class="letter">'+letters[p]+'</span><span>'+item.opts[i]+'</span></button>';
   });
@@ -10113,6 +10303,7 @@ function gRenderQuestion(){
   card.querySelectorAll(".opt").forEach(function(b){
     b.addEventListener("click", function(){ gAnswer(parseInt(b.getAttribute("data-i"),10)); });
   });
+  if(typeof wirePetBar==="function") wirePetBar(card, item.ans);
   gStartTimer();
 }
 function gAnswer(i){ if(GV.answeredFlag) return; GV.answeredFlag=true; gFinishAnswer(i); }
@@ -10126,6 +10317,7 @@ function gFinishAnswer(chosen){
     if(i===item.ans) b.classList.add("correct");
     else if(i===chosen) b.classList.add("wrong");
   });
+  $("gQCard").querySelectorAll(".pet-btn").forEach(function(b){ b.disabled=true; });
   var ex=$("gExplain");
   var isGood = chosen===item.ans;
   if(isGood){
@@ -10136,6 +10328,7 @@ function gFinishAnswer(chosen){
     toast("Đúng rồi! +"+pts+" điểm");
   } else {
     GV.hearts--; gRenderHearts(); sndBad();
+    if(GV.hearts<=0 && typeof petReviveReady==="function" && petReviveReady() && !GV.petSaved){ GV.petSaved=true; GV.hearts=1; gRenderHearts(); setTimeout(function(){ toast("Tí Nị cấp 5 dùng kỹ năng Hồi Tim: +1 tim ngay lúc nguy cấp — cố lên!", 3200); }, 350); }
     ex.innerHTML="<b>"+(chosen===-1?"Hết giờ rồi!":"Chưa đúng rồi.")+"</b> Đáp án đúng là: <b>"+item.opts[item.ans]+"</b>.<br>"+item.explain;
   }
   ex.classList.add("show");
@@ -10230,6 +10423,7 @@ function gResult(){
   var prev=GW.done[w.id];
   if(!prev || GV.score>prev.score || stars>prev.stars){ GW.done[w.id]={stars:stars, score:GV.score, correct:GV.correct}; }
   saveProgress();
+  var exHtml = (pass && typeof exComplete==="function") ? exComplete("world") : "";
   var gwCount=gradeWorldsDone(w.grade);
   var gradeComplete = gwCount.total>0 && gwCount.done>=gwCount.total;
   var bossBeaten = !!(typeof BOSS_DONE!=="undefined" && BOSS_DONE[w.grade] && BOSS_DONE[w.grade].wins>0);
@@ -10244,6 +10438,7 @@ function gResult(){
     +'<div class="recap"><div class="item"><b>Kiến thức cần nhớ · '+w.name+':</b> '+w.recap+'</div></div>'
     +(gradeComplete && !bossBeaten ? '<p style="color:#ffb3b3; font-weight:800; line-height:1.6; margin:10px auto; max-width:520px">Bạn vừa qua hết mọi thế giới của khối '+w.grade+' — trận <b>Boss cuối khối</b> với Kẻ Đánh Cắp Thời Gian đã mở khóa! Trả lời đúng liên tiếp 5 câu để phá khiên của hắn nhé.</p>' : '')
     +(gradeComplete && bossBeaten ? '<p style="color:var(--muted); line-height:1.6; margin:10px auto; max-width:520px">Boss cuối khối '+w.grade+' đã bị bạn hạ rồi — vẫn có thể đấu lại hắn bất cứ lúc nào ở sảnh thế giới mở để phá kỷ lục điểm trận đấu.</p>' : '')
+    +exHtml
     +'<div class="btn-row">'
     +'<button class="btn" type="button" id="gResHub">Về sảnh thế giới mở</button>'
     +'<button class="btn teal" type="button" id="gResReplay">'+(pass?'Chơi lại thế giới này':'Thử lại thế giới này')+'</button>'
@@ -10352,7 +10547,7 @@ function paintHeroSvg(svg, st){
     else if(role==="skin") col=st.skin;
     else if(role==="neck") col=st.neck;
     if(col) el.setAttribute("fill", col);
-    if(role==="headband") el.style.display = st.hairStyle==="cap" ? "none" : "";
+    if(role==="headband") el.style.display = (st.hairStyle==="cap" || st.costume) ? "none" : "";
   }
   /* Kiểu tóc & phụ kiện: xóa nhóm phụ trợ cũ, vẽ lại theo phong cách */
   var old=svg.querySelectorAll(".hstyle-extra");
@@ -10381,6 +10576,25 @@ function paintHeroSvg(svg, st){
   }
   if(hairEl && hairEl.nextSibling) headG.insertBefore(g, hairEl.nextSibling);
   else headG.appendChild(g);
+  /* Phụ kiện TRANG PHỤC THEO THỜI KỲ (cửa hàng): mũ giáp hiệp sĩ, mũ kabuto samurai, khăn đóng áo dài — vẽ phủ lên đầu */
+  if(st.costume==="knight"){
+    g.appendChild(mk("path",{d:"M33 30 Q33 10.5 52 10.5 Q71 10.5 71 30 L71 33 Q52 27 33 33 Z", fill:"#c3cbdd"}));
+    g.appendChild(mk("path",{d:"M33 30 Q33 10.5 52 10.5 Q71 10.5 71 30 L71 33 Q52 27 33 33 Z", fill:"#ffffff", opacity:".18"}));
+    g.appendChild(mk("rect",{x:"30.5", y:"30.5", width:"43", height:"3.6", rx:"1.8", fill:"#8d99b5"}));
+    g.appendChild(mk("rect",{x:"47", y:"24", width:"10", height:"2.6", rx:"1.3", fill:"#39415e"}));
+    g.appendChild(mk("path",{d:"M52 10.5 q-2 -7 -8 -8.5 q5.5 -1.5 9.5 1.8 q4 -3.3 9.5 -1.8 q-6 1.5 -8 8.5 z", fill:"#d64541"}));
+  } else if(st.costume==="samurai"){
+    g.appendChild(mk("path",{d:"M34 29 Q34 12 52 12 Q70 12 70 29 L70 31.5 Q52 26 34 31.5 Z", fill:"#23283d"}));
+    g.appendChild(mk("path",{d:"M34 29 q-4.5 3 -4 8.5 l6.5 1.5 q-.5 -5.5 -2.5 -9.5z", fill:"#39415e"}));
+    g.appendChild(mk("path",{d:"M70 29 q4.5 3 4 8.5 l-6.5 1.5 q.5 -5.5 2.5 -9.5z", fill:"#39415e"}));
+    g.appendChild(mk("path",{d:"M41 8.5 a11 11 0 0 1 22 0 a13.5 13.5 0 0 0 -22 0z", fill:"#e8b93c"}));
+    g.appendChild(mk("rect",{x:"50.6", y:"2.5", width:"2.8", height:"7", rx:"1.4", fill:"#e8b93c"}));
+  } else if(st.costume==="aodai"){
+    g.appendChild(mk("path",{d:"M33.5 24 a18.5 15 0 0 1 37 0 l0 3.5 a18.5 12 0 0 1 -37 0z", fill:"#5b2333"}));
+    g.appendChild(mk("ellipse",{cx:"52", cy:"15.5", rx:"14.5", ry:"4.6", fill:"#7a2d45"}));
+    g.appendChild(mk("ellipse",{cx:"52", cy:"20.5", rx:"17", ry:"4.4", fill:"#8f3a56"}));
+    g.appendChild(mk("ellipse",{cx:"52", cy:"25", rx:"18.5", ry:"4.2", fill:"#5b2333"}));
+  }
   if(st.glasses==="sun"){
     var gg=document.createElementNS(NS,"g"); gg.setAttribute("class","hstyle-extra");
     gg.appendChild(mk("rect",{x:"36.5", y:"26.5", width:"17", height:"11.5", rx:"4.5", fill:"#101018", opacity:".92"}));
@@ -10390,7 +10604,7 @@ function paintHeroSvg(svg, st){
   }
 }
 function applyHeroStyle(){
-  var st=heroStyleById(HSTYLE)||HERO_STYLES[0];
+  var st=(typeof activeHeroStyle==="function") ? activeHeroStyle() : (heroStyleById(HSTYLE)||HERO_STYLES[0]);
   var grid=$("styleGrid");
   var svgs=document.querySelectorAll("svg");
   for(var i=0;i<svgs.length;i++){
@@ -10503,6 +10717,7 @@ function enterGame(){
   if(typeof PROFILE!=="undefined" && PROFILE && typeof LB!=="undefined" && LB && typeof setLBPlayer==="function" && LB.player!==PROFILE.name) setLBPlayer(PROFILE.name);
   show("screen-start");
   if(typeof renderHomeLB==="function") renderHomeLB();
+  if(typeof renderPetCard==="function") renderPetCard();
   refreshPlayerUI();
 }
 function doAuth(){
@@ -10580,11 +10795,483 @@ function initAuthGate(){
     $("authName").value=PROFILE.name;
     show("screen-start");
     if(typeof renderHomeLB==="function") renderHomeLB();
+    if(typeof renderPetCard==="function") renderPetCard();
     refreshPlayerUI();
   } else {
     show("screen-login");
   }
 }
+
+/* ================= 7 TÍNH NĂNG MỚI: VÒNG QUAY · PET TÍ NỊ · THẺ BÀI · NHIỆM VỤ TUẦN · THỜI TIẾT · TRANG PHỤC · BẢN ĐỒ TỔNG ================= */
+/* Toàn bộ trạng thái của 7 tính năng nằm trong EX và được lưu chung bản lưu
+   trên máy với tiến độ game (saveSnapshot/loadProgress/cleanEX lo việc này). */
+function freshEX(){
+  return { wheelDate:"", wheelPrize:"", stories:[], bonusHearts:0, bonusStars:0,
+    petXp:0, cards:{}, weekly:{week:"", prog:0, claimed:false}, titles:[],
+    costumes:{}, costume:"", spent:0 };
+}
+var EX = freshEX();
+function cleanEX(obj){
+  var out=freshEX();
+  if(!obj || typeof obj!=="object") return out;
+  if(typeof obj.wheelDate==="string") out.wheelDate=obj.wheelDate.slice(0,16);
+  if(typeof obj.wheelPrize==="string") out.wheelPrize=obj.wheelPrize.slice(0,300);
+  if(obj.stories && typeof obj.stories.length==="number"){ for(var i=0;i<obj.stories.length && out.stories.length<6;i++){ var s=parseInt(obj.stories[i],10); if(s>=0 && s<6 && out.stories.indexOf(s)<0) out.stories.push(s); } }
+  var bh=parseInt(obj.bonusHearts,10); out.bonusHearts=(bh>=0 && bh<=3)?bh:0;
+  var bs=parseInt(obj.bonusStars,10); out.bonusStars=(bs>=0 && bs<=9999)?bs:0;
+  var px=parseInt(obj.petXp,10); out.petXp=(px>=0 && px<=100000)?px:0;
+  if(obj.cards && typeof obj.cards==="object"){ HIST_CARDS.forEach(function(c){ if(obj.cards[c.id]) out.cards[c.id]=true; }); }
+  if(obj.weekly && typeof obj.weekly==="object"){
+    if(typeof obj.weekly.week==="string") out.weekly.week=obj.weekly.week.slice(0,16);
+    var wp=parseInt(obj.weekly.prog,10); out.weekly.prog=(wp>=0 && wp<=99)?wp:0;
+    out.weekly.claimed=!!obj.weekly.claimed;
+  }
+  if(obj.titles && typeof obj.titles.length==="number"){ for(var j=0;j<obj.titles.length && out.titles.length<60;j++){ if(typeof obj.titles[j]==="string") out.titles.push(obj.titles[j].slice(0,60)); } }
+  if(obj.costumes && typeof obj.costumes==="object"){ COSTUMES.forEach(function(c){ if(obj.costumes[c.id]) out.costumes[c.id]=true; }); }
+  if(typeof obj.costume==="string" && costumeById(obj.costume) && out.costumes[obj.costume]) out.costume=obj.costume;
+  var sp=parseInt(obj.spent,10); out.spent=(sp>=0 && sp<=10000000)?sp:0;
+  return out;
+}
+function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+function exTakeBonusHearts(){
+  var n=EX.bonusHearts||0;
+  if(n>0){ EX.bonusHearts=0; saveProgress(); setTimeout(function(){ toast("Tim dự trữ từ vòng quay may mắn: +"+n+" tim cho màn chơi này!", 2800); }, 1500); }
+  return n;
+}
+
+/* ---------- Ý 2: PET ĐỒNG HÀNH TÍ NỊ NÂNG CẤP ---------- */
+/* Qua màn → Tí Nị nhận XP và lên cấp: Lv2 loại 1 đáp án sai khi trả lời,
+   Lv3 +5 giây mỗi câu, Lv4 tăng lượt loại đáp án lên 4/màn, Lv5 hồi 1 tim
+   khi người chơi sắp hết tim (1 lần mỗi màn). */
+var PET_LEVELS=[0,30,80,150,250];
+function petLevel(){ var lv=1; for(var i=0;i<PET_LEVELS.length;i++) if(EX.petXp>=PET_LEVELS[i]) lv=i+1; return lv; }
+function petTimeBonus(){ return petLevel()>=3 ? 5 : 0; }
+function petElimCharges(){ var lv=petLevel(); return lv>=4 ? 4 : (lv>=2 ? 2 : 0); }
+function petReviveReady(){ return petLevel()>=5; }
+var PET_RUN={elim:0};
+function petRunReset(){ PET_RUN.elim=petElimCharges(); }
+function petSkillText(lv){
+  if(lv===2) return "Kỹ năng mới mở khóa: khi trả lời câu hỏi, Tí Nị loại giúp bạn 1 đáp án sai (2 lượt mỗi màn)!";
+  if(lv===3) return "Kỹ năng mới mở khóa: mỗi câu hỏi được cộng thêm 5 giây suy nghĩ!";
+  if(lv===4) return "Kỹ năng nâng cấp: số lượt loại đáp án sai tăng lên 4 lượt mỗi màn!";
+  if(lv===5) return "Kỹ năng tối thượng mở khóa: HỒI TIM — khi bạn sắp hết tim, Tí Nị hồi ngay 1 tim (1 lần mỗi màn)!";
+  return "";
+}
+function petBarHtml(){
+  var lv=petLevel(); if(lv<2) return "";
+  var h='<div class="pet-bar"><span class="pet-tag">Tí Nị · Lv '+lv+' đồng hành:</span>';
+  if(PET_RUN.elim>0) h+='<button class="pet-btn pet-elim" type="button">Loại 1 đáp án sai (còn '+PET_RUN.elim+' lượt)</button>';
+  else h+='<button class="pet-btn pet-elim" type="button" disabled>Đã hết lượt loại đáp án trong màn này</button>';
+  if(lv>=3) h+='<span class="pet-note">+5 giây mỗi câu đã tự cộng sẵn nhờ Tí Nị Lv3</span>';
+  if(lv>=5) h+='<span class="pet-note">Kỹ năng Hồi Tim (Lv5) đang sẵn sàng</span>';
+  return h+'</div>';
+}
+function wirePetBar(card, ans){
+  if(!card) return;
+  var b=card.querySelector(".pet-elim");
+  if(!b || b.disabled) return;
+  b.addEventListener("click", function(){
+    if(b.disabled) return;
+    var opts=card.querySelectorAll(".opt"), wrong=[];
+    opts.forEach(function(o){ var i=parseInt(o.getAttribute("data-i"),10); if(i!==ans && !o.disabled && !o.classList.contains("pet-elim")) wrong.push(o); });
+    if(!wrong.length) return;
+    var pick=wrong[Math.floor(Math.random()*wrong.length)];
+    pick.classList.add("pet-elim"); pick.disabled=true;
+    PET_RUN.elim=Math.max(0, PET_RUN.elim-1);
+    sndClick(); beep(1180,.1);
+    b.disabled=true;
+    b.textContent="Tí Nị đã loại 1 đáp án sai cho câu này ✓ (còn "+PET_RUN.elim+" lượt trong màn)";
+    toast("Tí Nị loại giúp bạn 1 đáp án sai — còn 3 đáp án, chọn kỹ nhé!", 2200);
+  });
+}
+function renderPetCard(){
+  var box=$("petCard"); if(!box) return;
+  var lv=petLevel();
+  var cur=PET_LEVELS[lv-1], next=(lv<PET_LEVELS.length)?PET_LEVELS[lv]:null;
+  var pct=next ? Math.min(100, Math.round((EX.petXp-cur)/(next-cur)*100)) : 100;
+  var ws=weeklyState(), th=weeklyTheme();
+  var wheelReady=EX.wheelDate!==todayStr();
+  var cardCount=0; for(var k in EX.cards) if(EX.cards[k]) cardCount++;
+  var titleLine = EX.titles.length ? ' · Danh hiệu mới nhất: <b>'+EX.titles[EX.titles.length-1]+'</b>' : "";
+  box.innerHTML='<div class="pet-head"><div class="pet-ava">🤖</div><div style="flex:1; min-width:200px">'
+    +'<div class="pet-name">Pet đồng hành <b>Tí Nị</b> · Cấp '+lv+'</div>'
+    +'<div class="pet-sub">'+EX.petXp+' XP'+(next ? ' · còn '+(next-EX.petXp)+' XP nữa là lên cấp '+(lv+1) : ' · đã đạt cấp tối đa!')+titleLine+'</div>'
+    +'<div class="pet-xpbar"><i style="width:'+pct+'%"></i></div>'
+    +'<div class="pet-skills">'
+    +'<span class="pet-skill'+(lv>=2?" on":"")+'">Lv2 · Loại 1 đáp án sai</span>'
+    +'<span class="pet-skill'+(lv>=3?" on":"")+'">Lv3 · +5 giây mỗi câu</span>'
+    +'<span class="pet-skill'+(lv>=4?" on":"")+'">Lv4 · 4 lượt loại đáp án/màn</span>'
+    +'<span class="pet-skill'+(lv>=5?" on":"")+'">Lv5 · Hồi 1 tim khi nguy cấp</span>'
+    +'</div></div></div>'
+    +'<div class="pet-links">'
+    +'<button class="pet-link" type="button" data-plink="wheel">🎡 Vòng quay may mắn<small>'+(wheelReady?"Hôm nay chưa quay — còn 1 lượt đang chờ!":"Hôm nay đã quay rồi, mai quay tiếp nhé")+'</small>'+(wheelReady?'<span class="dot"></span>':"")+'</button>'
+    +'<button class="pet-link" type="button" data-plink="cards">🃏 Thẻ bài nhân vật<small>Đã sưu tầm '+cardCount+'/12 thẻ danh nhân</small></button>'
+    +'<button class="pet-link" type="button" data-plink="weekly">📅 Nhiệm vụ tuần<small>'+th.name+' · đã xong '+ws.prog+'/'+th.target+' màn'+(ws.claimed?" · Đã nhận danh hiệu!":"")+'</small>'+(!ws.claimed?'<span class="dot"></span>':"")+'</button>'
+    +'<button class="pet-link" type="button" data-plink="shop">🛍️ Cửa hàng trang phục<small>'+((EX.costume && costumeById(EX.costume)) ? "Đang mặc: "+costumeById(EX.costume).name : "Áo giáp hiệp sĩ · Áo dài · Đồ samurai")+'</small></button>'
+    +'<button class="pet-link" type="button" data-plink="wmap">🗺️ Bản đồ thế giới tổng<small>51 thế giới mở + 5 thời kỳ trên một bản đồ</small></button>'
+    +'</div>';
+  box.querySelectorAll("[data-plink]").forEach(function(b){
+    b.addEventListener("click", function(){
+      sndClick();
+      var k=b.getAttribute("data-plink");
+      if(k==="wheel") openWheel(); else if(k==="cards") openCards(); else if(k==="weekly") openWeekly(); else if(k==="shop") openShop(); else if(k==="wmap") openWorldMap();
+    });
+  });
+}
+
+/* ---------- Ý 1: VÒNG QUAY MAY MẮN (mỗi ngày 1 lần) + SỔ TRUYỆN ---------- */
+var WHEEL_PRIZES=[
+  {label:"+50 điểm", col:"#2dd4bf", kind:"points", val:50},
+  {label:"★ +1 sao", col:"#f5b942", kind:"star", val:1},
+  {label:"+100 điểm", col:"#4ade80", kind:"points", val:100},
+  {label:"♥ +1 tim", col:"#ff8a8a", kind:"heart", val:1},
+  {label:"+30 điểm", col:"#7ea6ff", kind:"points", val:30},
+  {label:"Truyện mới", col:"#c792ff", kind:"story", val:0},
+  {label:"+150 điểm", col:"#ffd97a", kind:"points", val:150},
+  {label:"★ +1 sao", col:"#f5b942", kind:"star", val:1}
+];
+var WHEEL_WEIGHTS=[18,10,14,12,18,10,8,10];
+var WHEEL_STATE={deg:0, spinning:false};
+var STORIES=[
+  {title:"Chiếc trống đồng Đông Sơn", text:"Cách đây khoảng 2.000–2.500 năm, cư dân Văn Lang – Âu Lạc thuộc văn hóa Đông Sơn đã đúc nên những chiếc trống đồng tinh xảo. Giữa mặt trống là hình ngôi sao nhiều cánh, xung quanh là hình người múa hát, giã gạo, chèo thuyền và chim Lạc bay. Trống đồng vừa là nhạc cụ trong lễ hội, vừa là biểu tượng quyền lực của các thủ lĩnh — nổi tiếng nhất là trống Ngọc Lũ và trống Hoàng Hạ, nay được xem là bảo vật quốc gia."},
+  {title:"Hai Bà Trưng phất cờ khởi nghĩa (năm 40)", text:"Mùa xuân năm 40, hai chị em Trưng Trắc và Trưng Nhị phất cờ khởi nghĩa ở Mê Linh, chống ách đô hộ của nhà Hán. Nghĩa quân đánh đuổi thái thú Tô Định, giành lại 65 thành trì, và Trưng Trắc được suy tôn làm vua. Cuộc khởi nghĩa mở đầu truyền thống chống ngoại xâm anh hùng của dân tộc, dù ba năm sau bị tướng Mã Viện đem quân đàn áp."},
+  {title:"Ngô Quyền và trận Bạch Đằng (năm 938)", text:"Năm 938, quân Nam Hán theo đường sông Bạch Đằng kéo vào xâm lược nước ta. Ngô Quyền cho quân đóng cọc gỗ bịt đầu sắt nhọn dưới lòng sông, chờ thủy triều lên thì dụ thuyền giặc vào bãi cọc; khi triều rút, thuyền giặc mắc cạn, vỡ tan tành. Chiến thắng Bạch Đằng chấm dứt hơn một nghìn năm Bắc thuộc, mở ra thời kỳ độc lập lâu dài của dân tộc Việt Nam."},
+  {title:"Nam quốc sơn hà — tiếng nói của Lý Thường Kiệt (1077)", text:"Khi quân Tống xâm lược Đại Việt, Lý Thường Kiệt chủ động sang đất Tống phá kho lương, rồi lui về lập phòng tuyến sông Như Nguyệt. Tương truyền bài thơ “Nam quốc sơn hà” vang lên trong đền Trương Hống, Trương Hát đã làm quân sĩ nức lòng chiến đấu, góp phần đánh bại quân Tống năm 1077. Bài thơ được coi như bản tuyên ngôn độc lập đầu tiên của nước ta."},
+  {title:"Hội nghị Diên Hồng (năm 1284)", text:"Trước họa xâm lược của quân Nguyên – Mông lần thứ hai, vua Trần triệu tập các bô lão trong cả nước về điện Diên Hồng để hỏi ý dân. Khi vua hỏi nên hòa hay nên đánh, các bô lão đồng thanh hô vang: “Đánh!” Hội nghị Diên Hồng trở thành biểu tượng đẹp của tinh thần đoàn kết toàn dân — cả nước một lòng khi Tổ quốc lâm nguy."},
+  {title:"Chiến thắng Điện Biên Phủ (năm 1954)", text:"Chiến dịch Điện Biên Phủ diễn ra trong 56 ngày đêm (13/3 – 7/5/1954), dưới sự chỉ huy của Đại tướng Võ Nguyên Giáp. Bộ đội ta kéo pháo vào núi, đào hào vây ép tập đoàn cứ điểm được coi là “pháo đài bất khả xâm phạm”. Ngày 7/5/1954, tướng Đờ Cát bị bắt, chiến dịch toàn thắng — chiến công “lừng lẫy năm châu, chấn động địa cầu”, buộc thực dân Pháp ký Hiệp định Giơ-ne-vơ."}
+];
+function buildWheel(){
+  var g=$("wheelRot"); if(!g || g.getAttribute("data-built")) return;
+  g.setAttribute("data-built","1");
+  var NS="http://www.w3.org/2000/svg";
+  function mk(tag, attrs){ var e=document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  var cx=165, cy=165, R=158;
+  for(var i=0;i<8;i++){
+    var a0=(i*45-90)*Math.PI/180, a1=((i+1)*45-90)*Math.PI/180;
+    var x0=cx+R*Math.cos(a0), y0=cy+R*Math.sin(a0), x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    g.appendChild(mk("path",{d:"M"+cx+" "+cy+" L"+x0.toFixed(1)+" "+y0.toFixed(1)+" A"+R+" "+R+" 0 0 1 "+x1.toFixed(1)+" "+y1.toFixed(1)+" Z", fill:WHEEL_PRIZES[i].col, stroke:"#141b3d", "stroke-width":"2.5"}));
+    var am=(i*45-90+22.5)*Math.PI/180, tx=cx+106*Math.cos(am), ty=cy+106*Math.sin(am);
+    var t=mk("text",{x:tx.toFixed(1), y:ty.toFixed(1), "text-anchor":"middle", fill:"#141b3d", "font-size":"14.5", "font-weight":"900", transform:"rotate("+(i*45+22.5)+" "+tx.toFixed(1)+" "+ty.toFixed(1)+")"});
+    t.textContent=WHEEL_PRIZES[i].label;
+    g.appendChild(t);
+  }
+  g.appendChild(mk("circle",{cx:cx, cy:cy, r:R, fill:"none", stroke:"#f5b942", "stroke-width":"5"}));
+}
+function applyWheelPrize(p){
+  if(p.kind==="points"){ S.score+=p.val; updateHUD(); return "Chúc mừng! Bạn trúng +"+p.val+" điểm — điểm đã cộng vào tổng điểm của bạn."; }
+  if(p.kind==="star"){ EX.bonusStars+=1; saveProgress(); return "Chúc mừng! Bạn trúng +1 sao thưởng — sao này tính vào tổng sao và bảng xếp hạng bạn bè của bạn."; }
+  if(p.kind==="heart"){
+    if(EX.bonusHearts>=3){ S.score+=40; updateHUD(); return "Bạn đang giữ đủ 3 tim dự trữ rồi, nên ô tim tự đổi thành +40 điểm thưởng!"; }
+    EX.bonusHearts+=1; saveProgress();
+    return "Chúc mừng! Bạn trúng +1 tim dự trữ (đang giữ "+EX.bonusHearts+"/3 tim) — tim sẽ tự cộng vào màn chơi tiếp theo của bạn.";
+  }
+  if(p.kind==="story"){
+    var locked=[]; STORIES.forEach(function(s,i){ if(EX.stories.indexOf(i)<0) locked.push(i); });
+    if(!locked.length){ S.score+=80; updateHUD(); return "Bạn đã mở khóa hết 6 câu chuyện trong Sổ truyện rồi, nên ô truyện tự đổi thành +80 điểm thưởng!"; }
+    var ni=locked[Math.floor(Math.random()*locked.length)];
+    EX.stories.push(ni); saveProgress();
+    return "Chúc mừng! Bạn mở khóa câu chuyện mới: “"+STORIES[ni].title+"” — đọc ngay trong Sổ truyện bên dưới nhé!";
+  }
+  return "";
+}
+function renderStories(){
+  var list=$("storyList"); if(!list) return;
+  var n=EX.stories.length;
+  var sc=$("storyCount"); if(sc) sc.textContent=n+"/6 truyện đã mở khóa";
+  var html="";
+  STORIES.forEach(function(s, i){
+    if(EX.stories.indexOf(i)>=0) html+='<div class="story-item"><h4>'+(i+1)+'. '+s.title+'</h4><div>'+s.text+'</div></div>';
+    else html+='<div class="story-item locked"><h4>'+(i+1)+'. Truyện chưa mở khóa</h4><div>Quay vòng quay may mắn và dừng ở ô “Truyện mới” để mở khóa câu chuyện này.</div></div>';
+  });
+  list.innerHTML=html;
+}
+function renderWheel(){
+  buildWheel();
+  var btn=$("wheelSpinBtn"), st=$("wheelStatus");
+  if(!btn || !st) return;
+  var spun=EX.wheelDate===todayStr();
+  if(WHEEL_STATE.spinning){
+    btn.disabled=true; btn.textContent="Đang quay…";
+    st.innerHTML="Vòng quay đang xoay — chờ xem Cổng Thời Gian tặng bạn phần quà gì nhé!";
+  } else if(spun){
+    btn.disabled=true; btn.textContent="Hôm nay đã quay rồi";
+    st.innerHTML=(EX.wheelPrize ? "<b>Lần quay hôm nay:</b> "+EX.wheelPrize+"<br>" : "")+"Hôm nay bạn đã dùng lượt quay rồi — <b>ngày mai quay lại</b> để nhận quà tiếp nhé!";
+  } else {
+    btn.disabled=false; btn.textContent="Quay ngay ▸";
+    st.innerHTML="Bạn đang có <b>1 lượt quay của hôm nay</b> — bấm Quay ngay để nhận quà!"+(EX.bonusHearts ? "<br>Tim dự trữ đang giữ: <b>"+EX.bonusHearts+" tim</b> (tự cộng vào màn chơi tiếp theo)." : "");
+  }
+  renderStories();
+}
+function spinWheel(){
+  if(WHEEL_STATE.spinning) return;
+  if(EX.wheelDate===todayStr()){ renderWheel(); return; }
+  WHEEL_STATE.spinning=true;
+  EX.wheelDate=todayStr(); EX.wheelPrize=""; saveProgress(); renderWheel();
+  var total=0; WHEEL_WEIGHTS.forEach(function(w){ total+=w; });
+  var r=Math.random()*total, idx=WHEEL_PRIZES.length-1;
+  for(var i=0;i<WHEEL_WEIGHTS.length;i++){ r-=WHEEL_WEIGHTS[i]; if(r<=0){ idx=i; break; } }
+  var jitter=Math.random()*24-12;
+  var targetMod=(((-45*idx-22.5+jitter)%360)+360)%360;
+  var base=Math.ceil((WHEEL_STATE.deg+1)/360)*360+360*4;
+  WHEEL_STATE.deg=base+targetMod;
+  var rot=$("wheelRot"); if(rot) rot.style.transform="rotate("+WHEEL_STATE.deg+"deg)";
+  sndClick();
+  setTimeout(function(){
+    WHEEL_STATE.spinning=false;
+    var msg=applyWheelPrize(WHEEL_PRIZES[idx]);
+    EX.wheelPrize=msg; saveProgress(); renderWheel(); renderPetCard();
+    confetti(); sndGood();
+  }, 4850);
+}
+function openWheel(){ show("screen-wheel"); renderWheel(); }
+
+/* ---------- Ý 4: THẺ BÀI NHÂN VẬT LỊCH SỬ ---------- */
+var HIST_CARDS=[
+  {id:"hbt", name:"Hai Bà Trưng", era:"Năm 40 · Khởi nghĩa ở Mê Linh", fact:"Hai chị em Trưng Trắc và Trưng Nhị phất cờ khởi nghĩa chống nhà Hán, đánh đuổi thái thú Tô Định, giành lại 65 thành trì và xưng vương — biểu tượng bất khuất của phụ nữ Việt Nam.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="9" y="5" width="3" height="37" rx="1.5" fill="#8a6d1f"/><path d="M12 7 q11 -4 21 1 q-10 5 -21 2z" fill="#d64541"/><path d="M12 14 q11 -4 21 1 q-10 5 -21 2z" fill="#f5b942" opacity=".9"/><ellipse cx="32" cy="37" rx="10" ry="6" fill="#7d8aa5"/><rect x="28" y="28" width="8" height="7" rx="2" fill="#5b6fa6"/></svg>'},
+  {id:"btrieu", name:"Bà Triệu", era:"Năm 248 · Khởi nghĩa chống Đông Ngô", fact:"Triệu Thị Trinh lãnh đạo khởi nghĩa chống quân Ngô ở Cửu Chân. Bà nổi tiếng với câu nói muốn cưỡi cơn gió mạnh, đạp đường sóng dữ, chém cá kình ở biển Đông chứ không chịu cúi đầu làm tì thiếp người ta.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="22.6" y="10" width="2.8" height="30" rx="1.4" fill="#8a6d1f"/><path d="M24 2 l4.5 9 h-9z" fill="#c3cbdd"/><path d="M10 40 q6 -5 12 0 q6 -5 12 0 q4 -3 8 0" stroke="#2f7ea6" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M14 33 q5 -4 10 0 q5 -4 10 0" stroke="#2f7ea6" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".7"/></svg>'},
+  {id:"ngoquyen", name:"Ngô Quyền", era:"Năm 938 · Chiến thắng Bạch Đằng", fact:"Ngô Quyền dùng bãi cọc ngầm dưới sông Bạch Đằng đánh tan quân Nam Hán năm 938, mở ra thời kỳ độc lập lâu dài của dân tộc sau hơn một nghìn năm Bắc thuộc. Ông lên ngôi vua, đóng đô ở Cổ Loa.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M8 44 v-14 l3 0 v14z M20 44 v-18 l3 0 v18z M32 44 v-14 l3 0 v14z" fill="#6b4423"/><path d="M4 30 q7 -6 14 0 q7 -6 14 0 q6 -5 12 -1" stroke="#2f7ea6" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M6 14 q16 -8 30 -2 l-4 7 q-13 -5 -26 1z" fill="#a8823c"/><rect x="20" y="4" width="2.6" height="10" fill="#6b4423"/></svg>'},
+  {id:"dinhbolinh", name:"Đinh Bộ Lĩnh", era:"Năm 968 · Dẹp 12 sứ quân, lập nước Đại Cồ Việt", fact:"Từ cậu bé chăn trâu tập trận cờ lau ở Hoa Lư, Đinh Bộ Lĩnh lớn lên dẹp yên 12 sứ quân cát cứ, thống nhất đất nước, lên ngôi Hoàng đế năm 968 và đặt quốc hiệu là Đại Cồ Việt.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="14" y="8" width="2.8" height="34" rx="1.4" fill="#8a6d1f"/><path d="M16.8 9 q9 -5 13 1 q-7 3 -13 2z" fill="#e8e0c8"/><path d="M16.8 15 q9 -5 13 1 q-7 3 -13 2z" fill="#ddd2b8"/><circle cx="33" cy="34" r="8" fill="#c93a30"/><circle cx="33" cy="34" r="4.5" fill="#f5b942"/></svg>'},
+  {id:"lyconguan", name:"Lý Công Uẩn", era:"Năm 1010 · Chiếu dời đô về Thăng Long", fact:"Lý Công Uẩn sáng lập triều Lý và ban Chiếu dời đô năm 1010, dời kinh đô từ Hoa Lư về thành Đại La — nơi ông thấy rồng vàng bay lên nên đặt tên là Thăng Long, kinh đô nghìn năm của nước ta.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M8 42 v-16 h6 v-6 h6 v6 h8 v-6 h6 v6 h6 v16z" fill="#b03a2e"/><rect x="21" y="30" width="6" height="12" fill="#4a1608"/><path d="M30 12 q7 -6 12 -2 q-6 1 -8 5 q5 0 7 3 q-6 2 -11 -1z" fill="#f5b942"/></svg>'},
+  {id:"lythuongkiet", name:"Lý Thường Kiệt", era:"1075–1077 · Kháng chiến chống Tống", fact:"Danh tướng nhà Lý chỉ huy cuộc kháng chiến chống Tống: chủ động phá kho lương trên đất địch, lập phòng tuyến sông Như Nguyệt và gắn với bài thơ “Nam quốc sơn hà” — bản tuyên ngôn độc lập đầu tiên của nước ta.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="12" y="8" width="24" height="32" rx="2" fill="#f2f0e4"/><rect x="12" y="8" width="24" height="5" fill="#b98a1d"/><path d="M17 19 h14 M17 25 h14 M17 31 h9" stroke="#39415e" stroke-width="2.2" stroke-linecap="round"/><path d="M6 40 q7 -5 13 0 q7 -5 13 0 q5 -4 10 -1" stroke="#2f7ea6" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>'},
+  {id:"tranhungdao", name:"Trần Hưng Đạo", era:"Thế kỉ XIII · Ba lần thắng Nguyên – Mông", fact:"Hưng Đạo Đại Vương Trần Quốc Tuấn chỉ huy quân dân nhà Trần ba lần đánh thắng đế quốc Nguyên – Mông hùng mạnh, đỉnh cao là trận Bạch Đằng năm 1288. Ông để lại bài Hịch tướng sĩ nổi tiếng.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M30 4 l4 3 -14 24 -4 -1z" fill="#c3cbdd"/><rect x="12" y="29" width="12" height="3.4" rx="1.7" fill="#8a6d1f" transform="rotate(58 18 30)"/><path d="M6 42 q6 -5 12 0 q6 -5 12 0 q6 -5 12 0" stroke="#2f7ea6" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="38" cy="10" r="5" fill="#f5b942"/></svg>'},
+  {id:"leloi", name:"Lê Lợi", era:"1418–1427 · Khởi nghĩa Lam Sơn", fact:"Lê Lợi dựng cờ khởi nghĩa ở Lam Sơn (Thanh Hóa), chiến đấu 10 năm đánh đuổi quân Minh, gắn với truyền thuyết hồ Hoàn Kiếm — gươm thần trao cho rùa vàng. Ông lên ngôi, sáng lập triều Lê sơ.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 3 l3 4 -3 22 -3 -22z" fill="#c3cbdd"/><rect x="18" y="28" width="12" height="3.2" rx="1.6" fill="#8a6d1f"/><ellipse cx="24" cy="40" rx="11" ry="5" fill="#2f9e5f"/><path d="M17 37 q7 -4 14 0" stroke="#1f7043" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'},
+  {id:"nguyentrai", name:"Nguyễn Trãi", era:"Thế kỉ XV · Bình Ngô đại cáo", fact:"Nguyễn Trãi là mưu sĩ thiên tài của khởi nghĩa Lam Sơn, tác giả Bình Ngô đại cáo năm 1428 — áng văn được coi như bản tuyên ngôn độc lập thứ hai của dân tộc. Ông được UNESCO vinh danh là Danh nhân văn hóa thế giới.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M10 8 h13 v32 h-13z M25 8 h13 v32 h-13z" fill="#f2f0e4"/><path d="M13 14 h7 M13 20 h7 M13 26 h7 M28 14 h7 M28 20 h7 M28 26 h7" stroke="#39415e" stroke-width="1.8" stroke-linecap="round"/><path d="M24 40 v-32" stroke="#b98a1d" stroke-width="2.4"/></svg>'},
+  {id:"quangtrung", name:"Quang Trung — Nguyễn Huệ", era:"Năm 1789 · Đại phá quân Thanh", fact:"Người anh hùng áo vải đất Tây Sơn: Nguyễn Huệ lên ngôi Hoàng đế Quang Trung, hành quân thần tốc ra Bắc và đại phá 29 vạn quân Thanh trong trận Ngọc Hồi – Đống Đa đúng dịp Tết Kỷ Dậu 1789.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="#c93a30"/><circle cx="24" cy="24" r="15" fill="none" stroke="#8a2323" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="#f5b942"/><path d="M36 12 l7 -6 M38 20 l9 -3" stroke="#6b4423" stroke-width="2.6" stroke-linecap="round"/><circle cx="44" cy="5" r="2.6" fill="#8a6d1f"/><circle cx="47" cy="16" r="2.6" fill="#8a6d1f"/></svg>'},
+  {id:"chuvanan", name:"Chu Văn An", era:"Thời Trần · Người thầy của muôn đời", fact:"Chu Văn An là nhà giáo nổi tiếng thời Trần, từng dạy học cho thái tử và làm quan Tư nghiệp Quốc Tử Giám. Thấy gian thần lộng quyền, ông dâng “Thất trảm sớ” xin chém 7 kẻ gian; không được chấp thuận, ông từ quan về ở ẩn.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><path d="M8 12 q16 -7 32 0 v26 q-16 -7 -32 0z" fill="#7a2d45"/><path d="M24 8 v30" stroke="#f5b942" stroke-width="2.2"/><path d="M13 17 q5 -2 8 0 M13 24 q5 -2 8 0 M27 17 q5 -2 8 0 M27 24 q5 -2 8 0" stroke="#f2f0e4" stroke-width="1.7" fill="none" stroke-linecap="round"/><rect x="36" y="34" width="3" height="9" fill="#e8e0c8"/><circle cx="37.5" cy="32" r="2.4" fill="#ffb347"/></svg>'},
+  {id:"hochiminh", name:"Hồ Chí Minh", era:"Năm 1945 · Tuyên ngôn Độc lập", fact:"Ngày 2/9/1945, tại Quảng trường Ba Đình (Hà Nội), Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa — mở ra kỷ nguyên độc lập, tự do của dân tộc Việt Nam.", art:'<svg width="52" height="52" viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="25" rx="2" fill="#d64541"/><path d="M24 13 l2.2 4.6 5 .6 -3.7 3.4 1 4.9 -4.5 -2.5 -4.5 2.5 1 -4.9 -3.7 -3.4 5 -.6z" fill="#ffd23e"/><rect x="6" y="7" width="3" height="37" fill="#8a6d1f"/></svg>'}
+];
+function awardCard(){
+  var missing=HIST_CARDS.filter(function(c){ return !EX.cards[c.id]; });
+  if(missing.length){
+    var c=missing[Math.floor(Math.random()*missing.length)];
+    EX.cards[c.id]=true;
+    var n=0; for(var k in EX.cards) if(EX.cards[k]) n++;
+    return "Thẻ bài nhân vật mới: <b>"+c.name+"</b> — đã sưu tầm "+n+"/"+HIST_CARDS.length+" thẻ. Mở mục “Thẻ bài nhân vật” để xem câu chuyện của danh nhân này nhé!";
+  }
+  S.score+=25;
+  return "Bạn rút trúng thẻ đã có trong bộ sưu tập — thẻ tự đổi thành <b>+25 điểm</b> thưởng. Bộ thẻ đã đủ "+HIST_CARDS.length+"/"+HIST_CARDS.length+" rồi!";
+}
+function openCards(){ show("screen-cards"); renderCards(); }
+function renderCards(){
+  var n=0; for(var k in EX.cards) if(EX.cards[k]) n++;
+  var cc=$("cardsCount");
+  if(cc) cc.innerHTML="Đã sưu tầm: <b>"+n+"/12 thẻ</b>"+(n>=12 ? " — đủ bộ 12 danh nhân rồi, bạn đúng là nhà sưu tầm thẻ bài thực thụ!" : " — qua thêm màn chơi để rút tiếp thẻ mới nhé.");
+  var html="";
+  HIST_CARDS.forEach(function(c){
+    if(EX.cards[c.id]) html+='<div class="hist-card"><div class="hc-art">'+c.art+'</div><div class="hc-name">'+c.name+'</div><div class="hc-era">'+c.era+'</div><div class="hc-fact">'+c.fact+'</div></div>';
+    else html+='<div class="hist-card locked"><div class="hc-art"><svg width="52" height="52" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#2c376e"/><text x="24" y="32" text-anchor="middle" fill="#8b93bd" font-size="22" font-weight="900">?</text></svg></div><div class="hc-name">Thẻ chưa mở khóa</div><div class="hc-era">Qua một màn chơi bất kỳ để rút thẻ — biết đâu chính là danh nhân này!</div></div>';
+  });
+  $("cardsGrid").innerHTML=html;
+}
+
+/* ---------- Ý 5: NHIỆM VỤ THEO TUẦN ---------- */
+var WEEKLY_THEMES=[
+  {name:"Tuần lễ Kháng Chiến", desc:"Chủ đề tuần này tôn vinh các cuộc kháng chiến chống ngoại xâm trong lịch sử Việt Nam — từ Bạch Đằng, Lam Sơn đến Điện Biên Phủ. Hãy qua màn thật chắc tay để giữ vững dòng thời gian!", target:3, title:"Chiến Binh Dòng Thời Gian"},
+  {name:"Tuần lễ Danh Nhân Đất Việt", desc:"Tuần này dành để tri ân các danh nhân đã làm rạng danh đất nước: anh hùng dân tộc, nhà giáo, nhà văn hóa… Qua màn để tiến gần hơn tới danh hiệu của tuần!", target:3, title:"Bạn Thân Của Danh Nhân"},
+  {name:"Tuần lễ Địa Lí Việt Nam", desc:"Từ đồng bằng sông Hồng, sông Cửu Long đến biển đảo quê hương — tuần này là hành trình khám phá hình hài đất nước Việt Nam qua từng màn chơi.", target:3, title:"Nhà Thám Hiểm Bản Đồ"},
+  {name:"Tuần lễ Thế Giới Cổ Đại", desc:"Kim tự tháp bên sông Nin, thành bang Hi Lạp, đế chế La Mã… Tuần này dòng thời gian đưa bạn về buổi bình minh của văn minh nhân loại.", target:3, title:"Người Gác Đền Cổ Đại"},
+  {name:"Tuần lễ Biển & Đại Dương", desc:"Tuần của những chuyến ra khơi: hải đồ, thuyền buồm, các phát kiến địa lí và những vùng biển lớn của Trái Đất đang chờ bạn chinh phục qua từng màn.", target:3, title:"Thủy Thủ Thời Gian"},
+  {name:"Tuần lễ Văn Minh Nhân Loại", desc:"Chữ viết, thành thị, tôn giáo, khoa học — tuần này nhìn lại những bước tiến lớn của văn minh nhân loại qua các thời kỳ bạn đã và sẽ đi qua.", target:3, title:"Học Giả Vạn Thời"}
+];
+function weekIndex(){ return Math.floor(Date.now()/604800000); }
+function weeklyTheme(){ return WEEKLY_THEMES[weekIndex()%WEEKLY_THEMES.length]; }
+function weeklyState(){
+  var key="w"+weekIndex();
+  if(EX.weekly.week!==key) EX.weekly={week:key, prog:0, claimed:false};
+  return EX.weekly;
+}
+function openWeekly(){ weeklyState(); show("screen-weekly"); renderWeekly(); }
+function renderWeekly(){
+  var th=weeklyTheme(), ws=weeklyState();
+  var pct=Math.min(100, Math.round(ws.prog/th.target*100));
+  $("weeklyBox").innerHTML='<h3>'+th.name+'</h3><p style="margin:2px 0">'+th.desc+'</p>'
+    +'<div class="pet-xpbar"><i style="width:'+pct+'%"></i></div>'
+    +'<p style="margin:8px 0 2px">Tiến độ tuần này: <b>'+ws.prog+'/'+th.target+' màn đã hoàn thành</b>'+(ws.claimed ? ' — <b>ĐÃ HOÀN THÀNH!</b> Danh hiệu “'+th.title+'” đã vào bộ sưu tập của bạn.' : ' — hoàn thành đủ '+th.target+' màn trong tuần để nhận danh hiệu riêng: <b>“'+th.title+'”</b>.')+'</p>'
+    +'<p style="color:var(--muted); margin:2px 0">Mỗi thời kỳ qua được, mỗi thế giới mở hoàn thành và mỗi trận Boss thắng đều tính là 1 màn. Sang tuần mới, một chủ đề khác sẽ mở ra.</p>';
+  var tl=$("titleList");
+  tl.innerHTML = EX.titles.length ? EX.titles.map(function(t){ return '<span class="title-chip">🏅 '+t+'</span>'; }).join("") : '<p style="color:var(--muted); line-height:1.6">Chưa có danh hiệu nào — hoàn thành nhiệm vụ của tuần này để nhận danh hiệu đầu tiên của bạn nhé!</p>';
+}
+
+/* ---------- Ý 9: CỬA HÀNG TRANG PHỤC THEO THỜI KỲ ---------- */
+var COSTUMES=[
+  {id:"knight", name:"Áo Giáp Hiệp Sĩ", price:800, era:"Châu Âu trung đại & các thế giới hiệp sĩ, lâu đài", desc:"Bộ giáp thép sáng bóng với mũ giáp có chùm lông đỏ — đúng chất hiệp sĩ Roland gác cổng lâu đài phong kiến.", costume:"knight", skin:"#ffd9a0", neck:"#f0be82", hair:"#39415e", outfit:"#aeb9cc", sleeve:"#8d99b5", sleeve2:"#7885a3", accent:"#d64541", pants:"#6d7891", pants2:"#5b657d", shoe:"#2c3242", hairStyle:"classic", glasses:"none", keys:["hiệp sĩ","lâu đài","roland","phường hội","phục hưng"]},
+  {id:"aodai", name:"Áo Dài & Khăn Đóng", price:600, era:"Các thế giới Việt Nam — Văn Lang, Đại Việt, Thăng Long, Lam Sơn…", desc:"Áo dài gấm đỏ thẫm cùng khăn đóng truyền thống — trang phục trang trọng của người Việt xưa trong các dịp lễ trọng.", costume:"aodai", skin:"#ffd9a0", neck:"#f0be82", hair:"#1c1410", outfit:"#7a1f3d", sleeve:"#661a33", sleeve2:"#57162b", accent:"#e8b93c", pants:"#eef0ea", pants2:"#dfe3da", shoe:"#3a2c20", hairStyle:"classic", glasses:"none", keys:["việt nam","đại việt","thăng long","văn lang","âu lạc","lam sơn","phong châu","cổ loa","hoa lư","điện biên","nhà rồng","hùng vương","an dương"]},
+  {id:"samurai", name:"Đồ Samurai & Mũ Kabuto", price:800, era:"Nhật Bản thời samurai và võ sĩ đạo", desc:"Áo giáp xanh chàm, mũ kabuto có sừng trăng vàng — phong thái của các võ sĩ đạo Nhật Bản thời phong kiến.", costume:"samurai", skin:"#ffd9a0", neck:"#f0be82", hair:"#14141c", outfit:"#2e3a5c", sleeve:"#263350", sleeve2:"#1f2a45", accent:"#e8b93c", pants:"#3d3d4d", pants2:"#33333f", shoe:"#1c1c26", hairStyle:"classic", glasses:"none", keys:["samurai","nhật bản","võ sĩ đạo","kabuto"]}
+];
+function costumeById(id){ for(var i=0;i<COSTUMES.length;i++) if(COSTUMES[i].id===id) return COSTUMES[i]; return null; }
+function activeHeroStyle(){
+  if(typeof EX!=="undefined" && EX && EX.costume){ var c=costumeById(EX.costume); if(c && EX.costumes[c.id]) return c; }
+  return heroStyleById(HSTYLE)||HERO_STYLES[0];
+}
+function shopBalance(){ var t=(typeof totalsNow==="function") ? totalsNow().score : S.score; return Math.max(0, t-(EX.spent||0)); }
+function openShop(){ show("screen-shop"); renderShop(); }
+function renderShop(){
+  var bal=shopBalance(), tot=totalsNow();
+  var cur=(EX.costume && costumeById(EX.costume)) ? costumeById(EX.costume).name : null;
+  $("shopBal").innerHTML="Tổng điểm đã kiếm được: <b>"+tot.score+"</b> · Điểm có thể tiêu: <b>"+bal+"</b>"+(cur ? ' · Đang mặc: <b>'+cur+'</b>' : ' · Hiện đang mặc phong cách thường');
+  var grid=$("shopGrid"); if(!grid) return;
+  var master=document.querySelector("#charHero svg");
+  var html="";
+  COSTUMES.forEach(function(c){
+    var owned=!!EX.costumes[c.id], wearing=EX.costume===c.id;
+    html+='<div class="style-card'+(wearing?" chosen":"")+'">'
+      +'<div class="style-stage" data-cstage="'+c.id+'"></div>'
+      +'<div class="style-name">'+c.name+'</div>'
+      +'<div class="style-desc">'+c.desc+'<br><b>Hợp thời kỳ:</b> '+c.era+'</div>'
+      +(wearing ? '<span class="style-now">Đang mặc ✓</span><br><button class="btn ghost" type="button" data-cunwear="1" style="margin-top:8px; padding:9px 14px; font-size:14px">Cởi trang phục</button>'
+        : owned ? '<button class="btn teal" type="button" data-cwear="'+c.id+'">Mặc bộ này</button>'
+        : '<button class="btn" type="button" data-cbuy="'+c.id+'">Đổi bằng '+c.price+' điểm</button>')
+      +'</div>';
+  });
+  grid.innerHTML=html;
+  COSTUMES.forEach(function(c){
+    var stage=grid.querySelector('[data-cstage="'+c.id+'"]');
+    if(stage && master){ var cl=master.cloneNode(true); cl.removeAttribute("id"); paintHeroSvg(cl, c); stage.appendChild(cl); }
+  });
+  grid.querySelectorAll("[data-cbuy]").forEach(function(b){ b.addEventListener("click", function(){ buyCostume(b.getAttribute("data-cbuy")); }); });
+  grid.querySelectorAll("[data-cwear]").forEach(function(b){ b.addEventListener("click", function(){ wearCostume(b.getAttribute("data-cwear")); }); });
+  var uw=grid.querySelector("[data-cunwear]");
+  if(uw) uw.addEventListener("click", function(){ EX.costume=""; saveProgress(); applyHeroStyle(); renderShop(); sndClick(); toast("Đã cởi trang phục — Nhà Du Hành trở lại phong cách thường của bạn."); });
+}
+function buyCostume(id){
+  var c=costumeById(id); if(!c || EX.costumes[id]) return;
+  if(shopBalance()<c.price){ toast("Chưa đủ điểm để đổi "+c.name+" — cần "+c.price+" điểm, bạn đang có "+shopBalance()+" điểm có thể tiêu. Chơi thêm vài màn để kiếm điểm nhé!", 3400); sndBad(); return; }
+  EX.spent=(EX.spent||0)+c.price; EX.costumes[id]=true; EX.costume=id;
+  saveProgress(); applyHeroStyle(); renderShop(); sndGood(); confetti();
+  toast("Đã đổi được "+c.name+" và mặc ngay cho Nhà Du Hành! Từ nay, vào đúng thời kỳ của nó là trang phục tự được mặc.", 3600);
+}
+function wearCostume(id){
+  if(!EX.costumes[id]) return;
+  EX.costume=id; saveProgress(); applyHeroStyle(); renderShop(); sndClick();
+  toast("Đã mặc "+costumeById(id).name+" cho Nhà Du Hành — áp dụng ở mọi màn có nhân vật!", 2600);
+}
+function exAutoCostume(text){
+  if(!text) return;
+  var low=(" "+text.toLowerCase()+" ");
+  for(var i=0;i<COSTUMES.length;i++){
+    var c=COSTUMES[i];
+    var hit=false;
+    for(var j=0;j<c.keys.length;j++){ if(low.indexOf(c.keys[j])>=0){ hit=true; break; } }
+    if(hit && EX.costumes[c.id] && EX.costume!==c.id){
+      EX.costume=c.id; applyHeroStyle(); saveProgress();
+      setTimeout(function(){ toast("Đúng thời kỳ của "+c.name+" — Tí Nị đã tự mặc trang phục này cho bạn!", 3000); }, 700);
+      return;
+    }
+  }
+}
+
+/* ---------- Ý 6: HIỆU ỨNG THỜI TIẾT TRONG MAP ---------- */
+/* Thời tiết của mỗi vùng đất được định sẵn theo chính vùng đất đó (mưa, nắng,
+   tuyết hay sương mù); trời mưa thì Nhà Du Hành tự che ô khi đi trong map. */
+function wxTypeFor(key){
+  var h=0; key=String(key||"");
+  for(var i=0;i<key.length;i++) h=(h*31+key.charCodeAt(i))>>>0;
+  var r=h%10;
+  return r<4 ? "sun" : (r<7 ? "rain" : (r<9 ? "fog" : "snow"));
+}
+function applyWeather(layerId, chipId, heroId, key){
+  var layer=$(layerId); if(!layer) return;
+  var type=wxTypeFor(key);
+  var label = type==="sun" ? "Nắng đẹp" : (type==="rain" ? "Mưa rào — Nhà Du Hành đang che ô" : (type==="fog" ? "Sương mù dày" : "Tuyết đang rơi"));
+  var chip=$(chipId); if(chip) chip.textContent="Thời tiết: "+label;
+  var hero=$(heroId); if(hero) hero.classList.toggle("umbrella", type==="rain");
+  var html="", i;
+  if(type==="rain"){
+    for(i=0;i<55;i++) html+='<span class="wx-drop" style="left:'+(Math.random()*100).toFixed(1)+'%; animation-duration:'+(0.55+Math.random()*0.5).toFixed(2)+'s; animation-delay:-'+(Math.random()*1.2).toFixed(2)+'s"></span>';
+  } else if(type==="snow"){
+    for(i=0;i<38;i++){ var sz=(3+Math.random()*4).toFixed(1); html+='<span class="wx-flake" style="left:'+(Math.random()*100).toFixed(1)+'%; width:'+sz+'px; height:'+sz+'px; animation-duration:'+(5+Math.random()*5).toFixed(1)+'s; animation-delay:-'+(Math.random()*6).toFixed(1)+'s"></span>'; }
+  } else if(type==="fog"){
+    for(i=0;i<3;i++) html+='<div class="wx-fogbank" style="top:'+(8+i*26)+'%; animation-duration:'+(7+i*3)+'s"></div>';
+  } else {
+    html='<div class="wx-sun"></div>';
+  }
+  layer.innerHTML=html;
+}
+
+/* ---------- Ý 10: BẢN ĐỒ THẾ GIỚI TỔNG ---------- */
+function openWorldMap(){ show("screen-worldmap"); renderWorldMap(); }
+function renderWorldMap(){
+  var box=$("wmapBox"); if(!box) return;
+  var html="";
+  var eraDone=0; ERAS.forEach(function(e){ if(S.done[e.id]) eraDone++; });
+  html+='<div class="wmap-grade">Hành trình chính · Khối 7 — 5 thời kỳ <span>· Đã thắp sáng '+eraDone+'/5 thời kỳ</span></div><div class="wmap-path">';
+  ERAS.forEach(function(e, i){
+    var done=!!S.done[e.id];
+    var isCur=!done && i===eraDone;
+    var cls=done ? "done" : (isCur ? "open" : "dark");
+    var st=S.stars[e.id]||0, stars="";
+    for(var si=0; si<3; si++) stars+=(si<st ? "★" : "☆");
+    html+='<button class="wmap-node '+cls+'" type="button" data-wmera="'+i+'"><span class="wn-num">'+(i+1)+'</span>'+e.name+'<span class="wn-stars">'+(done ? stars : (isCur ? "Đang ở đây — bấm để vào bản đồ hành trình" : "Chưa tới — còn tối"))+'</span></button>';
+  });
+  html+='</div>';
+  [6,7,8,9].forEach(function(g){
+    var gws=[]; GWORLDS.forEach(function(w, gi){ if(w.grade===g) gws.push({w:w, gi:gi}); });
+    var dcount=0; gws.forEach(function(x){ if(GW.done[x.w.id]) dcount++; });
+    html+='<div class="wmap-grade">Khối '+g+' — '+gws.length+' thế giới mở <span>· Đã thắp sáng '+dcount+'/'+gws.length+' thế giới</span></div><div class="wmap-path">';
+    gws.forEach(function(x, xi){
+      var d=GW.done[x.w.id];
+      var prevDone = xi===0 || !!GW.done[gws[xi-1].w.id];
+      var cls = d ? "done" : (prevDone ? "open" : "dark");
+      var stars="";
+      if(d){ for(var si=0; si<3; si++) stars+=(si<d.stars ? "★" : "☆"); }
+      html+='<button class="wmap-node '+cls+'" type="button" data-wmworld="'+x.gi+'" data-wmstate="'+cls+'"><span class="wn-num">'+(xi+1)+'</span>'+x.w.name+'<span class="wn-stars">'+(d ? stars : (cls==="open" ? "Đã mở đường — chưa qua" : "Còn tối — chưa tới"))+'</span></button>';
+    });
+    html+='</div>';
+  });
+  box.innerHTML=html;
+  box.querySelectorAll("[data-wmera]").forEach(function(b){ b.addEventListener("click", function(){ sndClick(); renderMap(); }); });
+  box.querySelectorAll("[data-wmworld]").forEach(function(b){ b.addEventListener("click", function(){
+    var gi=parseInt(b.getAttribute("data-wmworld"),10), state=b.getAttribute("data-wmstate");
+    sndClick();
+    if(state==="dark"){ toast("Vùng đất này trên bản đồ còn tối — hãy qua thế giới ngay trước nó trong cùng khối để thắp sáng đường đi nhé! (Bạn vẫn vào thẳng được từ sảnh Thế giới mở.)", 3400); GHUBF.grade=GWORLDS[gi].grade; openGHub(); return; }
+    startGStory(gi);
+  }); });
+}
+
+/* ---------- NHẬN THƯỞNG KHI QUA MÀN: XP pet + thẻ bài + nhiệm vụ tuần ---------- */
+function exComplete(kind){
+  var xpGain = kind==="boss" ? 20 : (kind==="era" ? 15 : 10);
+  var oldLv=petLevel();
+  EX.petXp+=xpGain;
+  var newLv=petLevel();
+  var parts=[];
+  parts.push("Pet <b>Tí Nị</b> nhận +"+xpGain+" XP (tổng "+EX.petXp+" XP)"+(newLv>oldLv ? " — <b>TÍ NỊ LÊN CẤP "+newLv+"!</b> "+petSkillText(newLv) : " · Tí Nị đang ở cấp "+newLv+"."));
+  parts.push(awardCard());
+  var ws=weeklyState(), th=weeklyTheme();
+  if(!ws.claimed){
+    ws.prog=Math.min(th.target, ws.prog+1);
+    if(ws.prog>=th.target){
+      ws.claimed=true;
+      if(EX.titles.indexOf(th.title)<0) EX.titles.push(th.title);
+      parts.push("Hoàn thành <b>Nhiệm vụ tuần — "+th.name+"</b>! Bạn nhận danh hiệu riêng của tuần: <b>“"+th.title+"”</b>.");
+    } else {
+      parts.push("Nhiệm vụ tuần “"+th.name+"”: đã xong "+ws.prog+"/"+th.target+" màn — còn "+(th.target-ws.prog)+" màn nữa là nhận danh hiệu “"+th.title+"”.");
+    }
+  } else {
+    parts.push("Nhiệm vụ tuần “"+th.name+"” đã hoàn thành rồi — danh hiệu “"+th.title+"” đã thuộc về bạn.");
+  }
+  saveProgress();
+  renderPetCard();
+  return '<div class="ex-gain"><b>Phần thưởng qua màn:</b><br>'+parts.join("<br>")+'</div>';
+}
+
+/* ---------- NỐI NÚT BẤM CỦA 7 TÍNH NĂNG MỚI ---------- */
+$("wheelBtn").addEventListener("click", function(){ sndClick(); openWheel(); });
+$("cardsBtn").addEventListener("click", function(){ sndClick(); openCards(); });
+$("weeklyBtn").addEventListener("click", function(){ sndClick(); openWeekly(); });
+$("shopBtn").addEventListener("click", function(){ sndClick(); openShop(); });
+$("wmapBtn").addEventListener("click", function(){ sndClick(); openWorldMap(); });
+$("wheelSpinBtn").addEventListener("click", function(){ spinWheel(); });
+$("wheelHomeBtn").addEventListener("click", backHome);
+$("cardsHomeBtn").addEventListener("click", backHome);
+$("cardsHubBtn").addEventListener("click", function(){ sndClick(); openGHub(); });
+$("weeklyHomeBtn").addEventListener("click", backHome);
+$("weeklyHubBtn").addEventListener("click", function(){ sndClick(); openGHub(); });
+$("shopHomeBtn").addEventListener("click", backHome);
+$("shopStyleBtn").addEventListener("click", function(){ sndClick(); openStyleMenu("start"); });
+$("wmapHomeBtn").addEventListener("click", backHome);
+$("wmapHubBtn").addEventListener("click", function(){ sndClick(); openGHub(); });
+buildWheel();
 
 /* ================= KHỞI ĐỘNG: khôi phục tiến độ đã lưu & nút xóa tiến độ ================= */
 $("wipeSaveBtn").addEventListener("click", function(){
@@ -10611,6 +11298,7 @@ $("wipeSaveBtn").addEventListener("click", function(){
   if(typeof C10!=="undefined" && C10 && C10.timer) clearInterval(C10.timer);
   if(typeof GW!=="undefined" && GW) GW.done={};
   if(typeof BOSS_DONE!=="undefined") BOSS_DONE={};
+  if(typeof EX!=="undefined") EX=freshEX();
   if(typeof LB!=="undefined") LB={player:"", base:{score:0, stars:0, boss:0}, entries:[]};
   if(typeof G!=="undefined" && G) G.done={};
   resetGame(); /* đặt lại hành trình chính (điểm, sao, mảnh, di sản, nhật ký) */
@@ -10618,7 +11306,7 @@ $("wipeSaveBtn").addEventListener("click", function(){
   HAS_SAVE=false;
   PROFILE=null;
   refreshPlayerUI();
-  if(onStart){ show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); }
+  if(onStart){ show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); if(typeof renderPetCard==="function") renderPetCard(); }
   refreshSaveUI();
   toast("Đã xóa tiến độ đã lưu trên máy — bắt đầu lại từ đầu nhé!");
 });
