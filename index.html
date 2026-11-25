@@ -884,6 +884,22 @@
   .lb-form-row{display:flex; gap:9px; flex-wrap:wrap}
   .lb-form-row .auth-input{flex:1 1 210px; width:auto}
   .lb-note{color:var(--muted); font-size:13px; line-height:1.55; margin-top:9px}
+  /* ---------- Bảng xếp hạng NỔI BẬT ngay trên đầu màn hình chính ---------- */
+  .home-lb{max-width:680px; margin:18px auto 0; background:linear-gradient(180deg,#2b2456,#1a1440); border:2px solid var(--gold); border-radius:16px; padding:15px 17px; box-shadow:0 0 0 1px rgba(245,185,66,.35), 0 12px 28px rgba(0,0,0,.42), 0 0 24px rgba(245,185,66,.16); text-align:left}
+  .home-lb .hlb-head{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:11px}
+  .home-lb .hlb-title{font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px}
+  .home-lb .hlb-row{display:grid; grid-template-columns:42px 1fr auto; gap:4px 12px; align-items:center; padding:8px 11px; border-radius:11px; background:rgba(13,19,48,.6); border:1px solid var(--line); margin-bottom:7px}
+  .home-lb .hlb-row:last-child{margin-bottom:0}
+  .home-lb .hlb-row.r1{border-color:var(--gold); background:rgba(245,185,66,.12)}
+  .home-lb .hlb-row.me{box-shadow:0 0 0 1px var(--gold), 0 0 14px rgba(245,185,66,.22)}
+  .home-lb .hlb-rank{font-size:20px; font-weight:900; text-align:center; color:var(--muted)}
+  .home-lb .hlb-row.r1 .hlb-rank{color:var(--gold2)} .home-lb .hlb-row.r2 .hlb-rank{color:#dbe4ff} .home-lb .hlb-row.r3 .hlb-rank{color:#ffb59d}
+  .home-lb .hlb-name{font-size:16px; font-weight:900; overflow-wrap:anywhere}
+  .home-lb .me-tag{font-size:11px; font-weight:900; color:#231a02; background:linear-gradient(180deg,var(--gold2),var(--gold)); border-radius:999px; padding:2px 8px; margin-left:7px; vertical-align:2px; white-space:nowrap}
+  .home-lb .hlb-stats{font-size:13.5px; color:var(--muted); white-space:nowrap}
+  .home-lb .hlb-stats b{color:var(--ink)}
+  .home-lb .hlb-empty{color:var(--muted); font-size:14px; line-height:1.6; margin:0}
+  @media (max-width:560px){ .home-lb .hlb-row{grid-template-columns:32px 1fr} .home-lb .hlb-stats{grid-column:2; white-space:normal} }
   @media (max-width:560px){ .lb-row{grid-template-columns:40px 1fr} .lb-stats{grid-column:2} }
   .save-box{max-width:680px; margin:14px auto 0; background:var(--panel); border:1px solid var(--teal); border-radius:14px; padding:12px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center}
   .save-box .save-txt{color:var(--muted); font-size:13.5px; line-height:1.55; flex:1 1 250px; text-align:left}
@@ -1162,6 +1178,13 @@
       <div class="hero-shade"></div>
       <span class="hero-cap">Cổng Thời Gian và 5 thời kỳ đang chờ bạn</span>
     </div>
+    <div class="home-lb" id="homeLb">
+      <div class="hlb-head">
+        <span class="hlb-title">🏆 Bảng xếp hạng bạn bè</span>
+        <button class="btn" id="homeLbOpenBtn" type="button" style="font-size:14px; padding:9px 16px" title="Mở bảng xếp hạng đầy đủ: xem hạng của mọi người chơi trên máy này và đổi tên người đang ghi điểm">Xem bảng đầy đủ ▸</button>
+      </div>
+      <div id="homeLbList"></div>
+    </div>
     <div class="story-box">
       <b>Năm 3026.</b> Cỗ máy thời gian <b>Chrono</b> bị Kẻ Đánh Cắp Thời Gian phá vỡ. Năm Mảnh Thời Gian văng tung tóe về 5 thời kỳ khác nhau của lịch sử nhân loại. Nếu không thu hồi đủ các mảnh, lịch sử sẽ bị xáo trộn mãi mãi!
       <br><br>Bạn là <b>Nhà Du Hành</b> trẻ tuổi. Cùng robot trợ lý <b>Tí Nị</b>, hãy lên đường: đến châu Âu trung đại, Trung Quốc phong kiến, Ấn Độ, Đông Nam Á — và kết thúc ở thời đại Phát kiến địa lí &amp; Phục hưng.
@@ -1195,6 +1218,7 @@
     <div class="cast-grid" id="castGrid"></div>
     <div class="center" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
       <button class="btn" id="startBtn" type="button">Bắt đầu cuộc phiêu lưu</button>
+      <button class="btn" id="homeLbBtn" type="button" title="Xem ai đang dẫn đầu về sao, điểm và số Boss đã hạ trên máy này">🏆 Bảng xếp hạng</button>
       <button class="menu-toggle" id="startMenuBtn" type="button" aria-expanded="false" aria-controls="startMenuPanel">☰ Học tập &amp; khám phá <span class="chev">▾</span></button>
     </div>
     <div class="menu-panel" id="startMenuPanel" hidden>
@@ -1559,7 +1583,14 @@
   <section class="screen" id="screen-ghub">
     <h2 class="map-title">Cốt truyện &amp; Thế giới mở — Khối 6 · 7 · 8 · 9</h2>
     <p class="map-sub">Mỗi khối lớp nay có <b style="color:var(--ink)">13 thế giới mở nối tiếp nhau thành một cốt truyện dài</b> (khối 7 có 12 thế giới mở, còn có thêm hành trình chính 5 thời kỳ): mở đầu bằng đoạn truyện đối thoại cùng Tí Nị và các nhân vật lịch sử, chạm trán Kẻ Đánh Cắp Thời Gian, rồi vào <b style="color:var(--ink)">bản đồ thế giới mở</b> — đi tự do bằng phím WASD / phím mũi tên / nút ảo, tìm 10 trạm câu hỏi, ghé thăm NPC để nghe gợi ý, giữ 3 tim và ăn điểm tốc độ. Trả lời sai vẫn kích hoạt hiệu ứng cánh bướm và trang sử bị viết lại, làm thế giới méo mó dần như hành trình chính. Đúng từ 6/10 câu để thu hồi Mảnh Thời Gian của thế giới đó; đúng từ 9 câu trở lên nhận trọn 3 sao. Hãy chơi các thế giới của một khối theo thứ tự để theo trọn câu chuyện nhé! <b style="color:#ffb3b3">Mới: qua hết mọi thế giới của một khối sẽ mở khóa trận Boss cuối khối</b> — đối đầu trực tiếp Kẻ Đánh Cắp Thời Gian, phải <b style="color:var(--ink)">trả lời đúng liên tiếp 5 câu</b> mới phá được khiên của hắn. Và đừng quên ghé <b style="color:var(--gold2)">Bảng xếp hạng bạn bè</b> để so sao, so điểm với các bạn chơi cùng trên máy này!</p>
-    <div style="margin-bottom:4px"><span class="gw-total" id="gwTotal">Tổng điểm thế giới mở các khối: 0 · Sao đã thu: 0/153 · 51 thế giới mở</span></div>
+    <div style="margin-bottom:4px; display:flex; gap:10px; flex-wrap:wrap; align-items:center"><span class="gw-total" id="gwTotal">Tổng điểm thế giới mở các khối: 0 · Sao đã thu: 0/153 · 51 thế giới mở</span><button class="btn" id="ghubLbTopBtn" type="button" style="font-size:14px; padding:9px 16px" title="Xem bảng xếp hạng bạn bè: ai nhiều sao, nhiều điểm và hạ được nhiều Boss nhất trên máy này">🏆 Bảng xếp hạng bạn bè</button></div>
+    <div class="filter-row" id="gwFilterRow"><span class="flabel">Chọn khối:</span>
+      <button class="fchip on" type="button" data-gwgrade="0">Tất cả các khối</button>
+      <button class="fchip" type="button" data-gwgrade="6">Khối 6</button>
+      <button class="fchip" type="button" data-gwgrade="7">Khối 7</button>
+      <button class="fchip" type="button" data-gwgrade="8">Khối 8</button>
+      <button class="fchip" type="button" data-gwgrade="9">Khối 9</button>
+    </div>
     <div class="gw-grid" id="gwGrid"></div>
     <div class="dialog-nav">
       <button class="btn ghost" id="ghubHomeBtn" type="button">Về màn hình chính</button>
@@ -4068,7 +4099,7 @@ function setLibraryGrade(g){
 function backHome(){
   sndClick();
   if($("hud").style.display==="flex") renderMap();
-  else show("screen-start");
+  else { show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); }
 }
 $("levelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
 $("mapLevelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
@@ -9067,18 +9098,24 @@ function openGradeWorldEntry(g){
     toast("Đây là hành trình chính của khối 7 — chọn thời kỳ đang mở để chơi tiếp!");
     return;
   }
+  GHUBF.grade=g; /* mở sảnh là lọc sẵn đúng khối vừa chọn, như nút khối trong Thư viện */
   openGHub();
 }
 function openGHub(){
   gStopWorldLoop(); clearInterval(GV.timer); clearInterval(GS.typing);
   renderGHub(); show("screen-ghub");
 }
+/* Lọc sảnh thế giới mở theo khối — dùng đúng kiểu nút lọc của Thư viện LSĐL 6–9:
+   bấm nút một khối thì chỉ hiện các màn chơi (thế giới mở + Boss) của khối đó. */
+var GHUBF={grade:0};
 function renderGHub(){
   var totScore=0, totStars=0, totWorlds=GWORLDS.length;
   GWORLDS.forEach(function(w){ var d=GW.done[w.id]; if(d){ totScore+=d.score; totStars+=d.stars; } });
   $("gwTotal").textContent="Tổng điểm thế giới mở các khối: "+totScore+" · Sao đã thu: "+totStars+"/"+(totWorlds*3)+" · "+totWorlds+" thế giới mở";
+  document.querySelectorAll("[data-gwgrade]").forEach(function(x){ x.classList.toggle("on", parseInt(x.getAttribute("data-gwgrade"),10)===GHUBF.grade); });
   var html="";
   [6,7,8,9].forEach(function(g){
+    if(GHUBF.grade && g!==GHUBF.grade) return;
     var gws=[]; GWORLDS.forEach(function(w, gi){ if(w.grade===g) gws.push({w:w, gi:gi}); });
     if(!gws.length) return;
     var gDone=gws.filter(function(x){ return !!GW.done[x.w.id]; }).length;
@@ -9119,6 +9156,10 @@ $("mapGworldsBtn").addEventListener("click", function(){ sndClick(); openGHub();
 $("ghubHomeBtn").addEventListener("click", backHome);
 $("ghubLevelsBtn").addEventListener("click", function(){ sndClick(); openLevels(); });
 $("ghubLbBtn").addEventListener("click", function(){ sndClick(); openLeaderboard(); });
+$("ghubLbTopBtn").addEventListener("click", function(){ sndClick(); openLeaderboard(); });
+document.querySelectorAll("[data-gwgrade]").forEach(function(b){
+  b.addEventListener("click", function(){ GHUBF.grade=parseInt(b.getAttribute("data-gwgrade"),10); sndClick(); renderGHub(); });
+});
 
 /* ================= BOSS CUỐI MỖI KHỐI (Ý TƯỞNG 6) ================= */
 /* Qua hết mọi thế giới mở của một khối → mở khóa trận Boss cuối khối: đối đầu
@@ -9420,6 +9461,29 @@ function renderLB(){
   var nameEls=$("lbList").querySelectorAll(".lb-nm");
   rows.forEach(function(en, i){ if(nameEls[i]) nameEls[i].textContent=en.name; });
 }
+/* Khung Top 3 nổi bật ngay trên đầu màn hình chính — cập nhật mỗi lần về màn hình chính */
+function renderHomeLB(){
+  var box=$("homeLbList"); if(!box) return;
+  if(typeof LB==="undefined" || !LB){ box.innerHTML=""; return; }
+  recordLB();
+  var rows=LB.entries.slice().sort(function(a,b){ return (b.stars-a.stars)||(b.score-a.score)||(b.boss-a.boss); }).slice(0,3);
+  if(!rows.length){
+    box.innerHTML='<p class="hlb-empty">Chưa có Nhà Du Hành nào lên bảng cả — hoàn thành một thế giới hoặc một thời kỳ đầu tiên để ghi tên mình lên vị trí số 1 nhé!</p>';
+    return;
+  }
+  var html="";
+  rows.forEach(function(en, i){
+    var me=en.name.toLowerCase()===LB.player.toLowerCase();
+    html+='<div class="hlb-row r'+(i+1)+(me?" me":"")+'"><div class="hlb-rank">'+(i+1)+'</div>'
+      +'<div class="hlb-name"><span class="hlb-nm"></span>'+(me?'<span class="me-tag">ĐANG GHI ĐIỂM</span>':"")+'</div>'
+      +'<div class="hlb-stats">Sao: <b style="color:var(--gold)">'+en.stars+' ★</b> · Điểm: <b>'+en.score+'</b> · Boss đã hạ: <b>'+en.boss+'</b></div></div>';
+  });
+  box.innerHTML=html;
+  var nameEls=box.querySelectorAll(".hlb-nm");
+  rows.forEach(function(en, i){ if(nameEls[i]) nameEls[i].textContent=en.name; });
+}
+$("homeLbBtn").addEventListener("click", function(){ sndClick(); openLeaderboard(); });
+$("homeLbOpenBtn").addEventListener("click", function(){ sndClick(); openLeaderboard(); });
 $("lbSetBtn").addEventListener("click", function(){
   if(setLBPlayer($("lbNameInput").value)){
     sndGood();
@@ -10438,6 +10502,7 @@ function enterGame(){
   authError("");
   if(typeof PROFILE!=="undefined" && PROFILE && typeof LB!=="undefined" && LB && typeof setLBPlayer==="function" && LB.player!==PROFILE.name) setLBPlayer(PROFILE.name);
   show("screen-start");
+  if(typeof renderHomeLB==="function") renderHomeLB();
   refreshPlayerUI();
 }
 function doAuth(){
@@ -10514,6 +10579,7 @@ function initAuthGate(){
   if(PROFILE){
     $("authName").value=PROFILE.name;
     show("screen-start");
+    if(typeof renderHomeLB==="function") renderHomeLB();
     refreshPlayerUI();
   } else {
     show("screen-login");
@@ -10552,7 +10618,7 @@ $("wipeSaveBtn").addEventListener("click", function(){
   HAS_SAVE=false;
   PROFILE=null;
   refreshPlayerUI();
-  if(onStart) show("screen-start");
+  if(onStart){ show("screen-start"); if(typeof renderHomeLB==="function") renderHomeLB(); }
   refreshSaveUI();
   toast("Đã xóa tiến độ đã lưu trên máy — bắt đầu lại từ đầu nhé!");
 });
